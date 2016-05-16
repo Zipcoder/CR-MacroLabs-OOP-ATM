@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # BankAccountLab
 =======
 # project-2-ATM
@@ -39,4 +38,3 @@ Recommended:
 
 Create a `UserInputHandler` class that manages all input requests to the user; Extend this with a `DummyUserInputHandler` for testing (provide scripted user input using this object)
 
->>>>>>> d61caed1012912feed29ab321d136bbc0b1714db
