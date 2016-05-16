@@ -28,6 +28,7 @@ public class Account {
         overDraft=false;
         record=new ArrayList();
     }
+
     Account(AccountType accountType,int accountNumber,String accountName,double balance){
         this.accountType=accountType;
         this.accountNumber=accountNumber;
@@ -38,6 +39,7 @@ public class Account {
         overDraft=false;
         record=new ArrayList();
     }
+
     Account(AccountType accountType,int accountNumber,String accountName,double balance,double interestRate){
         this.accountType=accountType;
         this.accountNumber=accountNumber;
@@ -48,6 +50,7 @@ public class Account {
         overDraft=false;
         record=new ArrayList();
     }
+
     public double getBalance() {
         if(!status.equals(Status.OFACFREEZE)){
             return balance;
@@ -59,23 +62,38 @@ public class Account {
 
             this.balance = balance;
     }
+
     public boolean debit(double amount){
-        if(status.equals(Status.OPEN)){
-            setBalance(balance-amount);
-            record.add("debit "+amount);
-            return true;
+        if(isAccountOpen()){
+            if((balance-amount)>=0) {
+                setBalance(balance - amount);
+                record.add("debit " + amount);
+                return true;
+            }else {
+                return false;
+            }
         }else {
             return false;
         }
     }
+
     public boolean credit(double amount){
-        if(status.equals(Status.OPEN)){
+        if(isAccountOpen()){
             setBalance(balance+amount);
             record.add("credit "+amount);
             return true;
         }else {
             return false;
         }
+    }
+
+    public boolean isAccountOpen(){
+        if(status.equals(Status.OPEN)){
+            return true;
+        }else {
+            return false;
+        }
+
     }
     public AccountType getAccountType() {
         return accountType;
@@ -113,7 +131,12 @@ public class Account {
         record.add("changeOverDraft "+overDraft);
     }
 
+    public void setRecord(String steatment) {
+        record.add(steatment);
+    }
 
-
+    public ArrayList<String> getRecord() {
+        return record;
+    }
 
 }
