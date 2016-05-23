@@ -114,10 +114,10 @@ public class Account {
             record.add("changeAccountName "+accountName);
         }
     }
+
     public void setInterestRate(double interestRate) {
         this.interestRate = interestRate;
     }
-
 
     public void changeStatus(Status status) {
         if(!status.equals(Status.CLOSED)) {

@@ -25,7 +25,6 @@ public class ATMDriver {
         System.out.print("Enter: ");
         choice = input.nextByte();
         while(choice!=0) {
-
             switch (choice){
                 case 1:users.add(createUser());
                     break;
@@ -33,7 +32,6 @@ public class ATMDriver {
                     break;
                 default:
                     break;
-
             }
             while (choice != -1 && !users.isEmpty()) {
                 accountPrintOption();
@@ -47,26 +45,42 @@ public class ATMDriver {
                         choiceAccount(users.get(userNum));
                         break;
                     case 3:
-                        System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " balance is " + users.get(userNum).getAccountList().get(accountNum).getBalance());
+                        if(hasAccount(users.get(userNum))){
+                            System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " balance is " + users.get(userNum).getAccountList().get(accountNum).getBalance());
+                        }
                         break;
                     case 4:
-                        withdrawAccount(users.get(userNum).getAccountList().get(accountNum));
+                        if(hasAccount(users.get(userNum))){
+                            withdrawAccount(users.get(userNum).getAccountList().get(accountNum));
+                        }
                         break;
                     case 5:
-                        depositAccount(users.get(userNum).getAccountList().get(accountNum));
+                        if(hasAccount(users.get(userNum))) {
+                            depositAccount(users.get(userNum).getAccountList().get(accountNum));
+                        }
                         break;
                     case 6:
-                        transferAccount(users.get(userNum).getAccountList().get(accountNum), users.get(userNum).getAccountList().get(accountNum));
+                        if(hasAccount(users.get(userNum))) {
+                            if (users.get(userNum).getAccountList().size() > 1) {
+                                transferAccount(users.get(userNum).getAccountList().get(accountNum));
+                            } else {
+                                System.out.println("You will need more than one account to transfer");
+                            }
+                        }
                         break;
                     case 7:
-                        if (closeAccount(users.get(userNum).getAccountList().get(accountNum))) {
-                            System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " is now closed");
-                        } else {
-                            System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " is unable to close due to remaining balance " + users.get(userNum).getAccountList().get(accountNum).getBalance());
+                        if(hasAccount(users.get(userNum))) {
+                            if (closeAccount(users.get(userNum).getAccountList().get(accountNum))) {
+                                System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " is now closed");
+                            } else {
+                                System.out.println("Account # " + users.get(userNum).getAccountList().get(accountNum).getAccountNumber() + " is unable to close due to remaining balance " + users.get(userNum).getAccountList().get(accountNum).getBalance());
+                            }
                         }
                         break;
                     case 8:
-                        printAccountHistory(users.get(userNum).getAccountList().get(accountNum));
+                        if(hasAccount(users.get(userNum))) {
+                            printAccountHistory(users.get(userNum).getAccountList().get(accountNum));
+                        }
                     default:
                         break;
 
@@ -124,6 +138,16 @@ public class ATMDriver {
         return account;
     }
 
+    private  boolean hasAccount(User user){
+        if(user.getAccountList().size()>0){
+            return true;
+        }else{
+            System.out.println("You don't have any account under this user");
+            return false;
+        }
+
+    }
+
     private User createUser(){
         User user;
         Scanner input=new Scanner(System.in);
@@ -135,6 +159,7 @@ public class ATMDriver {
 
         return user;
     }
+
     private void withdrawAccount(Account account){
         double amount=0;
         Scanner input= new Scanner(System.in);
@@ -153,12 +178,14 @@ public class ATMDriver {
         transaction.makeTransaction();
     }
 
-    private void transferAccount(Account account1, Account account2){
+    private void transferAccount(Account account){
         double amount=0;
+        System.out.println("Enter the account you want to transfer");
+        Account accountTo =createTempAccount();
         Scanner input= new Scanner(System.in);
         System.out.print("Enter the amount you want to transfer: ");
         amount=input.nextDouble();
-        Transaction transaction=new Transaction(Transaction.TransactionType.TRANSFERS,amount,account1,account2);
+        Transaction transaction=new Transaction(Transaction.TransactionType.TRANSFERS,amount,account,accountTo);
         transaction.makeTransaction();
     }
 
