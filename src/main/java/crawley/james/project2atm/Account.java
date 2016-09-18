@@ -12,14 +12,13 @@ public class Account {
     private int accountNumber;
     private int customerID;
     private double interestRate;
-    private static int accountNumCounter = 1;
 
-    public Account(AccountType accountType, double balance, int customerID) {
+    public Account(AccountType accountType, double balance, int customerID, int accountNumber) {
 
         this.accountType = accountType;
         this.balance = balance;
         this.customerID = customerID;
-        accountNumber = accountNumCounter++;
+        this.accountNumber = accountNumber;
         setInterestRate(accountType);
 
 

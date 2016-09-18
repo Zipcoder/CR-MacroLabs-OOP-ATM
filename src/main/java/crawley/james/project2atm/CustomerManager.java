@@ -9,9 +9,9 @@ public class CustomerManager {
 
     private ArrayList<Customer> customers = new ArrayList<>();
 
-    public void addCustomer (String name, int pin) {
+    public void addCustomer (String name, int pin, int customerID) {
 
-        customers.add(new Customer (name, pin));
+        customers.add(new Customer (name, pin, customerID));
 
     }
 

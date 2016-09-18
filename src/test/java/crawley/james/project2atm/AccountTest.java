@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class AccountTest {
 
 
-    Account account = new Account(Account.AccountType.SAVINGS, 100, 12);
+    Account account = new Account(Account.AccountType.SAVINGS, 100, 12, 1);
 
     @Test
     public void balanceTest () {

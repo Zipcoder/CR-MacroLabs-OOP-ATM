@@ -11,7 +11,7 @@ public class CustomerManagerTest {
     @Test
     public void testAddCustomers () {
         CustomerManager customerManager = new CustomerManager();
-        customerManager.addCustomer("William Williams", 1784);
+        customerManager.addCustomer("William Williams", 1784, 1);
         assertNotNull("The customer should have been added to the list.", customerManager.getCustomer(1));
 
     }

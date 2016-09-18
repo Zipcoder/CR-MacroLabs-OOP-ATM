@@ -19,7 +19,7 @@ public class AccountManagerTest {
     @Test
     public void addAccountTest () {
 
-        accountManager.addAccount(Account.AccountType.SAVINGS, 100, 12);
+        accountManager.addAccount(Account.AccountType.SAVINGS, 100, 12, 1);
         assertNotNull(accountManager.getAccount(1, 12));
 
     }
@@ -27,9 +27,9 @@ public class AccountManagerTest {
     @Test
     public  void deleteAccountTest () {
 
-        accountManager.addAccount(Account.AccountType.SAVINGS, 0, 12);
-        accountManager.deleteAccount(2, 12);
-        assertNull(accountManager.getAccount(2, 12));
+        accountManager.addAccount(Account.AccountType.SAVINGS, 0, 12, 1);
+        accountManager.deleteAccount(1, 12);
+        assertNull(accountManager.getAccount(1, 12));
 
     }
 

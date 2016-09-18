@@ -9,9 +9,9 @@ public class AccountManager {
 
     private ArrayList<Account> accounts = new ArrayList<>();
 
-    public void addAccount (Account.AccountType accountType, double amount, int customerID) {
+    public void addAccount (Account.AccountType accountType, double amount, int customerID, int accountNumber) {
 
-        accounts.add(new Account(accountType, amount, customerID));
+        accounts.add(new Account(accountType, amount, customerID, accountNumber));
 
     }
 

@@ -17,7 +17,7 @@ public class CustomerTest {
 
     @Test
     public void customerNameTest () {
-        Customer customer = new Customer("William Williams", 1784);
+        Customer customer = new Customer("William Williams", 1784, 1);
 
         assertEquals("The name should be William Williams.", "William Williams", customer.getName());
 
@@ -25,7 +25,7 @@ public class CustomerTest {
 
     @Test
     public void customerIDTest () {
-        Customer customer = new Customer("William Williams", 1784);
+        Customer customer = new Customer("William Williams", 1784, 1);
 
         assertEquals("The ID should be 1", 1, customer.getCustomerID());
 
@@ -33,7 +33,7 @@ public class CustomerTest {
 
     @Test
     public void customerPINTest () {
-        Customer customer = new Customer("William Williams", 1784);
+        Customer customer = new Customer("William Williams", 1784, 1);
 
         assertEquals("The PIN should be 1784.", 1784, customer.getPin());
 

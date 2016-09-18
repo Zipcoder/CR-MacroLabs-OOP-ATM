@@ -16,7 +16,7 @@ public class ATMTest {
     @Test
     public void createAccountTest () {
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
 
         assertNotNull("An account should be created.", atm.getAccountManager().getAccount(1, 1));
     }
@@ -32,7 +32,7 @@ public class ATMTest {
     @Test
     public void closeAccountWithNoBalanceTest () {
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 0);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 0);
         atm.closeAccount(1, 1);
 
         assertNull("The account should have been closed.", atm.getAccountManager().getAccount(1, 1));
@@ -42,7 +42,7 @@ public class ATMTest {
     @Test
     public void closeAccountWithBalanceTest () {
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
         atm.closeAccount(1, 1);
 
         assertNotNull("The account should not have been closed.", atm.getAccountManager().getAccount(1, 1));
@@ -73,7 +73,7 @@ public class ATMTest {
     public void depositTest () {
 
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
         atm.setCurrentUser(1);
         atm.deposit(1, 50);
 
@@ -85,7 +85,7 @@ public class ATMTest {
     public void withdrawalTest () {
 
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
         atm.setCurrentUser(1);
         atm.withdrawals(1, 50);
 
@@ -97,8 +97,8 @@ public class ATMTest {
     public void transferTest () {
 
         ATM atm = new ATM();
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 2, 100);
         atm.setCurrentUser(1);
         atm.transfer(1, 2, 50);
 
@@ -111,7 +111,7 @@ public class ATMTest {
 
         ATM atm = new ATM();
         atm.createCustomer("William Williams", 1234);
-        atm.createAccount(Account.AccountType.SAVINGS, 1, 100);
+        atm.createAccount(Account.AccountType.SAVINGS, 1, 1, 100);
         atm.setCurrentUser(1);
         atm.withdrawals(1, 50);
         atm.deposit(1, 20);

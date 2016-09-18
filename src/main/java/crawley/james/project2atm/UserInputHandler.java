@@ -1,5 +1,6 @@
 package crawley.james.project2atm;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -11,14 +12,24 @@ public class UserInputHandler {
 
     public int getUserInt () {
 
-        return scanner.nextInt();
-
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Please input a number");
+            scanner.nextLine();
+            return 0;
+        }
     }
 
     public double getUserDouble () {
 
-        System.out.println("Enter an amount: ");
-        return scanner.nextDouble();
+        try {
+            return scanner.nextDouble();
+        } catch (InputMismatchException e) {
+            System.out.println("Error: Please input a number");
+            scanner.nextLine();
+            return 0;
+        }
 
     }
 

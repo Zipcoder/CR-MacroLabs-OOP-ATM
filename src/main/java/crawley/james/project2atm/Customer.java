@@ -6,15 +6,15 @@ package crawley.james.project2atm;
 public class Customer {
 
     private int customerID;
-    private static int customerIDCounter = 0;
+
     private String name;
     private int pin;
 
-    Customer (String name, int pin) {
+    Customer (String name, int pin, int customerID) {
 
         this.name = name;
         this.pin = pin;
-        customerID = ++customerIDCounter;
+        this.customerID = customerID;
 
     }
 
