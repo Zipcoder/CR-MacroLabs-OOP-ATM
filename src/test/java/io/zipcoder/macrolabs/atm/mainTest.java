@@ -3,7 +3,7 @@ package io.zipcoder.macrolabs.atm; /**
  */
 import org.junit.Assert;
 import org.junit.Test;
-//import java.util.Random;
+import java.util.ArrayList;
 
 public class mainTest {
 
@@ -83,4 +83,53 @@ public class mainTest {
         Assert.assertTrue("Construction failed", expected == actual);
     }
 
+    @Test
+    public void testAccountChangeBalanceAndGetBalance(){
+        //double expected=10.5;
+        double expected=-10.5;
+        Account account = new Account(1);
+        account.changeBalance(expected);
+        double actual=account.getBalance();
+
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);
+    }
+
+    @Test
+    public void testAccountChangeTransactionHistoryAndGetTransactionHistory() {
+        Account account=new Account(1);
+        ArrayList<Double> expected=new ArrayList<>();
+        expected.add(1.1);
+        expected.add(-2.2);//expected contains {1.1, -2.2}
+
+        account.changeBalance(1.1);
+        account.changeBalance(-2.2);
+
+        ArrayList<Double> actual = account.getTransactionHistory();
+
+        boolean sameElementsInAL = false;
+
+        if (actual.get(0).equals(expected.get(0)) && actual.get(1).equals(expected.get(1)))
+            sameElementsInAL = true;
+        Assert.assertTrue("The elements in the ALs were not the same", sameElementsInAL);
+    }
+
+    @Test
+    public void testAccountSetAccountNameAndGetAccountName(){
+        Account account = new Account (1,"For College");
+        String expected = "For Boat";
+        //account.setAccountName("For Beer");
+        account.setAccountName(expected);
+        String actual = account.getAccountName();
+
+        Assert.assertEquals("the strings do not match", expected, actual);
+    }
+
+    @Test
+    public void testAccountGetOwnerID(){
+        Account account = new Account(1);
+        //int expected = 2;
+        int expected = 1;
+        int actual = account.getOwnerID();
+        Assert.assertTrue("The ownerIDs do not match",expected==actual);
+    }
 }
