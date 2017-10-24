@@ -3,13 +3,18 @@ package io.zipcoder.macrolabs.atm; /**
  */
 import org.junit.Assert;
 import org.junit.Test;
+import java.util.Random;
 
 public class mainTest {
 
 
     @Test
-    public void testMethod(){
+    public void testSecurityGetName(){
+        String expected="XKCD";
+        Security security = new Security(expected, 10.02, 25.12);
+        String actual = security.getName();
 
+        Assert.assertEquals("The strings do not match", expected, actual);
     }
 
 
