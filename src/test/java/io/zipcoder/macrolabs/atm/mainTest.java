@@ -71,4 +71,16 @@ public class mainTest {
         Assert.assertTrue(security instanceof Security);
     }
 
+    @Test
+    public void testAccountConstructors(){
+        boolean expected=true;
+        Account[] twoAccounts = {new Account(1),
+                                new Account(2,"Checksorg")};
+        boolean actual=false;
+        if (twoAccounts[0] instanceof Account && twoAccounts[1] instanceof Account)
+            actual=true;
+
+        Assert.assertTrue("Construction failed", expected == actual);
+    }
+
 }
