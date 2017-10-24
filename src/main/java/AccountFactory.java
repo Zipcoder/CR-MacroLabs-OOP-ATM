@@ -1,4 +1,5 @@
 public class AccountFactory {
+/*
     private char accountType;
     private int accountNum;
     private double accountType
@@ -11,5 +12,5 @@ public class AccountFactory {
         account.setType(accountType);
     }
 
-
+*/
 }

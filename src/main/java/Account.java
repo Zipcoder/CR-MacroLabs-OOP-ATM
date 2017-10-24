@@ -5,22 +5,19 @@ public class Account {
     private double accountBalance;
     private char accountType;
 
-    ATM atm = new ATM();
+    ATM atm = ATM.getInstance();
 
     Account(){
-
-    }
-    Account(int accountNum){
-        this.accountNum = accountNum;
     }
 
     public void setAccountNum(){
         this.accountNum = atm.returnNewAccountNum();
-        //return accountNum;
     }
+
     public int getAccountNum(){
         return accountNum;
     }
+
     public void setBalance(double balanceGiven){
         accountBalance = balanceGiven;
     }
