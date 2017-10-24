@@ -18,24 +18,6 @@ public class UserWarehouseTest {
         Assert.assertEquals(expected, actual);
     }
 
-    /*
-    @Test
-    public void verifyValidUserIDTest() {
-        //: Given
-        UserWarehouse allUsers = new UserWarehouse();
-        boolean expected = true;
-
-        //: When
-        allUsers.addUser(new User("a"));
-        allUsers.addUser(new User("a"));
-        allUsers.addUser(new User("a"));
-        allUsers.addUser(new User("a"));
-        boolean actual = UserWarehouse.verifyValidUserID(3);
-
-        //: Then
-        Assert.assertEquals(expected, actual);
-    }/**/
-
     @Test
     public void returnUserFromIDTest() {
         //: Given

@@ -10,16 +10,6 @@ public class UserWarehouse {
         allUsers.add(newUser);
     }
 
-    /*
-    public static boolean verifyValidUserID(int userID) {
-        for(User user: allUsers) {
-            if(user.getUserID() == userID) {
-                return true;
-            }
-        }
-        return false;
-    }/**/
-
     public static User returnUserFromID(int userID) {
         for (User user : allUsers) {
             if (user.getUserID() == userID) {
