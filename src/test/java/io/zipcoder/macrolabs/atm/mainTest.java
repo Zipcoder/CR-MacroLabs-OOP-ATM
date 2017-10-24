@@ -3,10 +3,12 @@ package io.zipcoder.macrolabs.atm; /**
  */
 import org.junit.Assert;
 import org.junit.Test;
-import java.util.Random;
+//import java.util.Random;
 
 public class mainTest {
 
+    public final double allowedDeltaShares = 0.0001;
+    public final double allowedDeltaDollars = 0.001;
 
     @Test
     public void testSecurityGetName(){
@@ -22,8 +24,20 @@ public class mainTest {
         Security security = new Security("XKCD", expected, 25.12);
         double actual = security.getNumberOwned();
 
-        Assert.assertEquals(expected, actual, 0.0001);//Seeking reasonable precision within
+        Assert.assertEquals(expected, actual, allowedDeltaShares);//Seeking reasonable precision within
                                                     // three decimal places
+    }
+
+    @Test
+    public void testChangeNumberOwned(){
+        //double expected=20.034;
+        //double changedBy=0.004;
+        double expected=20.026;
+        double changedBy=-0.004;
+        Security security=new Security("XKCD", 20.03,10);
+        security.changeNumberOwned(changedBy);
+        double actual=security.getNumberOwned();
+        Assert.assertEquals(expected, actual, allowedDeltaShares);
     }
 
 
