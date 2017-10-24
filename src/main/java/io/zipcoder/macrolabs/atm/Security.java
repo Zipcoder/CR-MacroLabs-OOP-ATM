@@ -1,5 +1,7 @@
 package io.zipcoder.macrolabs.atm;
 
+import java.util.Random;
+
 public class Security
 {
     private final String name;
@@ -10,6 +12,13 @@ public class Security
         name=passedName;
         numberOwned=passedNumberOwned;
         value=passedValue;
+    }
+
+    public Security(String passedName, double passedNumberOwned){
+        Random randomizer = new Random();
+        name = passedName;
+        numberOwned = passedNumberOwned;
+        value = Math.abs( (randomizer.nextDouble()*randomizer.nextInt(50)) );
     }
 
     public String getName(){

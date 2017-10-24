@@ -50,6 +50,25 @@ public class mainTest {
         // three decimal places
     }
 
+    @Test
+    public void testSecurityFactoryCreateRandomSecurity(){
+        Security security=SecurityFactory.createRandomSecurity();
 
+        Assert.assertTrue(security instanceof Security);
+    }
+
+    @Test
+    public void testSecurityFactoryCreateSecurity_PassedString(){
+        Security security=SecurityFactory.createSecurity("XKCD");
+
+        Assert.assertTrue(security instanceof Security);
+    }
+
+    @Test
+    public void testSecurityFactoryCreateSecurity_PassedStringAndSharesOwned(){
+        Security security=SecurityFactory.createSecurity("XKCD", 25);
+
+        Assert.assertTrue(security instanceof Security);
+    }
 
 }
