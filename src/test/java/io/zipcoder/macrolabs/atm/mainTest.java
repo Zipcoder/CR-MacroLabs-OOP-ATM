@@ -29,7 +29,7 @@ public class mainTest {
     }
 
     @Test
-    public void testChangeNumberOwned(){
+    public void testSecurityChangeNumberOwned(){
         //double expected=20.034;
         //double changedBy=0.004;
         double expected=20.026;
@@ -39,6 +39,17 @@ public class mainTest {
         double actual=security.getNumberOwned();
         Assert.assertEquals(expected, actual, allowedDeltaShares);
     }
+
+    @Test
+    public void testSecurityGetValue(){
+        double expected=25.12;
+        Security security = new Security("XKCD", 200, 25.12);
+        double actual = security.getValue();
+
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);//Seeking reasonable precision within
+        // three decimal places
+    }
+
 
 
 }
