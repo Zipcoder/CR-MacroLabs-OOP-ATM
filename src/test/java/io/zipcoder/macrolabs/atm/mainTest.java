@@ -130,6 +130,11 @@ public class mainTest {
         //int expected = 2;
         int expected = 1;
         int actual = account.getOwnerID();
+
+        /*Testing Security.equals(null)*/
+        Security security=SecurityFactory.createRandomSecurity();
+        Security security1=null;
+
         Assert.assertTrue("The ownerIDs do not match",expected==actual);
     }
 }
