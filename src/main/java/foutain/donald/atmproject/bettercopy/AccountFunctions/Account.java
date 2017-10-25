@@ -12,16 +12,53 @@ public class Account {
 
     private ArrayList<String> transactionHistory;
 
-    public double getAccountBalance(){
+    //Getter and Setter for TypeOfAccount
 
-        return this.accountBalance;
+    public String getTypeOfAccount() {
+        return typeOfAccount;
     }
 
-    public double withdrawMoney(int withdrawAmount){
+    public void setTypeOfAccount(String typeOfAccount) {
+        this.typeOfAccount = typeOfAccount;
+    }
+
+    //Getter and Setter for AccountNumber
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(int accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    //Getter and Setter for AccountBalance
+
+    public double getAccountBalance() {
+        return accountBalance;
+    }
+
+    public void setAccountBalance(double accountBalance) {
+        this.accountBalance = accountBalance;
+    }
+
+    //Getter and Setter for TransactionHistory
+
+    public ArrayList<String> getTransactionHistory() {
+        return transactionHistory;
+    }
+
+    public void setTransactionHistory(ArrayList<String> transactionHistory) {
+        this.transactionHistory = transactionHistory;
+    }
+
+    //Methods for Accounts
+
+    public String withdrawMoney(double withdrawAmount){
 
         this.accountBalance -= withdrawAmount;
 
-        return accountBalance;
+        return "Your new account balance is: " + accountBalance;
     }
 
     public String closeAccount(){
@@ -29,11 +66,11 @@ public class Account {
         return "Your account has been closed";
     }
 
-    public double depositMoney(int depositAmount){
+    public String depositMoney(double depositAmount){
 
         this.accountBalance += depositAmount;
 
-        return accountBalance;
+        return "Your new account balance is: " + accountBalance;
     }
 
     public ArrayList<String > printTransactionHistory(ArrayList<String> transactionHistory){
@@ -43,6 +80,6 @@ public class Account {
 
     public String openAccountType(){
 
-        return typeOfAccount;
+        return "You have just opened a " + typeOfAccount;
     }
 }

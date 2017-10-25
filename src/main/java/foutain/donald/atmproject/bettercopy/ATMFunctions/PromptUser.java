@@ -18,4 +18,15 @@ public class PromptUser {
         String userInfo = Console.getStringInput("Please enter your password.");
         return userInfo;
     }
+
+    public static int getUserAccountType(){
+        int userInfo = Console.getIntInput("Account type options\n"+
+                        "1: Checking\n2: Savings\n 3: Investments");
+        return userInfo;
+    }
+
+    public static int correctResponse(){
+        int userInfo = Console.getIntInput("Please reread the above directions and answer appropriately.");
+        return userInfo;
+    }
 }
