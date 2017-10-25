@@ -10,7 +10,6 @@ public class User {
         this.password = password;
     }
 
-
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -23,12 +22,11 @@ public class User {
     public String getUserPassword() {
         return password;
     }
-
     public int accountsArraySize(){
         return accountsArray.size();
     }
 
-    public void addAccount(char accountType) {
+    public int addAccount(char accountType) {
 
         Account newAccount = new Account();
         newAccount.setType(accountType);
@@ -36,7 +34,7 @@ public class User {
         newAccount.setAccountNum();
 
         accountsArray.add(newAccount);
-        //return newAccount;
+        return newAccount.getAccountNum();
     }
 
     public boolean removeAccount(int accountNum){
@@ -81,14 +79,16 @@ public class User {
         }
 
         return currentAccount;
+
     }
 
 
     public boolean withdraw(double amount,Account account){
         boolean withdrawMade = false;
         double currentBalance = account.getBalance();
-        if(currentBalance > amount){
+        if(currentBalance >= amount){
             withdrawMade = true;
+            account.addToAccountHistory(amount*-1);
             account.setBalance(currentBalance-amount);
         }
         return withdrawMade;
@@ -97,6 +97,7 @@ public class User {
     public boolean deposit(double amount, Account account){
         double currentBalance = account.getBalance();
         account.setBalance(currentBalance+amount);
+        account.addToAccountHistory(amount);
         return true;
     }
 

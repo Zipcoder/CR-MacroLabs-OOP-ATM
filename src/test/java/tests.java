@@ -5,7 +5,7 @@ public class tests {
     ATM atm = ATM.getInstance();
 
 
-
+/*
 
     @Test
     public void addUserTest(){
@@ -197,6 +197,24 @@ public class tests {
         Assert.assertEquals(expected2,actual2,0);
 
     }
+
+    @Test
+    public void accountHistoryTest(){
+        atm.addUser("wes","password");
+        User currentUser = atm.EnterUser("wes","password");
+        currentUser.addAccount('s');
+        Account account = currentUser.EnterAccount(1);
+        currentUser.deposit(50,account);
+        double expected = 50;
+        double firstPlace = account.getAccountHistory()[0];
+        double actual = firstPlace;
+
+        Assert.assertEquals(expected,actual,0);
+
+
+
+    }
+    */
 
 
 }
