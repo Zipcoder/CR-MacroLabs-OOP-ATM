@@ -7,7 +7,7 @@ public class Console {
 
     void frontPage() {
         System.out.print("\nWelcome\n 1) New User\n 2) Login\n 0) Exit\n");
-        switch (scan.nextInt()) {
+        switch (catchIntErrorInput()) {
             case 1:
                 addUser();
                 break;
@@ -22,26 +22,12 @@ public class Console {
         }
     }
 
-//    private int catchErrorInput() {
-//        int output = -1;
-//        while(output<0) {
-//            if (scan.hasNextInt()) {
-//
-//                output = scan.nextInt();
-//            } else {
-//                output = -1;
-//            }
-//
-//        }
-//        return output;
-//    }
-
     private void userPage(User user) {
         System.out.print(
                 "\n 1) Check balance of account\n 2) Withdraw from account\n 3) Deposit to account" +
                         "\n 4) Transfer from one account to another\n 5) Print account transaction history" +
                         "\n 6) Close account\n 7) Add new account\n 8) User settings\n 0) Logout\n");
-        switch (scan.nextInt()) {
+        switch (catchIntErrorInput()) {
             case 1:
                 balancePrint(user);
                 break;
@@ -76,7 +62,7 @@ public class Console {
 
     private void userSettingPage(User user) {
         System.out.println("\nUser Settings\n 1) Change user name\n 2) Change password\n 3) Look at all accounts\n 0) Back");
-        switch (scan.nextInt()) {
+        switch (catchIntErrorInput()) {
             case 1:
                 changeUserNamePage(user);
                 break;
@@ -96,7 +82,7 @@ public class Console {
 
     private void transferPrint(User user) {
         System.out.println("Transfer funds\n 1) Transfer to own account\n 2) Transfer to other users account\n 0) Back");
-        switch (scan.nextInt()) {
+        switch (catchIntErrorInput()) {
             case 1:
                 selfTransfer(user);
                 break;
@@ -114,7 +100,7 @@ public class Console {
     private void addAccount(User user) {
         System.out.print("What type of account?\n 1) Checking\n 2) Savings\n 3) Investment\n");
         String accountType;
-        switch (scan.nextInt()) {
+        switch (catchIntErrorInput()) {
             case 1:
                 accountType = "Checking  ";
                 break;
@@ -137,7 +123,33 @@ public class Console {
         userPage(user);
     }
 
-    public void printAccounts(User user) {
+    private int catchIntErrorInput() {
+        int output = -1;
+        while(output<0) {
+            String input = scan.next();
+            try {
+                output = Integer.parseInt(input);
+            } catch (Exception e) {
+                System.out.println("Invalid input");
+            }
+        }
+        return output;
+    }
+
+    private double catchDoubleErrorInput() {
+        double output = -1;
+        while(output<0) {
+            String input = scan.next();
+            try {
+                output = Double.parseDouble(input);
+            } catch (Exception e) {
+                System.out.println("Invalid input");
+            }
+        }
+        return output;
+    }
+
+    private void printAccounts(User user) {
         ArrayList accounts = user.getAccountsArray();
         for (Object account : accounts) {
             printAccountInfo((Account) account);
@@ -145,7 +157,7 @@ public class Console {
         userSettingPage(user);
     }
 
-    public void printAccountInfo(Account account) {
+    private void printAccountInfo(Account account) {
         String accountType = account.getAccountType();
         int accountNum = account.getAccountNum();
         double accountBalance = account.getBalance();
@@ -169,7 +181,7 @@ public class Console {
         User toUser = enterUser();
         Account toAccount = enterAccount(toUser);
         System.out.print("How mush would you like to transfer >> ");
-        double amount = scan.nextDouble();
+        double amount = catchDoubleErrorInput();
         if (user.withdraw(amount, fromAccount) && toUser.deposit(amount, toAccount)) {
             System.out.println("Transfer made");
         }
@@ -213,7 +225,7 @@ public class Console {
         System.out.print("To account\n");
         Account toAccount = enterAccount(user);
         System.out.print("How much would you like to transfer >> ");
-        double amount = scan.nextDouble();
+        double amount = catchDoubleErrorInput();
         if (user.transfer(amount, fromAccount, toAccount)) {
             System.out.print("Transfer made\n");
             userPage(user);
@@ -268,7 +280,7 @@ public class Console {
     private void depositPrint(User user) {
         Account account = enterAccount(user);
         System.out.print("Deposit amount  >> ");
-        double amount = scan.nextDouble();
+        double amount = catchDoubleErrorInput();
         if (user.deposit(amount, account)) {
             System.out.print("Deposit made\n");
             userPage(user);
@@ -281,7 +293,7 @@ public class Console {
     private void withdrawPrint(User user) {
         Account account = enterAccount(user);
         System.out.print("Withdraw amount >> ");
-        double amount = scan.nextDouble();
+        double amount = catchDoubleErrorInput();
         if (user.withdraw(amount, account)) {
             System.out.print("Withdraw made\n");
             userPage(user);
@@ -299,7 +311,7 @@ public class Console {
 
     private Account enterAccount(User user) {
         System.out.print("Account number  >> ");
-        int input = scan.nextInt();
+        int input = catchIntErrorInput();
         Account account;
         if (user.AccountExist(input)) {
             account = user.EnterAccount(input);
