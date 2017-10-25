@@ -1,4 +1,4 @@
-package t.ATMFunctions;
+package foutain.donald.atmproject.bettercopy.ATMFunctions;
 
 /**
  * Created by iyasuwatts on 10/17/17.
@@ -6,7 +6,8 @@ package t.ATMFunctions;
 public class Main {
 
     public static void main(String[] args){
-        ATM atmTransaction = new ATM();
-        atmTransaction.start();
+        ATM newATM = new ATM();
+        newATM.startATM();
+
     }
 }

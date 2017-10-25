@@ -1,14 +1,17 @@
-package t.Accounts;
+package fountain.donald.atmproject.RoughCopy.Accounts;
 
-import t.ATMFunctions.Console;
+import fountain.donald.atmproject.RoughCopy.ATMFunctions.Console;
+import fountain.donald.atmproject.RoughCopy.User.UserWarehouse;
 
 
 public abstract class Accounts {
 
-    private String createAccount() {
 
-        int userInput = Console.getIntInput("Please input what type of account you'd like to create.\n" +
-                "Please enter '1' for checking account, enter '2' for savings account and enter'3' for an investment account.");
+
+    private String createAccount(int userInput) {
+
+        //userInput = Console.getIntInput("Please input what type of account you'd like to create.\n" +
+                //"Please enter '1' for checking account, enter '2' for savings account and enter'3' for an investment account.");
 
         boolean terminator = false;
 
@@ -225,5 +228,14 @@ public abstract class Accounts {
             terminator = false;
 
         }
+    }
+    public static void userLogin(){
+
+        String userInput = Console.getStringInput("Please enter your first and last name, account number, and password");
+
+        if(UserWarehouse.getUsers().equals(userInput)){
+            //get user accounts
+        }
+
     }
 }

@@ -1,9 +1,9 @@
-package t.User;
+package fountain.donald.atmproject.RoughCopy.User;
 
 public class User {
-    private  String name;
-    private  Integer accountNumber;
-    private  String password;
+    public static    String name;
+    public static    Integer accountNumber;
+    public static    String password;
 
     public User(String name, int accountNumber, String password) {
         this.name = name;
@@ -15,11 +15,11 @@ public class User {
         return name;
     }
 
-    public int getAge() {
-        return this.accountNumber;
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
-    public String isFemale() {
+    public String getPassword() {
         return password;
     }
 }
