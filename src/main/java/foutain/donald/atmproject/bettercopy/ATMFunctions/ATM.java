@@ -5,8 +5,8 @@ import foutain.donald.atmproject.bettercopy.UserFunctions.UserWarehouse;
 
 public class ATM {
 
-    public void startATM(int userInput){
-        userInput = PromptUser.userStartATM();
+    public void startATM(){
+        int userInput = PromptUser.userStartATM();
         boolean terminator = true;
         while(terminator == true){
             if("1".equals(userInput)){

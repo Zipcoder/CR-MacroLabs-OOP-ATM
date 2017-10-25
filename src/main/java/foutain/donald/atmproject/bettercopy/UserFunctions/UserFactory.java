@@ -1,25 +1,26 @@
 package foutain.donald.atmproject.bettercopy.UserFunctions;
-import foutain.donald.atmproject.bettercopy.ATMFunctions.PromptUser;
 
 import java.util.ArrayList;
 
 
 public class UserFactory {
 
-  /*  private ArrayList<String> userNames(ArrayList userName){
 
 
-
-        return users;
-    }
-
-
-    public static String createNewUser(){
+    public static User createNewUser(String userName, String userPassword){
         User newUser = new User();
-        newUser.setUserInfo(PromptUser.getUserName(), PromptUser.getUserPassWord());
-        String userInfo =
-        return
+        newUser.setUserName(userName);
+        newUser.setUserPassword(userPassword);
+        return newUser;
     }
 
-*/
-}
+    private static ArrayList<User> users;
+
+    public void addUserToList(User user){
+        this.users.add(user);
+    }
+
+    public UserFactory(){
+        users = new ArrayList<>();
+        }
+    }

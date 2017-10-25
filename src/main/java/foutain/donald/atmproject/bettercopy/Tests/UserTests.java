@@ -5,10 +5,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class UserTests {
+    User newUser = new User();
 
     @Test
     public void randomAccountGeneratorTest(){
-        User newUser = new  User();
         int expected = 0;
 
         int actual = newUser.randomAccountGenerator();
@@ -19,7 +19,6 @@ public class UserTests {
     @Test
     public void getAccountNumberTest(){
         int expected = 0;
-        User newUser = new User();
 
         int newAccountNUmber = 10000;
         newUser.setAccountNumber(newAccountNUmber);
@@ -30,11 +29,9 @@ public class UserTests {
 
     @Test
     public void getUserName(){
-        User newUser = new User();
         String expected = "Donald Fountain";
 
-        String userName = "Donald Fountain";
-        newUser.setUserName(userName);
+        newUser.setUserName(expected);
         String actual = newUser.getUserName();
 
         Assert.assertEquals(expected, actual);
@@ -42,11 +39,9 @@ public class UserTests {
 
     @Test
     public void getUserPassword(){
-        User newUser = new User();
         String expected = "Password";
 
-        String password = "Password";
-        newUser.setUserPassword(password);
+        newUser.setUserPassword(expected);
         String actual = newUser.getUserPassword();
 
         Assert.assertEquals(expected, actual);

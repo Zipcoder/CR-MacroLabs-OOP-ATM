@@ -6,13 +6,13 @@ import org.junit.Test;
 
 public class AccountTests {
 
+    Account newAccount = new Account();
+
     @Test
     public void getTypeOfAccountTest(){
-        Account newAccount = new Account();
         String expected = "Checking";
 
-        String typeOfAccount = "Checking";
-        newAccount.setTypeOfAccount(typeOfAccount);
+        newAccount.setTypeOfAccount(expected);
         String actual = newAccount.getTypeOfAccount();
 
         Assert.assertEquals(expected, actual);
@@ -20,7 +20,6 @@ public class AccountTests {
 
     @Test
     public void getAccountNumber(){
-        Account newAccount = new Account();
         int expected = 10000;
 
         int accountNumber = 10000;
@@ -32,7 +31,6 @@ public class AccountTests {
 
     @Test
     public void getAccountBalance(){
-        Account newAccount = new Account();
         double expected = 100.55;
 
         double accountBalance = 100.55;
@@ -44,7 +42,6 @@ public class AccountTests {
 
     @Test
     public void withDrawMoneyTest(){
-        Account newAccount = new Account();
         String expected = "Your new account balance is: 200.0";
 
         double accountBalance = 260;
@@ -57,7 +54,6 @@ public class AccountTests {
 
     @Test
     public void depositMoneyTest(){
-        Account newAccount = new Account();
         String expected = "Your new account balance is: 260.0";
 
         double accountBalance = 200;

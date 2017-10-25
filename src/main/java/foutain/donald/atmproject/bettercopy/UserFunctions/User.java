@@ -10,13 +10,15 @@ public class User {
 
     private String userName;
 
-
+        //Random account number generator
 
     public int randomAccountGenerator() {
         Random rnd = new Random();
         int accountNumber = 100000 + rnd.nextInt(900000);
         return accountNumber;
     }
+
+        //Getters and Setters
 
     public int getAccountNumber() {
         return accountNumber;
@@ -36,7 +38,6 @@ public class User {
         this.accountNumber = accountNumber;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setUserPassword(String userPassword) { this.userPassword = userPassword;
     }
 }
