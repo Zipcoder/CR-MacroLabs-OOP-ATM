@@ -8,7 +8,7 @@ public class Account {
     private final int accountNumber;
     private static int nextAccountNumber;
     private double balance=0;
-    private ArrayList<Double> transactionHistory=new ArrayList();
+    private ArrayList<Double> transactionHistory=new ArrayList();//Change ot type String to track the type of transaction? (ie, check, cash, security)
 
     static{
         nextAccountNumber=1;

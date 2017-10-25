@@ -10,6 +10,8 @@ public class mainTest {
     public final double allowedDeltaShares = 0.0001;
     public final double allowedDeltaDollars = 0.001;
 
+//SECURITY CLASS TESTS
+
     @Test
     public void testSecurityGetName(){
         String expected="XKCD";
@@ -50,6 +52,8 @@ public class mainTest {
         // three decimal places
     }
 
+//SECURITYFACTORY TESTS
+
     @Test
     public void testSecurityFactoryCreateRandomSecurity(){
         Security security=SecurityFactory.createRandomSecurity();
@@ -70,6 +74,8 @@ public class mainTest {
 
         Assert.assertTrue(security instanceof Security);
     }
+
+//ACCOUNT TESTS
 
     @Test
     public void testAccountConstructors(){
@@ -131,10 +137,61 @@ public class mainTest {
         int expected = 1;
         int actual = account.getOwnerID();
 
-        /*Testing Security.equals(null)*/
-        Security security=SecurityFactory.createRandomSecurity();
-        Security security1=null;
-
         Assert.assertTrue("The ownerIDs do not match",expected==actual);
+    }
+
+//INVESTMENTACCOUNT TESTS
+
+    @Test
+    public void testInvestmentAccountConstructorAndGetCommissionRate(){
+        InvestmentAccount ia = new InvestmentAccount(1,
+                                                    "Retirement",
+                                                    6.95);
+        double expected = 6.95;
+        double actual = ia.getCommissionRate();
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);
+    }
+
+    @Test
+    public void testInvestmentAccountSetCommissionRate(){
+        InvestmentAccount ia = new InvestmentAccount(1,
+                "Retirement",
+                6.95);
+        double expected = 9.95;
+        ia.setCommissionRate(expected);
+        double actual = ia.getCommissionRate();
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);
+    }
+
+    @Test
+    public void testInvestmentAccountGetSecurityList(){
+        InvestmentAccount ia = new InvestmentAccount(1, "Retirement");
+        Assert.assertTrue("Null", ia.getSecurityList()!=null);
+    }
+
+    //tradeSecurity(String,double)
+    //This public method implicitly tests several private methods.
+    // If passed positive shares, we buy. If negative, we sell. If 0, return false
+    //Tests buySecurity -> generateSecurityToBuy ->isCashAvailableToBuy -> calculateSecuritiesTotalValue
+    //          returns true if everything worked as intended, false otherwise.
+    //Tests sellSecurity -> isSecurityAvailableToSell -> calculateSecuritiesTotalValue
+
+    @Test
+    public void testInvestmentAccountTradeSecurityPassed_0(){
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        boolean expected=false;
+        boolean actual=ia.tradeSecurity("XKCD",0);
+
+        Assert.assertTrue("Shouln't be able to trade on 0 shares", expected==actual);
+    }
+
+    @Test
+    public void testInvestmentAccountTradeSecurityPassed_Positive(){
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        ia.changeBalance(10000000);//Seed the account with cash
+        boolean expected=true;
+        boolean actual=ia.tradeSecurity("XKCD",1);
+
+        Assert.assertTrue("Failed to transact", expected==actual);
     }
 }

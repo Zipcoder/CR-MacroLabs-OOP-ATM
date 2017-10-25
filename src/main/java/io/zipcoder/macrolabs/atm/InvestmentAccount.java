@@ -105,11 +105,12 @@ public class InvestmentAccount extends Account{
                 Security security = generateSecurityToBuy(passedName, sharesToTrade);
                 if (security!=null)
                 //if security!=null, then we can afford it. Add to owned securities and debit the
-                    //cash from the account
+                    //cash from the account update buySuccessful to TRUE
                 {
                     ownedSecurities.add(security);
                     this.changeBalance(-1*(
                             (security.getValue()*sharesToTrade) + commissionRate) );
+                    buySuccessful=true;
                 }
             }
             return (buySuccessful);
