@@ -5,13 +5,19 @@ import org.junit.*;
 
 public class UserFactoryTest {
 
+    public static User createBob(){
+        String name = "Uncle Bob";
+        String password = "cleancode";
+
+        return UserFactory.createNewUser(name, password);
+
+    }
+
     User user;
-    String name = "Uncle Bob";
-    String password = "cleancode";
 
     @Before
     public void setUp(){
-        user = UserFactory.createNewUser(name, password);
+        user = createBob();
         UserFactory.iteratedUserID = 0;
     }
 
@@ -38,19 +44,19 @@ public class UserFactoryTest {
     public void iteratingIDTest(){
         int iterations = 5;
         for (int i = 0; i < iterations; i++) {
-            UserFactory.createNewUser("Uncle Bob", "clean code");
+            createBob();
         }
         Assert.assertEquals(iterations, UserFactory.iteratedUserID);
     }
 
     @Test
     public void setUserNameTestShouldBeUncleBob(){
-        Assert.assertEquals(name, user.getUserName());
+        Assert.assertEquals("Uncle Bob", user.getUserName());
     }
 
     @Test
     public void setUserPasswordShouldBeCleanCode(){
-        Assert.assertEquals(password, user.getUserPassword());
+        Assert.assertEquals("cleancode", user.getUserPassword());
     }
 
     @Test

@@ -2,14 +2,7 @@ package com.zipcode.macrolabs.atm.bankaccount;
 
 public class SavingsAccount extends Account {
 
-    public SavingsAccount(){
-        setAccountType();
-    }
-
-    @Override
-    public void setAccountType() {
-        this.accountType = AccountType.SAVINGS;
-    }
+    public SavingsAccount(){ }
 
     @Override
     public AccountType getAccountType() {

@@ -8,7 +8,9 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
         CheckingAccountTest.class,
         SavingsAccountTest.class,
-        InvestmentAccountTest.class
+        InvestmentAccountTest.class,
+        AccountFactoryTest.class,
+        AccountWarehouseTest.class
 })
 
 public class AccountTestSuite {}

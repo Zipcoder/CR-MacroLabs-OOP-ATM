@@ -96,7 +96,7 @@ public class User {
     public String getAllUserAccountInfo() {
         String allAcountInfo = "";
         for (Account account: this.getAccounts()) {
-             allAcountInfo += account.getAccountInfo();
+             allAcountInfo += account.toString();
         }
         return allAcountInfo;
     }

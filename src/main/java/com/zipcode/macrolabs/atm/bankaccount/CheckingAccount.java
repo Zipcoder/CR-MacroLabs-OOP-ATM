@@ -2,14 +2,7 @@ package com.zipcode.macrolabs.atm.bankaccount;
 
 public class CheckingAccount extends Account {
 
-    public CheckingAccount(){
-        setAccountType();
-    }
-
-    @Override
-    public void setAccountType() {
-        this.accountType = AccountType.CHECKING;
-    }
+    public CheckingAccount(){ }
 
     @Override
     public AccountType getAccountType() {

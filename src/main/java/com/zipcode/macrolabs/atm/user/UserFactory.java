@@ -1,5 +1,6 @@
 package com.zipcode.macrolabs.atm.user;
 
+import com.zipcode.macrolabs.atm.RandomUtils;
 import com.zipcode.macrolabs.atm.exceptions.NoMoreAccountsException;
 import com.zipcode.macrolabs.atm.exceptions.NoMoreUsersException;
 
@@ -26,13 +27,11 @@ public class UserFactory {
 
     }
 
-//    public static User createRandomUser() {
-//        String name = RandomUtils.createString('a', 'z', 5);
-//        int age = RandomUtils.createInteger(0, 100);
-//        boolean isMale = RandomUtils.createBoolean(50);
-//
-//        Person randomPerson = new Person(name, age, isMale);
-//        return randomPerson;
-//    }
+    public static User createRandomUser() {
+        String name = RandomUtils.createString('a', 'z', 10);
+        String password = RandomUtils.createString('a', 'z', 8);
+        User randomUser = new User(name, password);
+        return randomUser;
+    }
 
 }

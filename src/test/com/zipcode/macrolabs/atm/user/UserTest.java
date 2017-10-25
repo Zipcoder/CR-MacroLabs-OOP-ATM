@@ -16,7 +16,7 @@ public class UserTest {
 
     @Before
     public void setUp(){
-        user = UserFactory.createNewUser("Uncle Bob", "cleancode");
+        user = UserFactoryTest.createBob();
     }
 
     @Test

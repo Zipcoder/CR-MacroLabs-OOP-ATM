@@ -14,7 +14,7 @@ public class UserWarehouseTest {
     @Test
     public void addOnePersonTest(){
         int initial = UserWarehouse.getUsers().size();
-        UserFactory.createNewUser("Uncle Bob", "cleancode");
+        UserFactoryTest.createBob();
         int after = UserWarehouse.getUsers().size();
         int expectedSizeChange = 1;
         int actualSizeChange = after - initial;
@@ -25,7 +25,7 @@ public class UserWarehouseTest {
     public void findUserByIDTest(){
         String id = "000000003";
         for (int i = 0; i < 5; i++) {
-            UserFactory.createNewUser("Uncle Bob", "cleancode");
+            UserFactoryTest.createBob();
         }
         User user = UserWarehouse.findUserByID(id);
 

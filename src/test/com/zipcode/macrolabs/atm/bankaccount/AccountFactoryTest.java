@@ -39,17 +39,6 @@ public class AccountFactoryTest {
         int nextID = AccountFactory.nextAccountID();
     }
 
-
-    @Test
-    public void setIDTest() {
-        int expectedID = 5;
-        for(Account account: accounts) {
-            account.setAccountID(5);
-            int actualID = Integer.valueOf(account.getAccountID());
-            Assert.assertEquals(expectedID, actualID);
-        }
-    }
-
     @Test
     public void iteratingIDTest(){
         int iterations = 5;

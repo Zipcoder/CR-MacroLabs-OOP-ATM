@@ -4,7 +4,9 @@ import com.zipcode.macrolabs.atm.bankaccount.Account;
 import com.zipcode.macrolabs.atm.bankaccount.CheckingAccount;
 import com.zipcode.macrolabs.atm.exceptions.*;
 import com.zipcode.macrolabs.atm.transaction.Transaction;
+import com.zipcode.macrolabs.atm.transaction.TransactionFactory;
 import com.zipcode.macrolabs.atm.transaction.TransactionType;
+import com.zipcode.macrolabs.atm.transaction.TransferTransaction;
 import com.zipcode.macrolabs.atm.user.User;
 import com.zipcode.macrolabs.atm.user.UserFactory;
 import org.junit.Assert;
@@ -12,13 +14,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.util.ArrayList;
+
 public class CheckingAccountTest {
 
     Account account;
+    User user;
 
     @Before
         public void initialize() {
-        User user = UserFactory.createNewUser("Uncle Bob", "cleancode");
+        user = UserFactory.createNewUser("Uncle Bob", "cleancode");
         account = AccountFactory.createNewCheckingAccount(user);
     }
 
@@ -30,6 +35,14 @@ public class CheckingAccountTest {
         double actual = account.getBalance();
 
         Assert.assertEquals(expected, actual, 0.001d);
+    }
+
+    @Test
+    public void IDSetterGetterTest() {
+        int expectedID = 5;
+        account.setAccountID(5);
+        int actualID = Integer.valueOf(account.getAccountID());
+        Assert.assertEquals(expectedID, actualID);
     }
 
     @Test
@@ -99,7 +112,7 @@ public class CheckingAccountTest {
         Assert.assertEquals(expected, actual, 0.001d);
 
     }
-//
+
     @Test(expected = TransactionAmountIsZeroException.class)
     public void depositShouldBeMoreThanAPennyTest() throws TransactionAmountIsZeroException {
 
@@ -120,49 +133,57 @@ public class CheckingAccountTest {
 
     }
 
-//    @Test
-//    public void transferBalanceShouldMove() {
-//
-//        Account accountOther = new CheckingAccount();
-//        account.setBalance(1000.00d);
-//        accountOther.setBalance(1000.00d);
-//
-//        account.transferAndMakeTransaction(500.00d, accountOther);
-//
-//        double expected = 500.00d;
-//        double expectedOther = 1500.00d;
-//        double actual = account.getBalance();
-//        double actualOther = accountOther.getBalance();
-//
-//        Assert.assertEquals(expected, actual, 0.001d);
-//        Assert.assertEquals(expectedOther, actualOther, 0.001d);
-//    }
-//
-//
-//    public String printHistory(){
-//
-//        return null;
-//
-//    }
-//
-//    public Transaction[] getHistory(){
-//
-//        return null;
-//
-//    }
-//
-//    public abstract accountTypeEnum getAccountType(){
-//
-//        return null;
-//
-//    }
-//
-//    public CheckingAccountTest(){
-//
-//    }
-//
-//    @Override
-//    public accountTypeEnum getAccountType() {
-//        return null;
-//    }
+    @Test
+    public void transferBalanceShouldMove() throws BalanceTooLowException, TransactionAmountIsZeroException {
+        Account destAccount = AccountFactory.createNewCheckingAccount(user);
+        account.setBalance(1000.00d);
+        destAccount.setBalance(1000.00d);
+
+        account.transferAndMakeTransaction(500.00d, destAccount);
+
+        double expected = 500.00d;
+        double expectedDest = 1500.00d;
+        double actual = account.getBalance();
+        double actualDest = destAccount.getBalance();
+
+        Assert.assertEquals(expected, actual, 0.001d);
+        Assert.assertEquals(expectedDest, actualDest, 0.001d);
+    }
+
+    @Test(expected = TransactionAmountIsZeroException.class)
+    public void transferShouldBeMoreThanAPennyTest() throws TransactionAmountIsZeroException, BalanceTooLowException {
+        Account destAccount = AccountFactory.createNewCheckingAccount(user);
+        account.setBalance(1000.00d);
+        account.transferAndMakeTransaction(0.00d, destAccount);
+    }
+
+    @Test
+    public void transferShouldMakeTransferTransactionTest() throws TransactionAmountIsZeroException, BalanceTooLowException {
+        Transaction transaction;
+        Account destAccount = AccountFactory.createNewCheckingAccount(user);
+        account.setBalance(1000.00d);
+
+        transaction = account.transferAndMakeTransaction(500.00d, destAccount);
+
+        Assert.assertTrue(transaction instanceof TransferTransaction && transaction.getTransactionType().equals(TransactionType.TRANSFER));
+
+    }
+
+    @Test
+    public void getUsersNotNull(){
+        Assert.assertTrue(account.getAccountUsers().size() > 0);
+    }
+
+    @Test
+    public void getHistoryIsNotNullTest(){
+        Assert.assertNotNull(account.getTransactionHistory());
+    }
+
+    @Test
+    public void printHistoryIsStringTest() throws BalanceTooLowException, TransactionAmountIsZeroException {
+        for (int i = 0; i < 5; i++) {
+            account.depositAndMakeTransaction(500);
+        }
+        Assert.assertTrue(account.printTransactionHistory().length() > 0);
+    }
 }

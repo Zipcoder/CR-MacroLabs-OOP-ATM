@@ -14,6 +14,13 @@ public class RandomUtils {
         return createFloat(min, max).intValue();
     }
 
+    public static Boolean createBoolean(Integer skew){
+        int seed = createInteger(0, 100);
+        if (skew > seed){
+            return true;
+        } else { return false; }
+    }
+
     public static Character createCharacter(char min, char max) {
         return (char) createInteger((int) min, (int) max).intValue();
     }
@@ -24,6 +31,14 @@ public class RandomUtils {
             sb.append(createCharacter(min, max));
         }
         return sb.toString();
+    }
+
+    public static String createID(int idLength){
+        String id = "";
+        for (int i = 0; i < idLength; i++) {
+            id += i;
+        }
+        return id;
     }
 
 }
