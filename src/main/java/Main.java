@@ -1,9 +1,13 @@
-/**
- * Created by iyasuwatts on 10/17/17.
- */
+import org.junit.Test;
+
 public class Main {
 
-    public static void main(String[] args){
-        
+    public static void main(String[] args) {
+
+
+        Console atm = new Console();
+        atm.Start();
+
+
     }
 }
