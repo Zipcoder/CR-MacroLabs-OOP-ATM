@@ -36,13 +36,50 @@ public class InvestmentAccount extends Account{
             return (ownedSecurities);
         }
 
-        public void tradeSecurity (String passedName, double sharesToTrade){
-
+        public boolean tradeSecurity (String passedName, double sharesToTrade){
+            boolean tradeSuccess=false;
+            if (sharesToTrade>0)
+            {
+                tradeSuccess=buySecurity(passedName, sharesToTrade);
+            }
+            else if (sharesToTrade<0)
+                 {
+                     tradeSuccess=sellSecurity(passedName, sharesToTrade);
+                 }
+            accountTotalValue=getBalance()+calculateSecuritiesTotalValue();
+            return tradeSuccess;
         }
 
-        private void buySecurity(String passedName, double sharesToTrade){
+        private boolean sellSecurity(String passedName, double sharesToTrade){
+            if (isSecurityAvailableToSell(passedName, sharesToTrade))
+            {
+                for (int i=0; i<ownedSecurities.size(); i++)
+                {
+                    if (passedName.equals(ownedSecurities.get(i).getName()))
+                    {
+                        ownedSecurities.get(i).changeNumberOwned(sharesToTrade);
+                        changeBalance( -1*(sharesToTrade*ownedSecurities.get(i).getValue()) - commissionRate);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        private boolean isSecurityAvailableToSell(String passedName, double sharesToTrade){
+            for (int i=0; i<ownedSecurities.size(); i++)
+            {
+                if ( passedName.equals(ownedSecurities.get(i).getName()) &&
+                     Math.abs(sharesToTrade)<=ownedSecurities.get(i).getNumberOwned() )
+                    return true;
+            }
+            return false;
+        }
+
+        private boolean buySecurity(String passedName, double sharesToTrade){
 
             boolean securityExists=false;
+            boolean buySuccessful=false;
 
             for (int i=0; i<this.ownedSecurities.size(); i++)
             //Go through ownedSecurities and see if a security exists with passedName
@@ -56,7 +93,8 @@ public class InvestmentAccount extends Account{
                         ownedSecurities.get(i).changeNumberOwned(sharesToTrade);
                         this.changeBalance(-1 *
                                 (commissionRate + (sharesToTrade * ownedSecurities.get(i).getValue())));
-                    }//... increase shares, decrease balance
+                        buySuccessful=true;
+                    }//... increase shares, decrease balance, set buySuccessful=TRUE
                     break;//The security exists. Affordable or not, we don't need to look for it anymore
                 }
             }
@@ -74,7 +112,7 @@ public class InvestmentAccount extends Account{
                             (security.getValue()*sharesToTrade) + commissionRate) );
                 }
             }
-
+            return (buySuccessful);
         }
         private Security generateSecurityToBuy(String passedName, double sharesToTrade){
             Security security = SecurityFactory.createSecurity(passedName, sharesToTrade);
@@ -92,6 +130,23 @@ public class InvestmentAccount extends Account{
                 return false;
             }
             return true;
+        }
+
+        private double calculateSecuritiesTotalValue(){
+            double calculateSecuritiesValue=0.0;
+            for (Security s : ownedSecurities)
+            {
+                calculateSecuritiesValue += (s.getValue() * s.getNumberOwned());
+            }
+            return calculateSecuritiesValue;
+        }
+
+        public double getCommissionRate(){
+            return commissionRate;
+        }
+
+        public void setCommissionRate(double passedCommissionRate){
+            commissionRate=passedCommissionRate;
         }
 
 
