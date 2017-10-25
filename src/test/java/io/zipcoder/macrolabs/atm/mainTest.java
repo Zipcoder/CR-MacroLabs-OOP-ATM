@@ -64,7 +64,9 @@ public class mainTest {
     @Test
     public void testSecurityFactoryCreateRandomSecurity(){
         Security security=SecurityFactory.createRandomSecurity();
-        //We'll check the fields of security and if they are not of the correct type then set to false
+        //We'll check the fields of security and if they are not of the correct type / format
+        // then set to false (ie, name should be three characters long, value and numberOwned
+        //should be positive
 
         Assert.assertTrue(security.getValue()>=0);
         Assert.assertTrue(security.getNumberOwned()>=0);
@@ -76,14 +78,18 @@ public class mainTest {
     public void testSecurityFactoryCreateSecurity_PassedString(){
         Security security=SecurityFactory.createSecurity("XKCD");
 
-        Assert.assertTrue(security instanceof Security);
+        Assert.assertTrue(security.getValue()>=0);
+        Assert.assertTrue(security.getNumberOwned()>=0);
+        Assert.assertTrue(security.getName().length()==4);
     }
 
     @Test
     public void testSecurityFactoryCreateSecurity_PassedStringAndSharesOwned(){
         Security security=SecurityFactory.createSecurity("XKCD", 25);
 
-        Assert.assertTrue(security instanceof Security);
+        Assert.assertTrue(security.getValue()>=0);
+        Assert.assertTrue(security.getNumberOwned()>=0);
+        Assert.assertTrue(security.getName().length()==4);
     }
 
 //ACCOUNT TESTS
@@ -110,14 +116,10 @@ public class mainTest {
     }
     @Test
     public void testAccountConstructors(){
-        boolean expected=true;
         Account[] twoAccounts = {new Account(1),
                                 new Account(2,"Checksorg")};
-        boolean actual=false;
-        if (twoAccounts[0] instanceof Account && twoAccounts[1] instanceof Account)
-            actual=true;
-
-        Assert.assertTrue("Construction failed", expected == actual);
+        Assert.assertTrue(twoAccounts[0].getAccountName().isEmpty());
+        Assert.assertTrue(!(twoAccounts[1].getAccountName().isEmpty()));
     }
 
     @Test
@@ -328,6 +330,32 @@ public class mainTest {
         }
 
         Assert.assertEquals(expected, actual, allowedDeltaDollars);
+    }
+
+//ACCOUNTFACTORY TESTS
+
+    @Test
+    public void testAccountFactoryCreateInvestment(){
+        InvestmentAccount ia = new InvestmentAccount(0);//Use minimal constructor to populate default
+                                                                        // fields for comparison
+        InvestmentAccount iaUserId= AccountFactory.createInvestment(1);
+        InvestmentAccount iaUserIdAndAccountName= AccountFactory.createInvestment(2,
+                                                                                  "Retirement");
+        InvestmentAccount iaUserIdAccountNameAndCommissionRate= AccountFactory.createInvestment(3,
+                                                                                                "Brokerage",
+                                                                                                6.95);
+        Assert.assertTrue("User ID failed",
+                          iaUserId.getOwnerID()==1 &&
+                                   ia.getAccountName().equals(iaUserId.getAccountName()) &&
+                                   iaUserId.getCommissionRate()==ia.getCommissionRate());
+        Assert.assertTrue("User ID & AccountName failed",
+                          iaUserIdAndAccountName.getOwnerID()==2 &&
+                                   "Retirement".equals(iaUserIdAndAccountName.getAccountName()) &&
+                                   iaUserIdAndAccountName.getCommissionRate()==ia.getCommissionRate());
+        Assert.assertTrue("User ID & AccountName & CommissionRate failed",
+                          iaUserIdAccountNameAndCommissionRate.getOwnerID()==3 &&
+                                   "Brokerage".equals(iaUserIdAccountNameAndCommissionRate.getAccountName()) &&
+                                   iaUserIdAccountNameAndCommissionRate.getCommissionRate()==6.95);
     }
 
 }
