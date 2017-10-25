@@ -27,8 +27,7 @@ public class User {
     }
 
     int addAccount(String accountType) {
-        Account newAccount = new Account();
-        newAccount.setType(accountType);
+        Account newAccount = new Account(accountType);
         newAccount.setBalance(0);
         newAccount.setAccountNum();
         accountsArray.add(newAccount);

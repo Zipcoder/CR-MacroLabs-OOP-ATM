@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public /*abstract*/ class Account {
+public class Account {
     private int accountNum;
     private double accountBalance;
     private String accountType;
@@ -8,40 +8,35 @@ public /*abstract*/ class Account {
 
     ATM atm = ATM.getInstance();
 
-    Account(){}
+    Account(String accountType){
+        this.accountType = accountType;
+    }
 
-    void setBalance(double balanceGiven){
+    void setBalance(double balanceGiven) {
         accountBalance = balanceGiven;
     }
 
-    double getBalance(){
+    double getBalance() {
         return accountBalance;
     }
 
-    void setType(String type){
-        accountType = type;
-    }
-    String getType(){
-        return accountType;
-    }
-
-
-
-    void setAccountNum(){
+    void setAccountNum() {
         this.accountNum = atm.returnNewAccountNum();
     }
 
-    int getAccountNum(){
+    int getAccountNum() {
         return accountNum;
     }
 
-    ArrayList getAccountHistory(){
+    String getAccountType(){
+        return accountType;
+    }
+
+    ArrayList getAccountHistory() {
         return accountHistory;
     }
 
-    void addToAccountHistory(String newTransaction){
+    void addToAccountHistory(String newTransaction) {
         accountHistory.add(newTransaction);
     }
-
 }
-

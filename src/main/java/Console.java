@@ -7,9 +7,7 @@ public class Console {
 
     void frontPage() {
         System.out.print("\nWelcome\n 1) New User\n 2) Login\n 0) Exit\n");
-
-        int inputNum = catchErrorInput();
-        switch (inputNum) {
+        switch (scan.nextInt()) {
             case 1:
                 addUser();
                 break;
@@ -20,17 +18,23 @@ public class Console {
                 return;
             default:
                 System.out.println("Not a valid input");
-                //frontPage();
+                frontPage();
         }
     }
 
-    private int catchErrorInput() {
-        int output;
-        while (! scan.hasNextInt())
-            output = scan.nextInt();
-        output = scan.nextInt();
-        return output;
-    }
+//    private int catchErrorInput() {
+//        int output = -1;
+//        while(output<0) {
+//            if (scan.hasNextInt()) {
+//
+//                output = scan.nextInt();
+//            } else {
+//                output = -1;
+//            }
+//
+//        }
+//        return output;
+//    }
 
     private void userPage(User user) {
         System.out.print(
@@ -110,9 +114,7 @@ public class Console {
     private void addAccount(User user) {
         System.out.print("What type of account?\n 1) Checking\n 2) Savings\n 3) Investment\n");
         String accountType;
-        int input = Integer.parseInt(scan.next());
-        ;
-        switch (input) {
+        switch (scan.nextInt()) {
             case 1:
                 accountType = "Checking  ";
                 break;
@@ -130,7 +132,7 @@ public class Console {
         }
         if (!"x".equals(accountType)) {
             int accountNum = user.addAccount(accountType);
-            System.out.print("Account added\nNew account number : " + accountNum + "\n");
+            System.out.print("\nAccount added\n\nNew account number : " + accountNum + "\n");
         }
         userPage(user);
     }
@@ -144,7 +146,7 @@ public class Console {
     }
 
     public void printAccountInfo(Account account) {
-        String accountType = account.getType();
+        String accountType = account.getAccountType();
         int accountNum = account.getAccountNum();
         double accountBalance = account.getBalance();
         System.out.println("Account type : " + accountType + "\tAccount number : " + accountNum + "\t\tAccount balance\t: " + accountBalance);

@@ -6,12 +6,13 @@ import java.util.ArrayList;
 public class tests {
     ATM atm = ATM.getInstance();
 
-
     @Test       //Test addUsers and returnAllUserSize
     public void addUserTest(){
         int expected = 1;
+
         atm.addUser("wes","password");
         int actual = atm.returnAllUsersSize();
+
         Assert.assertEquals(expected,actual);
     }
 
@@ -116,6 +117,7 @@ public class tests {
         int expected = 1;
 
         int actual = currentUser.accountsArraySize();
+
         Assert.assertEquals(expected,actual);
     }
 
@@ -142,7 +144,6 @@ public class tests {
         int expected = 1;
 
         currentUser.addAccount("Checking");
-
         ArrayList accounts = currentUser.getAccountsArray();
         Account account = (Account)accounts.get(0);
         int actual = account.getAccountNum();
@@ -198,7 +199,7 @@ public class tests {
         Account currentAccount = currentUser.EnterAccount(1);
         String expected = "checking";
 
-        String actual = currentAccount.getType();
+        String actual = currentAccount.getAccountType();
 
         Assert.assertEquals(expected,actual);
     }
@@ -276,6 +277,7 @@ public class tests {
 
         Assert.assertEquals(expected,actual,0);
     }
+
     @Test       // test getAccountType and setAccountType
     public void AccountTypeTest(){
         atm.addUser("wes","password");
@@ -285,7 +287,7 @@ public class tests {
 
         currentUser.addAccount(expected);
         Account currentAccount = currentUser.EnterAccount(1);
-        String actual = currentAccount.getType();
+        String actual = currentAccount.getAccountType();
 
         Assert.assertEquals(expected,actual);
     }
