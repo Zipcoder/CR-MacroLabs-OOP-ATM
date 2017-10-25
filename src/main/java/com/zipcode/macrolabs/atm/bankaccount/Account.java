@@ -91,6 +91,7 @@ public abstract class Account {
     public abstract AccountType getAccountType();
 
     public void setAccountStatus(AccountStatus accountStatus){
+        this.accountStatus = accountStatus;
     }
 
 

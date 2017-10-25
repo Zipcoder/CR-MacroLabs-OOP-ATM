@@ -40,7 +40,7 @@ public class User {
     }
 
     public void addAnotherUserToExistingAccount(int accountIndex, User anotherUser){
-
+        this.getAccounts().get(accountIndex).addUser(anotherUser);
     }
 
     public void addAccount(Account newAccount){
@@ -75,7 +75,6 @@ public class User {
         if(thisAccount.getBalance() < 0.001d){
             thisAccount.setAccountStatus(AccountStatus.CLOSED);
         } else {throw new AccountNotEmptyException();}
-
     }
 
     public void setUserID(int userID) {

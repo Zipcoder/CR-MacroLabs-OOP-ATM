@@ -1,6 +1,10 @@
 package com.zipcode.macrolabs.atm.user;
 
+import com.zipcode.macrolabs.atm.bankaccount.Account;
+import com.zipcode.macrolabs.atm.bankaccount.AccountStatus;
 import com.zipcode.macrolabs.atm.bankaccount.AccountType;
+import com.zipcode.macrolabs.atm.exceptions.AccountNotEmptyException;
+import com.zipcode.macrolabs.atm.exceptions.TransactionAmountIsZeroException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -67,6 +71,7 @@ public class UserTest {
         user.createNewAccount(AccountType.CHECKING);
         user.createNewAccount(AccountType.SAVINGS);
         user.createNewAccount(AccountType.INVESTMENT);
+
         int accountIndex = 1;
         int initialAccountUserNumber = user.getAccounts().get(accountIndex).getAccountUsers().size();
         user.addAnotherUserToExistingAccount(accountIndex, UserWarehouse.findUserByID("000000003"));
@@ -74,6 +79,49 @@ public class UserTest {
         int actualCountDifference = afterAccountUserNumber - initialAccountUserNumber;
         int expectedCountDifference = 1;
         Assert.assertEquals(expectedCountDifference, actualCountDifference);
+    }
+
+    @Test
+    public void removeAccountExecutionTest() throws AccountNotEmptyException {
+
+        user.createNewAccount(AccountType.CHECKING);
+        user.createNewAccount(AccountType.SAVINGS);
+        user.createNewAccount(AccountType.INVESTMENT);
+
+        int initialAccountCount = user.getAccounts().size();
+        user.removeAccount(0);
+        int afterAccountCount = user.getAccounts().size();
+        int expectedCountDifference = -1;
+        int actualCountDifference = afterAccountCount - initialAccountCount;
+        Assert.assertEquals(expectedCountDifference, actualCountDifference);
+    }
+
+    @Test(expected = AccountNotEmptyException.class)
+    public void removeAccountBalanceExceptionTest() throws TransactionAmountIsZeroException, AccountNotEmptyException {
+        user.createNewAccount(AccountType.CHECKING);
+        Account activeAccount = user.getAccounts().get(0);
+
+        activeAccount.depositAndMakeTransaction(50);
+        user.removeAccount(0);
+    }
+
+    @Test
+    public void closeAccountStatusTest() throws AccountNotEmptyException {
+
+        user.createNewAccount(AccountType.CHECKING);
+        user.closeAccount(0);
+
+        AccountStatus expectedStatus = AccountStatus.CLOSED;
+        AccountStatus actualStatus = user.getAccounts().get(0).getAccountStatus();
+        Assert.assertEquals(expectedStatus, actualStatus);
+    }
+
+    @Test(expected = AccountNotEmptyException.class)
+    public void closeAccountBalanceExceptionTest() throws AccountNotEmptyException, TransactionAmountIsZeroException {
+        user.createNewAccount(AccountType.CHECKING);
+        Account activeAccount = user.getAccounts().get(0);
+        activeAccount.depositAndMakeTransaction(50);
+        user.closeAccount(0);
     }
 
 }
