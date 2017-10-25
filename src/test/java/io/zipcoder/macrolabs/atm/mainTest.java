@@ -1,6 +1,7 @@
 package io.zipcoder.macrolabs.atm; /**
  * Created by Timothy Rager on 10/24/17.
  */
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -176,6 +177,7 @@ public class mainTest {
     //          returns true if everything worked as intended, false otherwise.
     //Tests sellSecurity -> isSecurityAvailableToSell -> calculateSecuritiesTotalValue
     //          returns true if everything worked as intended, false otherwise.
+    //
     //Note that as a consequence of calling calculateSecuritiesTotalValue() we also
     //call the setters for securitiesTotalValue and totalAccountValue.
 
@@ -186,7 +188,7 @@ public class mainTest {
         boolean expected=false;
         boolean actual=ia.tradeSecurity("XKCD",0);
 
-        Assert.assertTrue("Shouln't be able to trade on 0 shares", expected==actual);
+        Assert.assertTrue("Shouldn't be able to trade on 0 shares", expected==actual);
     }
 
     @Test
@@ -243,6 +245,28 @@ public class mainTest {
         actual=ia.tradeSecurity("XKCD",-2);
 
         Assert.assertTrue("Failed to transact", expected==actual);
+    }
+
+    @Test
+    public void testInvestmentAccountGetAccountTotalValue(){
+
+        double expected;
+        double actual;
+        double passCash=10_000_000;
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        ia.changeBalance(passCash);//Seed the account with cash
+        if (ia.tradeSecurity("XKCD", 10))
+        {
+            actual=ia.getAccountTotalValue();
+            expected=(passCash) - ia.getCommissionRate();
+        }
+        else
+        {
+            actual=ia.getAccountTotalValue();
+            expected=passCash;
+        }
+
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);
     }
 
 }

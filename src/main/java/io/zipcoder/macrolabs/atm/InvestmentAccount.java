@@ -32,6 +32,12 @@ public class InvestmentAccount extends Account{
         } May implement given time. Requires building an Account constructor that accepts
           an argument of type ArrayList<Security> to load pre-existing information (ie, from file)*/
 
+        @Override
+        public void changeBalance(double amount) {
+            super.changeBalance(amount);
+            this.setAccountTotalValue(this.getBalance()+this.getSecuritiesTotalValue());
+        }
+
         public ArrayList<Security> getSecurityList(){
             return (ownedSecurities);
         }
@@ -139,6 +145,8 @@ public class InvestmentAccount extends Account{
             {
                 calculateSecuritiesValue += (s.getValue() * s.getNumberOwned());
             }
+            setSecuritiesTotalValue(calculateSecuritiesValue);
+            setAccountTotalValue(getBalance()+calculateSecuritiesValue);
             return calculateSecuritiesValue;
         }
 
@@ -156,6 +164,14 @@ public class InvestmentAccount extends Account{
 
         private void setAccountTotalValue(double passedTotal){
             accountTotalValue=passedTotal;
+        }
+
+        public double getAccountTotalValue(){
+            return accountTotalValue;
+        }
+
+        public double getSecuritiesTotalValue(){
+            return securitiesTotalValue;
         }
 
 
