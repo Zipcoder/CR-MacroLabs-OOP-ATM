@@ -162,6 +162,13 @@ public class mainTest {
     }
 
 //INVESTMENTACCOUNT TESTS
+    @Test
+    public void testInvestmentAccountConstructorPassedIdOnly(){
+        InvestmentAccount ia = new InvestmentAccount(1);
+        String expected = "Investment Account";
+        String actual = ia.getAccountName();
+        Assert.assertEquals("Constructor sans nickname default not working", expected, actual);
+    }
 
     @Test
     public void testInvestmentAccountConstructorAndGetCommissionRate(){
@@ -212,11 +219,23 @@ public class mainTest {
     }
 
     @Test
-    public void testInvestmentAccountTradeSecurityPassed_Positive(){
+    public void testInvestmentAccountTradeSecurityPassed_PositiveCreatesSecurity(){
         InvestmentAccount ia = new InvestmentAccount(1,"R");
         ia.changeBalance(10000000);//Seed the account with cash
         boolean expected=true;
         boolean actual=ia.tradeSecurity("XKCD",1);
+
+        Assert.assertTrue("Failed to transact", expected==actual);
+    }
+
+    @Test
+    public void testInvestmentAccountTradeSecurityPassed_PositiveSecurityPreexisting(){
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        ia.changeBalance(10000000);//Seed the account with cash
+        boolean expected=true;
+        boolean actual=ia.tradeSecurity("XKCD",1);
+
+        actual=ia.tradeSecurity("XKCD", 10);//Buy more of the existing
 
         Assert.assertTrue("Failed to transact", expected==actual);
     }

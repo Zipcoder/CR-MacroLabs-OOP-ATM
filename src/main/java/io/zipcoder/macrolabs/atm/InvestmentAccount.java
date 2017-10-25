@@ -10,7 +10,7 @@ public class InvestmentAccount extends Account{
         private double accountTotalValue;
 
         public InvestmentAccount(int passedOwnerUserID) {
-            this(passedOwnerUserID, "");
+            super(passedOwnerUserID, "Investment Account");
         }
 
         public InvestmentAccount(int passedOwnerUserID, String passedAccountName){
