@@ -10,101 +10,96 @@ public class User {
         this.password = password;
     }
 
-    public void setUserName(String userName) {
+    void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getUserName() {
+
+    String getUserName() {
         return userName;
     }
-    public void setUserPassword(String password) {
+
+    void setUserPassword(String password) {
         this.password = password;
     }
-    public String getUserPassword() {
+
+    String getUserPassword() {
         return password;
     }
-    public int accountsArraySize(){
-        return accountsArray.size();
-    }
 
-    public int addAccount(char accountType) {
-
+    int addAccount(String accountType) {
         Account newAccount = new Account();
         newAccount.setType(accountType);
         newAccount.setBalance(0);
         newAccount.setAccountNum();
-
         accountsArray.add(newAccount);
         return newAccount.getAccountNum();
     }
 
-    public boolean removeAccount(int accountNum){
+    int accountsArraySize() {
+        return accountsArray.size();
+    }
+
+    ArrayList getAccountsArray() {
+        return accountsArray;
+    }
+
+    boolean removeAccount(int accountNum) {
         boolean removedAccount = false;
         Account removeAccount = EnterAccount(accountNum);
-        if(removeAccount.getBalance() == 0){
+        if (removeAccount.getBalance() == 0) {
             accountsArray.remove(removeAccount);
             removedAccount = true;
         }
         return removedAccount;
     }
 
-    public boolean AccountExist(int accountNum) {
-        int index = -1;
-        boolean accountExist = false;
+    boolean AccountExist(int accountNum) {
         Account currentAccount;
         for (int i = 0; i < accountsArray.size(); i++) {
             currentAccount = (Account) accountsArray.get(i);
             if (currentAccount.getAccountNum() == accountNum) {
-                index = i;
+                return true;
             }
         }
-        if (index >= 0) {
-            accountExist = true;
-        }
-        return accountExist;
+        return false;
     }
 
-    public Account EnterAccount(int accountNum) {
-        int index = -1;
+    Account EnterAccount(int accountNum) {
         Account currentAccount;
         for (int i = 0; i < accountsArray.size(); i++) {
             currentAccount = (Account) accountsArray.get(i);
             if (currentAccount.getAccountNum() == accountNum) {
-                index = i;
+                return currentAccount;
             }
         }
-        if (index >= 0) {
-            currentAccount = (Account) accountsArray.get(index);
-        }else {
-            currentAccount = null;
-        }
-
-        return currentAccount;
+        return null;
 
     }
 
-
-    public boolean withdraw(double amount,Account account){
+    boolean withdraw(double amount, Account account) {
         boolean withdrawMade = false;
         double currentBalance = account.getBalance();
-        if(currentBalance >= amount){
+        String newTransaction;
+        if (currentBalance >= amount) {
             withdrawMade = true;
-            account.addToAccountHistory(amount*-1);
-            account.setBalance(currentBalance-amount);
+            newTransaction = "Withdraw " + amount;
+            account.addToAccountHistory(newTransaction);
+            account.setBalance(currentBalance - amount);
         }
         return withdrawMade;
     }
 
-    public boolean deposit(double amount, Account account){
+    boolean deposit(double amount, Account account) {
         double currentBalance = account.getBalance();
-        account.setBalance(currentBalance+amount);
-        account.addToAccountHistory(amount);
+        account.setBalance(currentBalance + amount);
+        String newTransaction = "Deposit  " + amount;
+        account.addToAccountHistory(newTransaction);
         return true;
     }
 
-    public boolean transfer(double amount,Account fromAccount,Account toAccount){
-        return withdraw(amount,fromAccount) && deposit(amount,toAccount);
+    boolean transfer(double amount, Account fromAccount, Account toAccount) {
+        return withdraw(amount, fromAccount) && deposit(amount, toAccount);
     }
-
 
 
 }

@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 
 public class ATM {
+    private ArrayList allUsers = new ArrayList();
+    private int numOfAccounts = 0;
 
     private static ATM theInstance = new ATM();
 
@@ -11,57 +13,60 @@ public class ATM {
         return theInstance;
     }
 
-    private ArrayList allUsers = new ArrayList();
-    private int numOfAccounts = 0;
+    void addUser(String userName, String password) {
+        User newUser = new User(userName, password);
+        allUsers.add(newUser);
+    }
 
-    public int returnAllUsersSize() {
+    int returnAllUsersSize() {
         return allUsers.size();
     }
 
-    public int returnNewAccountNum() {
+    int returnNewAccountNum() {
         numOfAccounts++;
         return numOfAccounts;
     }
 
-    public void addUser(String userName,String password) {
-        User newUser = new User(userName, password);
-        allUsers.add(newUser);
-
-    }
-
-    public User EnterUser(String userName,String password){
-        int index = -1;
-        User currentUser;
-        for(int i = 0;i<allUsers.size();i++) {
-            currentUser = (User) allUsers.get(i);
-            if(userName.equalsIgnoreCase(currentUser.getUserName()) &&
-                    password.equalsIgnoreCase(currentUser.getUserPassword())){
-                index = i;
-            }
-        }
-        if(index>= 0) {
-            currentUser = (User) allUsers.get(index);
-        }else{
-            currentUser = null;
-        }
-        return currentUser;
-
-    }
-
-    public boolean UserExist(String userName,String password) {
-        int index = -1;
-        User currentUser;
+    boolean UserExist(String userName) {
         boolean userExist = false;
+        User currentUser;
         for (int i = 0; i < allUsers.size(); i++) {
             currentUser = (User) allUsers.get(i);
-            if (userName.equalsIgnoreCase(currentUser.getUserName()) &&
-                    password.equals(currentUser.getUserPassword())) {
-                index = i;
+            if (userName.equalsIgnoreCase(currentUser.getUserName())) {
+                return true;
             }
-        }
-        if (index >= 0) {
-            userExist = true;
         }
         return userExist;
     }
+
+    int UserIndex(String userName){
+        int index = 0;
+        User currentUser;
+        for (int i = 0; i < allUsers.size(); i++) {
+            currentUser = (User) allUsers.get(i);
+            if (userName.equalsIgnoreCase(currentUser.getUserName())) {
+                return i;
+            }
+        }
+        return index;
+    }
+
+    boolean UserNameAndPasswordCorrect(String userName, String password) {
+        User currentUser;
+        String userPassword;
+        boolean userCorrect = false;
+        if(UserExist(userName)){
+            currentUser = EnterUser(userName);
+            userPassword= currentUser.getUserPassword();
+            userCorrect = (password.equals(userPassword));
+        }
+        return userCorrect;
+    }
+
+    User EnterUser(String userName) {
+        int index = UserIndex(userName);
+        User currentUser = (User) allUsers.get(index);
+        return currentUser;
+    }
+
 }

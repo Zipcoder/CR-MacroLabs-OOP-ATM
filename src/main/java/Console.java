@@ -5,9 +5,11 @@ public class Console {
     ATM atm = ATM.getInstance();
     Scanner scan = new Scanner(System.in);
 
-    protected void frontPage(){
+    void frontPage() {
         System.out.print("\nWelcome\n 1) New User\n 2) Login\n 0) Exit\n");
-        switch(scan.nextInt()){
+
+        int inputNum = catchErrorInput();
+        switch (inputNum) {
             case 1:
                 addUser();
                 break;
@@ -17,16 +19,25 @@ public class Console {
             case 0:
                 return;
             default:
-                frontPage();
+                System.out.println("Not a valid input");
+                //frontPage();
         }
     }
 
-    private void userPage(User user){
+    private int catchErrorInput() {
+        int output;
+        while (! scan.hasNextInt())
+            output = scan.nextInt();
+        output = scan.nextInt();
+        return output;
+    }
+
+    private void userPage(User user) {
         System.out.print(
-                "\n 1) Check balance of account\n 2) Withdraw from account\n 3) Deposit to account"+
-                "\n 4) Transfer from one account to another\n 5) Print account transaction history"+
-                "\n 6) Close account\n 7) Add new account\n 8) User settings\n 0) Logout\n");
-        switch(scan.nextInt()){
+                "\n 1) Check balance of account\n 2) Withdraw from account\n 3) Deposit to account" +
+                        "\n 4) Transfer from one account to another\n 5) Print account transaction history" +
+                        "\n 6) Close account\n 7) Add new account\n 8) User settings\n 0) Logout\n");
+        switch (scan.nextInt()) {
             case 1:
                 balancePrint(user);
                 break;
@@ -59,9 +70,9 @@ public class Console {
         }
     }
 
-    private void userSettingPage(User user){
-        System.out.println("\nUser Setting\n 1) Change user name\n 2) Change password\n 3) Look at all accounts\n 0) Back");
-        switch(scan.nextInt()){
+    private void userSettingPage(User user) {
+        System.out.println("\nUser Settings\n 1) Change user name\n 2) Change password\n 3) Look at all accounts\n 0) Back");
+        switch (scan.nextInt()) {
             case 1:
                 changeUserNamePage(user);
                 break;
@@ -69,7 +80,7 @@ public class Console {
                 changePasswordPage(user);
                 break;
             case 3:
-                //lookAtAccount(user);
+                printAccounts(user);
                 break;
             case 0:
                 userPage(user);
@@ -78,119 +89,219 @@ public class Console {
                 userSettingPage(user);
         }
     }
-    private void changePasswordPage(User user){
-        System.out.print("Current password >> ");
-        String input = scan.next();
-        if(input.equalsIgnoreCase(user.getUserPassword())){
-            System.out.print("New password >> ");
-            input = scan.next();
-            user.setUserPassword(input);
-            System.out.print("Password changed");
-        }else{
-            System.out.print("Incorrect password");
+
+    private void transferPrint(User user) {
+        System.out.println("Transfer funds\n 1) Transfer to own account\n 2) Transfer to other users account\n 0) Back");
+        switch (scan.nextInt()) {
+            case 1:
+                selfTransfer(user);
+                break;
+            case 2:
+                otherUserTransfer(user);
+                break;
+            case 0:
+                userPage(user);
+                break;
+            default:
+                transferPrint(user);
         }
-        userSettingPage(user);
     }
 
-    private void changeUserNamePage(User user){
-        System.out.print("Current user name >> ");
-        String input = scan.next();
-        if(input.equalsIgnoreCase(user.getUserName())){
-            System.out.print("New user name >> ");
-            input = scan.next();
-            user.setUserName(input);
-            System.out.print("User name changed\n");
-        }else{
-            System.out.print("Incorrect user name");
+    private void addAccount(User user) {
+        System.out.print("What type of account?\n 1) Checking\n 2) Savings\n 3) Investment\n");
+        String accountType;
+        int input = Integer.parseInt(scan.next());
+        ;
+        switch (input) {
+            case 1:
+                accountType = "Checking  ";
+                break;
+            case 2:
+                accountType = "Savings   ";
+                break;
+            case 3:
+                accountType = "Investment";
+                break;
+            case 0:
+                userPage(user);
+            default:
+                addAccount(user);
+                accountType = "x";
         }
-        userSettingPage(user);
-    }
-
-    private void historyPrint(User user){
-        Account account = enterAccount(user);
-        double transaction;
-        double[] history = account.getAccountHistory();
-        System.out.println("Most recent at the bottom");
-        for(int i = 0;i<history.length;i++){
-            transaction = history[i];
-            if(transaction<0){
-                System.out.println("Withdrew : "+(-1*transaction));
-            }else if(transaction>0){
-                System.out.println("Deposit  : "+transaction);
-            }
+        if (!"x".equals(accountType)) {
+            int accountNum = user.addAccount(accountType);
+            System.out.print("Account added\nNew account number : " + accountNum + "\n");
         }
         userPage(user);
     }
 
-    private void closeAccount(User user){
+    public void printAccounts(User user) {
+        ArrayList accounts = user.getAccountsArray();
+        for (Object account : accounts) {
+            printAccountInfo((Account) account);
+        }
+        userSettingPage(user);
+    }
+
+    public void printAccountInfo(Account account) {
+        String accountType = account.getType();
+        int accountNum = account.getAccountNum();
+        double accountBalance = account.getBalance();
+        System.out.println("Account type : " + accountType + "\tAccount number : " + accountNum + "\t\tAccount balance\t: " + accountBalance);
+    }
+
+    private void historyPrint(User user) {
         Account account = enterAccount(user);
-        if(user.removeAccount(account.getAccountNum())){
-            System.out.print("Account removed");
+        ArrayList history = account.getAccountHistory();
+        System.out.println("Most recent at the bottom");
+        for (Object transaction : history) {
+            System.out.println((String) transaction);
+        }
+        userPage(user);
+    }
+
+    private void otherUserTransfer(User user) {
+        System.out.println("From account");
+        Account fromAccount = enterAccount(user);
+        System.out.println("User to transfer to");
+        User toUser = enterUser();
+        Account toAccount = enterAccount(toUser);
+        System.out.print("How mush would you like to transfer >> ");
+        double amount = scan.nextDouble();
+        if (user.withdraw(amount, fromAccount) && toUser.deposit(amount, toAccount)) {
+            System.out.println("Transfer made");
+        }
+        userPage(user);
+    }
+
+    private User enterUser() {
+        User toUser = null;
+        System.out.print("User name >> ");
+        String toUserString = scan.next();
+        if (atm.UserExist(toUserString)) {
+            toUser = atm.EnterUser(toUserString);
+        }
+        return toUser;
+    }
+
+    private void loginPage() {
+        System.out.print("LOGIN PAGE\n");
+        System.out.print("User Name >> ");
+        String userName = scan.next();
+        System.out.print("Password  >> ");
+        String password = scan.next();
+        if (atm.UserNameAndPasswordCorrect(userName, password)) {
+            User user = atm.EnterUser(userName);
+            System.out.println("\nWelcome back " + user.getUserName());
             userPage(user);
-        }else{
-            System.out.print("Account can not be closed");
-            userPage(user);
+        } else {
+            if (atm.UserExist(userName)) {
+                System.out.print("Incorrect password\n");
+            } else {
+                System.out.print("User does not exist\n");
+            }
+            frontPage();
         }
     }
 
-    private void transferPrint(User user){
+
+    private void selfTransfer(User user) {
         System.out.print("From account\n");
         Account fromAccount = enterAccount(user);
         System.out.print("To account\n");
         Account toAccount = enterAccount(user);
         System.out.print("How much would you like to transfer >> ");
         double amount = scan.nextDouble();
-        if(user.transfer(amount,fromAccount,toAccount)){
+        if (user.transfer(amount, fromAccount, toAccount)) {
             System.out.print("Transfer made\n");
             userPage(user);
-        }else{
+        } else {
             System.out.print("Transfer not possible\n");
             userPage(user);
         }
-        
 
     }
 
-    private void depositPrint(User user){
+
+    private void changePasswordPage(User user) {
+        System.out.print("Current password >> ");
+        String input = scan.next();
+        if (input.equalsIgnoreCase(user.getUserPassword())) {
+            System.out.print("New password >> ");
+            input = scan.next();
+            user.setUserPassword(input);
+            System.out.print("Password changed");
+        } else {
+            System.out.print("Incorrect password");
+        }
+        userSettingPage(user);
+    }
+
+    private void changeUserNamePage(User user) {
+        System.out.print("Current user name >> ");
+        String input = scan.next();
+        if (input.equalsIgnoreCase(user.getUserName())) {
+            System.out.print("New user name >> ");
+            input = scan.next();
+            user.setUserName(input);
+            System.out.print("User name changed\n");
+        } else {
+            System.out.print("Incorrect user name");
+        }
+        userSettingPage(user);
+    }
+
+    private void closeAccount(User user) {
+        Account account = enterAccount(user);
+        if (user.removeAccount(account.getAccountNum())) {
+            System.out.print("Account removed");
+            userPage(user);
+        } else {
+            System.out.print("Account is not empty");
+            userPage(user);
+        }
+    }
+
+
+    private void depositPrint(User user) {
         Account account = enterAccount(user);
         System.out.print("Deposit amount  >> ");
         double amount = scan.nextDouble();
-        if(user.deposit(amount,account)){
+        if (user.deposit(amount, account)) {
             System.out.print("Deposit made\n");
             userPage(user);
-        }else{
+        } else {
             System.out.print("Deposit not possible\n");
             userPage(user);
         }
     }
 
-    private void withdrawPrint(User user){
+    private void withdrawPrint(User user) {
         Account account = enterAccount(user);
         System.out.print("Withdraw amount >> ");
         double amount = scan.nextDouble();
-        if(user.withdraw(amount,account)){
+        if (user.withdraw(amount, account)) {
             System.out.print("Withdraw made\n");
             userPage(user);
-        }else{
+        } else {
             System.out.print("Withdraw not possible\n");
             userPage(user);
         }
     }
 
-    private void balancePrint(User user){
+    private void balancePrint(User user) {
         Account account = enterAccount(user);
-        System.out.print("\nAccount : "+account.getAccountNum()+"\nBalance : "+ account.getBalance()+"\n");
+        System.out.print("\nAccount : " + account.getAccountNum() + "\nBalance : " + account.getBalance() + "\n");
         userPage(user);
     }
 
-    private Account enterAccount(User user){
+    private Account enterAccount(User user) {
         System.out.print("Account number  >> ");
         int input = scan.nextInt();
         Account account;
-        if(user.AccountExist(input)){
+        if (user.AccountExist(input)) {
             account = user.EnterAccount(input);
-            //accountPage(account);
-        }else{
+        } else {
             System.out.print("Account does not exist");
             account = null;
             userPage(user);
@@ -198,56 +309,19 @@ public class Console {
         return account;
     }
 
-    private void addAccount(User user){
-        System.out.print("What type of account?\n 1) Checking\n 2) Savings\n 3) Investment\n");
-        char accountType;
-        switch(scan.nextInt()) {
-            case 1:
-                accountType = 'c';
-                break;
-            case 2:
-                accountType = 's';
-                break;
-            case 3:
-                accountType = 'i';
-                break;
-            default:
-                accountType = 'x';
-        }
-        if(accountType!= 'x') {
-            int accountNum = user.addAccount(accountType);
-            System.out.print("Account added\nNew account number : "+accountNum+"\n");
-        }
-        userPage(user);
-    }
-
-
-    private void addUser(){
+    private void addUser() {
         System.out.print("New user Name >> ");
         String userName = scan.next();
         System.out.print("New password  >> ");
         String password = scan.next();
-        atm.addUser(userName,password);
-        System.out.print("\nNew user added\n");
+        if (atm.UserExist(userName)) {
+            System.out.println("\nUser name already exist");
+        } else {
+            atm.addUser(userName, password);
+            System.out.print("\nNew user added\n");
+        }
         frontPage();
     }
-
-    private void loginPage(){
-        System.out.print("User Name >> ");
-        String userName = scan.next();
-        System.out.print("Password  >> ");
-        String password = scan.next();
-        if(atm.UserExist(userName,password)) {
-            User user = atm.EnterUser(userName, password);
-            System.out.println("\nWelcome back "+user.getUserName());
-            userPage(user);
-        }else{
-            System.out.print("User does not exist");
-            frontPage();
-        }
-    }
-
-
 
 
 }
