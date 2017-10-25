@@ -8,7 +8,7 @@ public class Account {
     private final int accountNumber;
     private static int nextAccountNumber;
     private double balance=0;
-    private ArrayList<Double> transactionHistory=new ArrayList();//Change ot type String to track the type of transaction? (ie, check, cash, security)
+    private ArrayList<String> transactionHistory=new ArrayList<>();
 
     static{
         nextAccountNumber=1;
@@ -39,11 +39,11 @@ public class Account {
         return (balance);
     }
 
-    public ArrayList<Double> getTransactionHistory() {
+    public ArrayList<String> getTransactionHistory() {
         return transactionHistory;
     }
 
-    private void changeTransactionHistory(double passedAmount){
+    private void changeTransactionHistory(String passedAmount){
         transactionHistory.add(passedAmount);
     }
 
