@@ -358,6 +358,30 @@ public class mainTest {
                                    iaUserIdAccountNameAndCommissionRate.getCommissionRate()==6.95);
     }
 
+    @Test
+    public void testAccountFactoryCreateSaving(){
+        SavingAccount sa = new SavingAccount(0);//Use minimal constructor to populate default
+                                                                // fields for comparison
+        SavingAccount saUserId= AccountFactory.createSaving(1);
+        SavingAccount saUserIdAndAccountName= AccountFactory.createSaving(2,
+                "For Boat");
+        SavingAccount saUserIdAccountNameAndInterestRate= AccountFactory.createSaving(3,
+                "For Beer",
+                0.05);
+        Assert.assertTrue("User ID failed",
+                saUserId.getOwnerID()==1 &&
+                        sa.getAccountName().equals(saUserId.getAccountName()) &&
+                        saUserId.getInterestRate()==sa.getInterestRate());
+        Assert.assertTrue("User ID & AccountName failed",
+                saUserIdAndAccountName.getOwnerID()==2 &&
+                        "For Boat".equals(saUserIdAndAccountName.getAccountName()) &&
+                        saUserIdAndAccountName.getInterestRate()==sa.getInterestRate());
+        Assert.assertTrue("User ID & AccountName & InterestRate failed",
+                saUserIdAccountNameAndInterestRate.getOwnerID()==3 &&
+                        "For Beer".equals(saUserIdAccountNameAndInterestRate.getAccountName()) &&
+                        saUserIdAccountNameAndInterestRate.getInterestRate()==0.05);
+    }
+
 //SAVINGACCOUNT TESTS
 
     @Test
@@ -368,5 +392,7 @@ public class mainTest {
                                     "Saving Account".equals(sa.getAccountName()) &&
                                     sa.getInterestRate()==0.01);
     }
+
+//CHECKINGACCOUNT TESTS
 
 }

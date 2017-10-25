@@ -19,4 +19,21 @@ public class AccountFactory {
                                                      double passedCommissionRate){
         return (new InvestmentAccount(passedUserID, passedAccountName, passedCommissionRate));
     }
+
+    public static SavingAccount createSaving(int passedUserID){
+        return (createSaving(passedUserID, "Saving Account"));
+    }
+
+    public static SavingAccount createSaving(int passedUserID,
+                                                     String passedAccountName){
+        return (createSaving(passedUserID, passedAccountName, 0.01));
+
+    }
+
+    public static SavingAccount createSaving(int passedUserID,
+                                                     String passedAccountName,
+                                                     double passedInterestRate){
+        return (new SavingAccount(passedUserID, passedAccountName, passedInterestRate));
+    }
+
 }
