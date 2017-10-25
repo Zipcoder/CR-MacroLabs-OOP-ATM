@@ -19,13 +19,11 @@ public class ATMInterface {
         System.out.println("1: New User");
         System.out.println("2: Login");
         System.out.println("3: Exit");
-        int userInput = 1;
+        int userInput = -1;
         try {
             userInput = getUserInputInt();
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
+            printInvalidInputMessage();
             newUserOrLogin();
         }
         System.out.println();
@@ -38,10 +36,10 @@ public class ATMInterface {
                 break;
             case 3:
                 System.out.println("Goodbye");
+                System.exit(0);
                 break;
             default:
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 newUserOrLogin();
                 break;
         }
@@ -49,17 +47,7 @@ public class ATMInterface {
     }
 
     private void newUser() {
-        System.out.println("Enter your preferred password:");
-        String password = "";
-        try {
-            password = getUserInputString();
-        } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
-            newUser();
-        }
-        System.out.println();
+        String password = testPasswordRules();
         User newUser = new User(password);
         UserWarehouse.addUser(newUser);
         currentUser = newUser;
@@ -68,38 +56,45 @@ public class ATMInterface {
         displayAvailableOptions();
     }
 
-    private void login() {
-        System.out.println("Login screen");
-        System.out.println("Enter user ID");
-        int userID = 1;
-        try {
-            userID = getUserInputInt();
-        } catch (Exception e) {
+    private String testPasswordRules() {
+        boolean isPasswordValid = false;
+        String password = "";
+        while(!isPasswordValid) {
+            System.out.println("Enter your preferred password: (must be at least 6 characters)");
+            try {
+                password = getUserInputString();
+            } catch (Exception e) {
+                printInvalidInputMessage();
+            }
             System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
-            login();
+            if(password.length() < 6) {
+                printInvalidInputMessage();
+            }
+            else {
+                isPasswordValid = true;
+            }
         }
-        System.out.println();
+        return password;
+    }
+
+    private void login() {
+        int userID = loginEnterUserID();
         User userAtLogin = UserWarehouse.returnUserFromID(userID);
         if(userAtLogin != null) {
-            System.out.println("Enter password");
-            String inputPassword = "";
-            try {
-                inputPassword = getUserInputString();
-            } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
-                login();
+            boolean loggedInCorrectly = false;
+            while (!loggedInCorrectly) {
+                String inputPassword = loginEnterPassword();
+                if (userAtLogin.isCorrectPassword(inputPassword)) {
+                    System.out.printf("Verified User %d is now logged in\n", userID);
+                    System.out.println();
+                    loggedInCorrectly = true;
+                    currentUser = userAtLogin;
+                    displayAvailableOptions();
+                } else {
+                    System.out.println("Sorry, password is incorrect, try again");
+                    System.out.println();
+                }
             }
-            System.out.println();
-            if(userAtLogin.isCorrectPassword(inputPassword)) {
-                System.out.printf("Verified User %d is now logged in\n", userID);
-                System.out.println();
-                currentUser = userAtLogin;
-            }
-            displayAvailableOptions();
         }
         else {
             System.out.println("User does not exist");
@@ -108,18 +103,45 @@ public class ATMInterface {
         }
     }
 
+    private int loginEnterUserID() {
+        System.out.println("Login screen");
+        System.out.println("Enter user ID");
+        int userID = -1;
+        try {
+            userID = getUserInputInt();
+        } catch (Exception e) {
+            printInvalidInputMessage();
+            login();
+        }
+        System.out.println();
+        return userID;
+    }
+
+    private String loginEnterPassword() {
+        System.out.println("Enter password");
+        String inputPassword = "";
+        try {
+            inputPassword = getUserInputString();
+        } catch (Exception e) {
+            printInvalidInputMessage();
+            login();
+        }
+        System.out.println();
+        return inputPassword;
+    }
+
+
+
     private void displayAvailableOptions() {
         System.out.println("Available Options:");
         System.out.println("1: Select Account");
         System.out.println("2: Create Account");
         System.out.println("3: Logout");
-        int userInput = 1;
+        int userInput = -1;
         try {
             userInput = getUserInputInt();
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
+            printInvalidInputMessage();
             displayAvailableOptions();
         }
         System.out.println();
@@ -134,8 +156,7 @@ public class ATMInterface {
                 logout();
                 break;
             default:
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 displayAvailableOptions();
                 break;
         }
@@ -150,9 +171,7 @@ public class ATMInterface {
             try {
                 userInput = getUserInputInt();
             } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 displayAvailableAccounts();
             }
             System.out.println();
@@ -164,8 +183,7 @@ public class ATMInterface {
                     logout();
                     break;
                 default:
-                    System.out.println("Invalid input");
-                    System.out.println();
+                    printInvalidInputMessage();
                     displayAvailableAccounts();
                     break;
             }
@@ -182,9 +200,7 @@ public class ATMInterface {
             try {
                 userInput = getUserInputInt();
             } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 displayAvailableAccounts();
             }
             System.out.println();
@@ -197,66 +213,27 @@ public class ATMInterface {
     }
 
     private void createAccount() {
-        System.out.println("What type of account would you like to create?");
-        System.out.println("1: " + AccountType.CHECKING);
-        System.out.println("2: " + AccountType.SAVINGS);
-        System.out.println("3: " + AccountType.INVESTMENT);
-        int userInput = 1;
-        try {
-            userInput = getUserInputInt();
-        } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
-            createAccount();
-        }
-        System.out.println();
+        AccountType typeOfAccount = selectTypeOfAccount();
+        Account newAccount = new Checking(); // default
 
-        Account newAccount = new Checking();
-        System.out.println("Provide initial balance?");
-        System.out.println("1: Yes");
-        System.out.println("2: No");
-        int userInputBalance = 1;
-        try {
-            userInputBalance = getUserInputInt();
-        } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
-            createAccount();
+        boolean hasInitialBalance = hasInitialBalance();
+        double initialBalance = 0;
+        if(hasInitialBalance) {
+            initialBalance = setInitialBalance();
         }
-        System.out.println();
 
-        double userInputInitBalance = 0;
-        if(userInputBalance == 1) {
-            System.out.println("Deposit initial balance");
-            System.out.print("$");
-            try {
-                userInputInitBalance = Main.truncateToTwoDecimalPlaces(getUserInputDouble());
-            } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
-                createAccount();
-            }
-            System.out.println();
-        }
-        else {
-            userInputInitBalance = 0;
-        }
-        switch (userInput) {
-            case 1:
-                newAccount = new Checking(userInputInitBalance);
+        switch (typeOfAccount) {
+            case CHECKING:
+                newAccount = new Checking(initialBalance);
                 break;
-            case 2:
-                newAccount = new Savings(userInputInitBalance);
+            case SAVINGS:
+                newAccount = new Savings(initialBalance);
                 break;
-            case 3:
-                newAccount = new Investment(userInputInitBalance);
+            case INVESTMENT:
+                newAccount = new Investment(initialBalance);
                 break;
             default:
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 createAccount();
                 break;
         }
@@ -267,7 +244,85 @@ public class ATMInterface {
                 + currentAccount.getAccountNumber());
         System.out.println();
         displaySelectedAccountOptions();
+    }
 
+    private AccountType selectTypeOfAccount() {
+        int userInput = -1;
+        AccountType typeOfAccount = AccountType.CHECKING;
+        while (userInput < 1 || userInput > 3) {
+            System.out.println("What type of account would you like to create?");
+            System.out.println("1: " + AccountType.CHECKING);
+            System.out.println("2: " + AccountType.SAVINGS);
+            System.out.println("3: " + AccountType.INVESTMENT);
+
+            try {
+                userInput = getUserInputInt();
+            } catch (Exception e) {
+                printInvalidInputMessage();
+                createAccount();
+            }
+            System.out.println();
+
+            switch (userInput) {
+                case 1:
+                    typeOfAccount = AccountType.CHECKING;
+                    break;
+                case 2:
+                    typeOfAccount = AccountType.SAVINGS;
+                    break;
+                case 3:
+                    typeOfAccount = AccountType.INVESTMENT;
+                    break;
+                default:
+                    printInvalidInputMessage();
+                    break;
+            }
+        }
+        return typeOfAccount;
+    }
+
+    private boolean hasInitialBalance() {
+        boolean providedInitialBalance = false;
+        int userInputBalance = -1;
+        while(userInputBalance < 1 || userInputBalance > 2) {
+            System.out.println("Provide initial balance?");
+            System.out.println("1: Yes");
+            System.out.println("2: No");
+            try {
+                userInputBalance = getUserInputInt();
+            } catch (Exception e) {
+                printInvalidInputMessage();
+                createAccount();
+            }
+            System.out.println();
+
+            switch (userInputBalance) {
+                case 1:
+                    providedInitialBalance = true;
+                    break;
+                case 2:
+                    providedInitialBalance = false;
+                    break;
+                default:
+                    printInvalidInputMessage();
+                    break;
+            }
+        }
+        return providedInitialBalance;
+    }
+
+    private double setInitialBalance() {
+        double initialBalance = 0;
+        System.out.println("Deposit initial balance (max $25,000)");
+        System.out.print("$");
+        try {
+            initialBalance = Main.truncateToTwoDecimalPlaces(getUserInputDouble());
+        } catch (Exception e) {
+            printInvalidInputMessage();
+            createAccount();
+        }
+        System.out.println();
+        return initialBalance;
     }
 
     private void logout() {
@@ -290,9 +345,7 @@ public class ATMInterface {
         try {
             userInput = getUserInputInt();
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
+            printInvalidInputMessage();
             displaySelectedAccountOptions();
         }
         System.out.println();
@@ -328,8 +381,7 @@ public class ATMInterface {
                 logout();
                 break;
             default:
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 displaySelectedAccountOptions();
                 break;
         }
@@ -342,15 +394,13 @@ public class ATMInterface {
     }
 
     private void depositToAccount() {
-        System.out.println("How much would you like to deposit?");
+        System.out.println("How much would you like to deposit? (Max $25,000)");
         System.out.print("$");
         double userInput = 0;
         try {
             userInput = getUserInputDouble();
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
+            printInvalidInputMessage();
             depositToAccount();
         }
         System.out.println();
@@ -366,15 +416,13 @@ public class ATMInterface {
     }
 
     private void withdrawFromAccount() {
-        System.out.println("How much would you like to withdraw?");
+        System.out.println("How much would you like to withdraw? (Max $25,000)");
         System.out.print("$");
         double userInput = 0;
         try {
             userInput = getUserInputDouble();
         } catch (Exception e) {
-            System.out.println();
-            System.out.println("Invalid input");
-            System.out.println();
+            printInvalidInputMessage();
             withdrawFromAccount();
         }
         System.out.println();
@@ -392,45 +440,14 @@ public class ATMInterface {
 
     private void transferToOtherAccount() {
         if(currentUser.getAccounts().size() > 1) {
-            System.out.println("Your available accounts to transfer to are below, please select the account");
-            int index = 1;
-            int currentAccountIndex = 1;
-            for (Account account : currentUser.getAccounts()) {
-                if (!account.equals(currentAccount)) {
-                    System.out.println(index + ": " + account.getAccountType() + " Available balance: "
-                            + String.format("$%.2f", account.getBalance()) + " Account number: " + account.getAccountNumber());
-                    index++;
-                }
-                else {
-                    currentAccountIndex = index;
-                }
-            }
-            int userInput = 1;
-            try {
-                userInput = getUserInputInt();
-            } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
-                transferToOtherAccount();
-            }
-            System.out.println();
-            Account chosenAccount;
-            if(userInput < currentAccountIndex) {
-                chosenAccount = currentUser.getAccounts().get(userInput - 1);
-            }
-            else {
-                chosenAccount = currentUser.getAccounts().get(userInput);
-            }
+            Account chosenAccount = selectAvailableTransferAccount();
             System.out.println("How much would you like to transfer to the account?");
             System.out.print("$");
             double userInputAmount = 0;
             try {
                 userInputAmount = getUserInputDouble();
             } catch (Exception e) {
-                System.out.println();
-                System.out.println("Invalid input");
-                System.out.println();
+                printInvalidInputMessage();
                 transferToOtherAccount();
             }
             System.out.println();
@@ -450,6 +467,39 @@ public class ATMInterface {
 
     }
 
+    private Account selectAvailableTransferAccount() {
+        System.out.println("Your available accounts to transfer to are below, please select the account");
+        int index = 1;
+        int currentAccountIndex = 1;
+        for (Account account : currentUser.getAccounts()) {
+            if (!account.equals(currentAccount)) {
+                System.out.println(index + ": " + account.getAccountType() + " Available balance: "
+                        + String.format("$%.2f", account.getBalance()) + " Account number: " + account.getAccountNumber());
+                index++;
+            }
+            else {
+                currentAccountIndex = index;
+            }
+        }
+        int userInput = 1;
+        try {
+            userInput = getUserInputInt();
+        } catch (Exception e) {
+            printInvalidInputMessage();
+            transferToOtherAccount();
+        }
+        System.out.println();
+        Account chosenAccount;
+        if(userInput < currentAccountIndex) {
+            chosenAccount = currentUser.getAccounts().get(userInput - 1);
+        }
+        else {
+            chosenAccount = currentUser.getAccounts().get(userInput);
+        }
+
+        return chosenAccount;
+    }
+
     private void printTransactionHistory() {
         System.out.println(currentAccount.formatTransactionHistory());
         displaySelectedAccountOptions();
@@ -459,12 +509,14 @@ public class ATMInterface {
         boolean closedCorrectly = currentUser.closeAccount(currentAccount);
         if(closedCorrectly) {
             System.out.println("Account successfully closed");
+            System.out.println();
+            displayAvailableOptions();
         }
         else {
             System.out.println("Sorry, unable to close account");
+            System.out.println();
+            displaySelectedAccountOptions();
         }
-        System.out.println();
-        displayAvailableOptions();
     }
 
     private int getUserInputInt() {
@@ -485,4 +537,9 @@ public class ATMInterface {
         return input;
     }
 
+    private static void printInvalidInputMessage() {
+        System.out.println();
+        System.out.println("Invalid input");
+        System.out.println();
+    }
 }

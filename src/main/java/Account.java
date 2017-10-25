@@ -19,11 +19,24 @@ public class Account {
         Random rand = new Random();
         accountNumber = rand.nextInt(1000000);
         accountType = type;
-        balance = Main.truncateToTwoDecimalPlaces(initialBalance);
+        if(initialBalance < 0) {
+            balance = 0;
+        }
+        else if(initialBalance > 25000) {
+            balance = 25000;
+        }
+        else {
+            balance = Main.truncateToTwoDecimalPlaces(initialBalance);
+        }
     }
 
     public boolean deposit(double amount) {
-        amount = Main.truncateToTwoDecimalPlaces(amount);
+        if(amount > 25000) {
+            amount = 25000;
+        }
+        else {
+            amount = Main.truncateToTwoDecimalPlaces(amount);
+        }
         if(amount > 0) {
             balance += amount;
             transactionHistory.add(String.format("Deposited $%.2f, Account balance $%.2f", amount, balance));
@@ -35,7 +48,12 @@ public class Account {
     }
 
     public boolean withdraw(double amount) {
-        amount = Main.truncateToTwoDecimalPlaces(amount);
+        if(amount > 25000) {
+            amount = 25000;
+        }
+        else {
+            amount = Main.truncateToTwoDecimalPlaces(amount);
+        }
         if(amount > 0) {
             if(balance >= amount) {
                 balance -= amount;
@@ -48,7 +66,12 @@ public class Account {
     }
 
     public boolean transferTo(Account otherAccount, double amount) {
-        amount = Main.truncateToTwoDecimalPlaces(amount);
+        if(amount > 25000) {
+            amount = 25000;
+        }
+        else {
+            amount = Main.truncateToTwoDecimalPlaces(amount);
+        }
         boolean validWithdraw = this.withdraw(amount);
         if(validWithdraw) {
             boolean depositWorked = otherAccount.deposit(amount);

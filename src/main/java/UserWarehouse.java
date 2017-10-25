@@ -24,9 +24,9 @@ public class UserWarehouse {
     }
 
     public static void generateMyUsers() {
-        String passwords = "abc\n"    // userID 1
-                + "dog\n"             // userID 2
-                + "cat\n"             // userID 3
+        String passwords = "abc123\n"    // userID 1
+                + "dogdog\n"             // userID 2
+                + "catcat\n"             // userID 3
                 + "password\n";       // userID 4
 
         Scanner scan = new Scanner(passwords);
@@ -53,7 +53,17 @@ public class UserWarehouse {
                         generatedType = AccountType.CHECKING;
                 }
                 double tempBalance = Main.truncateToTwoDecimalPlaces(rand.nextDouble() * 1000);
-                tempUser.addAccount(new Account(generatedType, tempBalance));
+                switch (generatedType) {
+                    case CHECKING:
+                        tempUser.addAccount(new Checking(tempBalance));
+                        break;
+                    case SAVINGS:
+                        tempUser.addAccount(new Savings(tempBalance));
+                        break;
+                    case INVESTMENT:
+                        tempUser.addAccount(new Investment(tempBalance));
+                        break;
+                }
             }
             addUser(tempUser);
         }
