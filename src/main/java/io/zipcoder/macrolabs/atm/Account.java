@@ -7,7 +7,7 @@ public class Account {
     private final int ownedByUserID;
     private final int accountNumber;
     private static int nextAccountNumber;
-    private double balance=0;
+    protected double balance=0;
     private ArrayList<String> transactionHistory=new ArrayList<>();
 
     static{
@@ -30,9 +30,16 @@ public class Account {
         ownedByUserID=passedOwnerUserID;
     }
 
+    protected String transactionBuilder(String descriptionOfChange, double amount){
+        String lineItem="";
+        lineItem+=descriptionOfChange + amount;
+        return lineItem;
+    }
+
     public void changeBalance(double amount){
         balance+=amount;
-        changeTransactionHistory(amount);
+        changeTransactionHistory(transactionBuilder("Account, overload changeBalance   ", amount) );
+
     }
 
     public double getBalance(){
@@ -43,8 +50,8 @@ public class Account {
         return transactionHistory;
     }
 
-    private void changeTransactionHistory(String passedAmount){
-        transactionHistory.add(passedAmount);
+    protected void changeTransactionHistory(String lineItem){
+        transactionHistory.add(lineItem);
     }
 
     public String getAccountName(){

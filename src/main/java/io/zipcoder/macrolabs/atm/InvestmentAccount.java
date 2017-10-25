@@ -32,10 +32,12 @@ public class InvestmentAccount extends Account{
         } May implement given time. Requires building an Account constructor that accepts
           an argument of type ArrayList<Security> to load pre-existing information (ie, from file)*/
 
-        @Override
-        public void changeBalance(double amount) {
-            super.changeBalance(amount);
+
+        public void changeBalance(String descriptionOfChange, double amount) {
+            balance+=amount;
             this.setAccountTotalValue(this.getBalance()+this.getSecuritiesTotalValue());
+            changeTransactionHistory(transactionBuilder(descriptionOfChange, amount));
+
         }
 
         public ArrayList<Security> getSecurityList(){
@@ -64,7 +66,10 @@ public class InvestmentAccount extends Account{
                     if (passedName.equals(ownedSecurities.get(i).getName()))
                     {
                         ownedSecurities.get(i).changeNumberOwned(sharesToTrade);
-                        changeBalance( -1*(sharesToTrade*ownedSecurities.get(i).getValue()) - commissionRate);
+                        changeBalance("Commission charged : ", commissionRate);
+                        changeBalance("Sold "+Math.abs(sharesToTrade)*ownedSecurities.get(i).getValue()+
+                                                        " worth of "+ownedSecurities.get(i).getName()+" : ",
+                                      -1*(sharesToTrade*ownedSecurities.get(i).getValue()));
                         return true;
                     }
                 }
@@ -97,8 +102,10 @@ public class InvestmentAccount extends Account{
                     //if the security exists in our account already and we can afford it...
                     {
                         ownedSecurities.get(i).changeNumberOwned(sharesToTrade);
-                        this.changeBalance(-1 *
-                                (commissionRate + (sharesToTrade * ownedSecurities.get(i).getValue())));
+                        changeBalance("Commission charged : ", commissionRate);
+                        changeBalance("Bought "+sharesToTrade*ownedSecurities.get(i).getValue()+
+                                                        " worth of "+ownedSecurities.get(i).getName()+" : ",
+                                      -1 * (sharesToTrade * ownedSecurities.get(i).getValue()));
                         buySuccessful=true;
                     }//... increase shares, decrease balance, set buySuccessful=TRUE
                     break;//The security exists. Affordable or not, we don't need to look for it anymore
@@ -114,9 +121,14 @@ public class InvestmentAccount extends Account{
                     //cash from the account update buySuccessful to TRUE
                 {
                     ownedSecurities.add(security);
-                    this.changeBalance(-1*(
-                            (security.getValue()*sharesToTrade) + commissionRate) );
+
+                    changeBalance("Commission charged : ", commissionRate);
+                    changeBalance("Bought "+sharesToTrade*security.getValue()+
+                                    " worth of "+security.getName()+" : ",
+                            -1 * (sharesToTrade * security.getValue()));
+
                     buySuccessful=true;
+
                 }
             }
             return (buySuccessful);

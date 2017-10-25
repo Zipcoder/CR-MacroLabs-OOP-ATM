@@ -111,7 +111,7 @@ public class mainTest {
         account.changeBalance(1.1);
         account.changeBalance(-2.2);
 
-        ArrayList<Double> actual = account.getTransactionHistory();
+        ArrayList<String> actual = account.getTransactionHistory();
 
         boolean sameElementsInAL = false;
 
@@ -199,6 +199,16 @@ public class mainTest {
         boolean actual=ia.tradeSecurity("XKCD",1);
 
         Assert.assertTrue("Failed to transact", expected==actual);
+    }
+
+    @Test
+    public void testInvestmentAccountChangeBalanceWithTransactionBuilder(){
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        ia.changeBalance("Testing change balance and transactionBuilder : ", 10000000);//Seed the account with cash
+        String expected = "Testing change balance and transactionBuilder : 1.0E7";
+        String actual = ia.getTransactionHistory().get(0);
+
+        Assert.assertEquals("Strings don't match", expected, actual);
     }
 
     @Test
