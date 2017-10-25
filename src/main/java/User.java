@@ -8,7 +8,7 @@ public class User {
     protected static ArrayList<Account> accounts = new ArrayList<>();
 
     {
-
+        //gives three accounts to user upon creation
         CheckingAccount checking = new CheckingAccount();
         accounts.add(0, checking);
         SavingsAccount saving = new SavingsAccount();
@@ -26,33 +26,35 @@ public class User {
     }
 
 
-    public void addCheckingAccount() {
-        CheckingAccount checking = new CheckingAccount();
-        accounts.add(checking);
-    }
+//    public void addCheckingAccount() {
+//        CheckingAccount checking = new CheckingAccount();
+//        accounts.add(checking);
+//    }
 
     public void addSavingsAccount() {
         SavingsAccount savings = new SavingsAccount();
-        accounts.add(1, savings);
+        accounts.add(1,savings);
     }
 
     public void addInvestmentAccount() {
         InvestmentAccount invest = new InvestmentAccount();
-        accounts.add(2, invest);
+        accounts.add(2,invest);
     }
-//
-//    private void removeCheckingAccount(){
-//
-//        accounts.remove(0);
-//    }
-//    private void removeSavingsAccount(){
-//
-//        accounts.remove(1);
-//    }
-//    private void removeInvestmentAccount(){
-//
-//        accounts.remove(2);
-//    }
+
+    private void removeCheckingAccount() {
+
+        accounts.remove(0);
+    }
+
+    private void removeSavingsAccount() {
+
+        accounts.remove(1);
+    }
+
+    private void removeInvestmentAccount() {
+
+        accounts.remove(2);
+    }
 
     public static int getId() {
         return id;

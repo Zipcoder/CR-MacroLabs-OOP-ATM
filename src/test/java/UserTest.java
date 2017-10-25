@@ -21,6 +21,7 @@ public class UserTest {
 
     @Test
     public void addCheckingAccount() {
+//        int expected = accounts.size();
         CheckingAccount checking = new CheckingAccount();
         accounts.add(checking);
         int expected = accounts.size();
@@ -30,6 +31,7 @@ public class UserTest {
 
     @Test
     public void addSavingsAccount() {
+//        int expected = accounts.size();
         SavingsAccount savings = new SavingsAccount();
         accounts.add(savings);
         int expected = accounts.size();
@@ -39,6 +41,7 @@ public class UserTest {
 
     @Test
     public void addInvestmentAccount() {
+//        int expected = accounts.size();
         InvestmentAccount invest = new InvestmentAccount();
         accounts.add(invest);
         int expected = accounts.size();
@@ -74,13 +77,5 @@ public class UserTest {
         String actual = testUser.getPassword();
         Assert.assertEquals(expected, actual);
 
-    }
-
-    @Test
-    public void checkBalanceCheckingTest() {
-        double expected = 20;
-        double actual = accounts.get(0).addFunds(20);
-
-        Assert.assertEquals(expected, actual, 0);
     }
 }

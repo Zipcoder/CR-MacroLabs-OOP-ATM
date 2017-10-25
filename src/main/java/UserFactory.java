@@ -22,6 +22,7 @@ public class UserFactory {
         return newUser;
     }
 
+    //FOR TESTS
     public static User createUser(String name, String pass, int nextId) {
         String userName = name;
         String password = pass;

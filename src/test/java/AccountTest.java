@@ -11,19 +11,25 @@ class AccountTest {
     private double balance = 0;
 
     @Test
-    public void checkBalance() {
+    public void checkBalanceChecking() {
         CheckingAccount checking = new CheckingAccount();
         double expected = 0;
         double actual = checking.checkBalance();
         Assert.assertEquals(expected, actual, 0);
-
+    }
+    @Test
+    public void checkBalanceSaving(){
         SavingsAccount savings = new SavingsAccount();
         double saveExpected = 0;
         double saveActual = savings.checkBalance();
         Assert.assertEquals(saveExpected, saveActual, 0);
-
+    }
+    @Test
+    public void checkBalanceInvest(){
         InvestmentAccount investing = new InvestmentAccount();
-        double investExpected = 0;
+        investing.addFunds(50);
+
+        double investExpected = 50;
         double investActual = investing.checkBalance();
         Assert.assertEquals(investExpected, investActual, 0);
     }
@@ -49,8 +55,17 @@ class AccountTest {
         double actual = checking.withDraw(250);
 
         Assert.assertEquals(expected, actual, 0);
+    }
+    @Test
+    public void printHistory(){
 
+        CheckingAccount checking = new CheckingAccount();
+        checking.addFunds(5);
 
+        String expected = "Deposited: $5.0";
+        String actual = checking.printHistory();
+
+        Assert.assertEquals(expected,actual);
     }
 
 }

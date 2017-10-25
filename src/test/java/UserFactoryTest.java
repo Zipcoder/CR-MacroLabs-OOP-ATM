@@ -2,33 +2,41 @@
 
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 
 public class UserFactoryTest {
 
-    User testUser = new User("", "", 1);
+    User testUser = new User("jim", "neat", 1);
 
 
     @Test
     public void createUserTest() {
-        User expected = new User("jim","pass",1);
-        User actual=UserFactory.createUser("jim","pass",1);
-        Assert.assertEquals(expected,actual);
+        User newUser= testUser;
+        String expected = newUser.getUserName();
+        User actualUser = UserFactory.createUser("jim", "neat", 1);
+        String actual = actualUser.getUserName();
+
+
+        Assert.assertEquals(expected, actual);
     }
 
-//    @Test
-//    public void setUserNameTest() {
-//        String expected = "Jim";
-//        String actual = testUser.setUserName("Jim");
-//        Assert.assertEquals(expected, actual);
-//    }
-//
-//    @Test
-//    public void setPassWord() {
-//        String expected = "neat";
-//        String actual = testUser.setPassword("neat");
-//        Assert.assertEquals(expected, actual);
-//    }
+    @Test
+    public void setUserNameTest() {
+
+        String expected = testUser.getUserName();
+        testUser.setUserName("jim");
+        String actual = testUser.getUserName();
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setPassWord() {
+        String expected = testUser.getPassword();
+        testUser.setPassword("neat");
+        String actual = testUser.getPassword();
+
+        Assert.assertEquals(expected, actual);
+    }
 }
