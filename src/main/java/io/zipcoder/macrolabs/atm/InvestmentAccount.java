@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class InvestmentAccount extends Account{
 
-        private double SecuritiesTotalValue;
+        private double securitiesTotalValue;
         private ArrayList<Security> ownedSecurities=new ArrayList<>();
         private double commissionRate=7.95;
         private double accountTotalValue;
@@ -148,6 +148,14 @@ public class InvestmentAccount extends Account{
 
         public void setCommissionRate(double passedCommissionRate){
             commissionRate=passedCommissionRate;
+        }
+
+        private void setSecuritiesTotalValue(double passedTotal){
+            securitiesTotalValue=passedTotal;
+        }
+
+        private void setAccountTotalValue(double passedTotal){
+            accountTotalValue=passedTotal;
         }
 
 
