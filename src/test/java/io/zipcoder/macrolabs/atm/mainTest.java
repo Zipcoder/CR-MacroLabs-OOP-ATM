@@ -358,4 +358,15 @@ public class mainTest {
                                    iaUserIdAccountNameAndCommissionRate.getCommissionRate()==6.95);
     }
 
+//SAVINGACCOUNT TESTS
+
+    @Test
+    public void testSavingAccountConstructors(){
+        SavingAccount sa = new SavingAccount(0);//Load defaults for comparisons
+
+        Assert.assertTrue(sa.getOwnerID()==0 &&
+                                    "Saving Account".equals(sa.getAccountName()) &&
+                                    sa.getInterestRate()==0.01);
+    }
+
 }
