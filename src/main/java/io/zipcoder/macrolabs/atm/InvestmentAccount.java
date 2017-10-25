@@ -10,7 +10,7 @@ public class InvestmentAccount extends Account{
         private double accountTotalValue;
 
         public InvestmentAccount(int passedOwnerUserID) {
-            super(passedOwnerUserID);
+            this(passedOwnerUserID, "");
         }
 
         public InvestmentAccount(int passedOwnerUserID, String passedAccountName){
@@ -22,16 +22,6 @@ public class InvestmentAccount extends Account{
             super(passedOwnerUserID, passedAccountName);
             commissionRate=passedCommissionRate;
         }
-/*        public InvestmentAccount(int passedOwnerUserID, String passedAccountName,
-                                 double passedCommissionRate,
-                                 ArrayList<Security> passedOwnedSecurities){//For loading existing
-            super(passedOwnerUserID, passedAccountName, passedOwnedSecurities);
-
-            commissionRate=passedCommissionRate;
-
-        } May implement given time. Requires building an Account constructor that accepts
-          an argument of type ArrayList<Security> to load pre-existing information (ie, from file)*/
-
 
         public void changeBalance(String descriptionOfChange, double amount) {
             balance+=amount;
@@ -102,7 +92,7 @@ public class InvestmentAccount extends Account{
                     //if the security exists in our account already and we can afford it...
                     {
                         ownedSecurities.get(i).changeNumberOwned(sharesToTrade);
-                        changeBalance("Commission charged : ", commissionRate);
+                        changeBalance("Commission charged : ", -1*commissionRate);
                         changeBalance("Bought "+sharesToTrade*ownedSecurities.get(i).getValue()+
                                                         " worth of "+ownedSecurities.get(i).getName()+" : ",
                                       -1 * (sharesToTrade * ownedSecurities.get(i).getValue()));
@@ -122,7 +112,7 @@ public class InvestmentAccount extends Account{
                 {
                     ownedSecurities.add(security);
 
-                    changeBalance("Commission charged : ", commissionRate);
+                    changeBalance("Commission charged : ", -1*commissionRate);
                     changeBalance("Bought "+sharesToTrade*security.getValue()+
                                     " worth of "+security.getName()+" : ",
                             -1 * (sharesToTrade * security.getValue()));

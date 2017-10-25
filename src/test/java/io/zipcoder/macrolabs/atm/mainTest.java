@@ -1,7 +1,7 @@
 package io.zipcoder.macrolabs.atm; /**
  * Created by Timothy Rager on 10/24/17.
  */
-import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
 import org.junit.Assert;
 import org.junit.Test;
 import java.util.ArrayList;
@@ -12,7 +12,6 @@ public class mainTest {
     public final double allowedDeltaDollars = 0.001;
 
 //SECURITY CLASS TESTS
-
     @Test
     public void testSecurityGetName(){
         String expected="XKCD";
@@ -77,7 +76,27 @@ public class mainTest {
     }
 
 //ACCOUNT TESTS
+    @Test
+    public void testAccountGetAccountNumber()
+    {
+        Account account=new Account(1);
+        Account secondAccount=new Account(1);
+        int expected=secondAccount.getAccountNumber();
 
+        for (int i=1; i<=10; i++)
+        {
+            account=new Account(i);
+            expected++;
+        }
+        for (int i=1; i<=10; i++)
+        {
+            secondAccount=new Account(i);
+            expected++;
+        }
+        int actual = secondAccount.getAccountNumber();
+
+        Assert.assertEquals("Account numbers don't match", expected, actual);
+    }
     @Test
     public void testAccountConstructors(){
         boolean expected=true;
@@ -104,9 +123,10 @@ public class mainTest {
     @Test
     public void testAccountChangeTransactionHistoryAndGetTransactionHistory() {
         Account account=new Account(1);
-        ArrayList<Double> expected=new ArrayList<>();
-        expected.add(1.1);
-        expected.add(-2.2);//expected contains {1.1, -2.2}
+        ArrayList<String> expected=new ArrayList<>();
+
+        expected.add("Account, overload changeBalance   1.1");
+        expected.add("Account, overload changeBalance   -2.2");//expected contains {1.1, -2.2}
 
         account.changeBalance(1.1);
         account.changeBalance(-2.2);
@@ -204,8 +224,8 @@ public class mainTest {
     @Test
     public void testInvestmentAccountChangeBalanceWithTransactionBuilder(){
         InvestmentAccount ia = new InvestmentAccount(1,"R");
-        ia.changeBalance("Testing change balance and transactionBuilder : ", 10000000);//Seed the account with cash
-        String expected = "Testing change balance and transactionBuilder : 1.0E7";
+        ia.changeBalance("Testing change balance with transactionBuilder : ", 10000000);//Seed the account with cash
+        String expected = "Testing change balance with transactionBuilder : 1.0E7";
         String actual = ia.getTransactionHistory().get(0);
 
         Assert.assertEquals("Strings don't match", expected, actual);
@@ -262,10 +282,11 @@ public class mainTest {
 
         double expected;
         double actual;
-        double passCash=10_000_000;
+        double passCash=1000;
+        double sharesToTrade=10;
         InvestmentAccount ia = new InvestmentAccount(1,"R");
         ia.changeBalance(passCash);//Seed the account with cash
-        if (ia.tradeSecurity("XKCD", 10))
+        if (ia.tradeSecurity("XKCD", sharesToTrade))
         {
             actual=ia.getAccountTotalValue();
             expected=(passCash) - ia.getCommissionRate();

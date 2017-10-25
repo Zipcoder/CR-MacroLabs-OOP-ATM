@@ -20,6 +20,8 @@ public class Account {
         nextAccountNumber++;
     }
 
+
+
     public Account(int passedOwnerUserID)
     {
         ownedByUserID=passedOwnerUserID;
@@ -56,6 +58,10 @@ public class Account {
 
     public String getAccountName(){
         return accountName;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public void setAccountName(String passedAccountName) {
