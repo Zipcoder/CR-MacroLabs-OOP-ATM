@@ -175,6 +175,8 @@ public class mainTest {
     //Tests buySecurity -> generateSecurityToBuy ->isCashAvailableToBuy -> calculateSecuritiesTotalValue
     //          returns true if everything worked as intended, false otherwise.
     //Tests sellSecurity -> isSecurityAvailableToSell -> calculateSecuritiesTotalValue
+    //          returns true if everything worked as intended, false otherwise.
+
 
     @Test
     public void testInvestmentAccountTradeSecurityPassed_0(){
@@ -194,4 +196,23 @@ public class mainTest {
 
         Assert.assertTrue("Failed to transact", expected==actual);
     }
+
+    @Test
+    public void testInvestmentAccountTradeSecurityPassed_Negative(){
+        //Must create a security in order to sell it, so we repeat the
+        //code from "."_Positive(), above
+        InvestmentAccount ia = new InvestmentAccount(1,"R");
+        ia.changeBalance(10_000_000);//Seed the account with cash
+        boolean expected=true;
+        boolean actual=ia.tradeSecurity("XKCD",1);//Placeholder to generate security to sell
+        //We can reasonably expect that if, after running the sell, the value of the
+        //account's cash position is 10_000_000 - commission*2 then things ran smoothly.
+        //Another possibility for testing these methods?
+        //System.out.println("$10,000,000 - "+ia.getCommissionRate()*2+" = "+
+        //        (10_000_000-(ia.getCommissionRate()*2)));
+        actual=ia.tradeSecurity("XKCD",-1);
+
+        Assert.assertTrue("Failed to transact", expected==actual);
+    }
+
 }
