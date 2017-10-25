@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class mainTest {
 
-    public final double allowedDeltaShares = 0.0001;
-    public final double allowedDeltaDollars = 0.001;
+    public final double allowedDeltaShares = 0.0001; //Securities to three decimal places-->Accuracy, not formatting
+    public final double allowedDeltaDollars = 0.001; //Dollars to two decimal places     -->Accuracy, not formatting
 
 //SECURITY CLASS TESTS
     @Test
@@ -31,11 +31,19 @@ public class mainTest {
     }
 
     @Test
-    public void testSecurityChangeNumberOwned(){
-        //double expected=20.034;
-        //double changedBy=0.004;
+    public void testSecurityChangeNumberOwned_PassNegative(){
         double expected=20.026;
         double changedBy=-0.004;
+        Security security=new Security("XKCD", 20.03,10);
+        security.changeNumberOwned(changedBy);
+        double actual=security.getNumberOwned();
+        Assert.assertEquals(expected, actual, allowedDeltaShares);
+    }
+
+    @Test
+    public void testSecurityChangeNumberOwned_PassPositive(){
+        double expected=20.034;
+        double changedBy=0.004;
         Security security=new Security("XKCD", 20.03,10);
         security.changeNumberOwned(changedBy);
         double actual=security.getNumberOwned();
@@ -48,8 +56,7 @@ public class mainTest {
         Security security = new Security("XKCD", 200, 25.12);
         double actual = security.getValue();
 
-        Assert.assertEquals(expected, actual, allowedDeltaDollars);//Seeking reasonable precision within
-        // three decimal places
+        Assert.assertEquals(expected, actual, allowedDeltaDollars);
     }
 
 //SECURITYFACTORY TESTS
@@ -57,8 +64,12 @@ public class mainTest {
     @Test
     public void testSecurityFactoryCreateRandomSecurity(){
         Security security=SecurityFactory.createRandomSecurity();
+        //We'll check the fields of security and if they are not of the correct type then set to false
 
-        Assert.assertTrue(security instanceof Security);
+        Assert.assertTrue(security.getValue()>=0);
+        Assert.assertTrue(security.getNumberOwned()>=0);
+        Assert.assertTrue(security.getName().length()==3);
+
     }
 
     @Test
