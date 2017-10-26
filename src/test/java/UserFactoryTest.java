@@ -7,14 +7,14 @@ import org.junit.Test;
 
 public class UserFactoryTest {
 
-    User testUser = new User("jim", "neat", 1);
+    User testUser = new User("jim", "neat");
 
 
     @Test
     public void createUserTest() {
         User newUser= testUser;
         String expected = newUser.getUserName();
-        User actualUser = UserFactory.createUser("jim", "neat", 1);
+        User actualUser = UserFactory.createUser("jim", "neat");
         String actual = actualUser.getUserName();
 
 

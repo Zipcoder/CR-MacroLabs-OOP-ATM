@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class User {
 
-    private static int id;
+    private int id =0;
     private String userName;
     private String password;
     protected static ArrayList<Account> accounts = new ArrayList<>();
@@ -17,12 +17,11 @@ public class User {
         accounts.add(2, invest);
     }
 
-    public User(String userName, String password, int id) {
+    public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.id = id;
         id++;
-
     }
 
 
@@ -33,35 +32,35 @@ public class User {
 
     public void addSavingsAccount() {
         SavingsAccount savings = new SavingsAccount();
-        accounts.add(1,savings);
+        accounts.add(1, savings);
     }
 
     public void addInvestmentAccount() {
         InvestmentAccount invest = new InvestmentAccount();
-        accounts.add(2,invest);
+        accounts.add(2, invest);
     }
 
-    private void removeCheckingAccount() {
+//    private void removeCheckingAccount() {
+//
+//        accounts.remove(0);
+//    }
+//
+//    private void removeSavingsAccount() {
+//
+//        accounts.remove(1);
+//    }
+//
+//    private void removeInvestmentAccount() {
+//
+//        accounts.remove(2);
+//    }
 
-        accounts.remove(0);
-    }
-
-    private void removeSavingsAccount() {
-
-        accounts.remove(1);
-    }
-
-    private void removeInvestmentAccount() {
-
-        accounts.remove(2);
-    }
-
-    public static int getId() {
+    public int getId() {
         return id;
     }
 
-    public static void setId(int id) {
-        User.id = id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUserName() {

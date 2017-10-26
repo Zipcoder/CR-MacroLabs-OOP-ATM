@@ -6,7 +6,10 @@ import java.util.ArrayList;
 
 public class UserTest {
 
-    User testUser = new User("test", "neat", 1);
+    User testUser1 = new User("test", "neat");
+
+    User testUser2 = new User("test", "neat");
+    User testUser3 = new User("test", "neat");
     private ArrayList<Account> accounts = new ArrayList();
 
     {
@@ -52,29 +55,35 @@ public class UserTest {
     @Test
     public void getUserNameTest() {
         String expected = "test";
-        String actual = testUser.getUserName();
+        String actual = testUser1.getUserName();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getId() {
         int expected = 1;
-        int actual = testUser.getId();
+        int actual = testUser1.getId();
+        Assert.assertEquals(expected, actual);
+    }
+    @Test
+    public void getIdTest() {
+        int expected = 2;
+        int actual = testUser2.getId();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void getPassword() {
         String expected = "neat";
-        String actual = testUser.getPassword();
+        String actual = testUser1.getPassword();
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void setPassword() {
-        String expected = testUser.getPassword();
-        testUser.setPassword("neat");
-        String actual = testUser.getPassword();
+        String expected = testUser1.getPassword();
+        testUser1.setPassword("neat");
+        String actual = testUser1.getPassword();
         Assert.assertEquals(expected, actual);
 
     }

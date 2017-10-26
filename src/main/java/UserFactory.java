@@ -6,7 +6,7 @@ public class UserFactory {
 
     }
 
-    private static int nextId;
+
 
 
     public static User createUser() {
@@ -14,22 +14,22 @@ public class UserFactory {
 
         String userName = setUserName();
         String password = setPassword();
-        int id = nextId;
 
-        User newUser = new User(userName, password, id);
+
+        User newUser = new User(userName, password);
         UserWarehouse.addUser(newUser);
-        nextId++;
+
         return newUser;
     }
 
     //FOR TESTS
-    public static User createUser(String name, String pass, int nextId) {
+    public static User createUser(String name, String pass) {
         String userName = name;
         String password = pass;
-        int id = nextId;
-        User newUser = new User(userName, password, id);
+
+        User newUser = new User(userName, password);
         UserWarehouse.addUser(newUser);
-        nextId++;
+
         return newUser;
     }
 

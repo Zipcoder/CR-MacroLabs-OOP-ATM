@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserWarehouseTest {
 
     static final ArrayList<User> users = new ArrayList();
-    User testUser = new User("", "", 1);
+    User testUser = new User("", "");
 
     @Test
     public void addUserTest() {
