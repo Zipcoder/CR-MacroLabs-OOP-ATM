@@ -1,9 +1,7 @@
-/**
- * Created by iyasuwatts on 10/17/17.
- */
+package com.company;
+
 public class Main {
 
-    public static void main(String[] args){
-        
-    }
+
+
 }
