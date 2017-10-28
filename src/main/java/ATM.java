@@ -13,7 +13,7 @@ public class ATM {
         return theInstance;
     }
 
-    void addUser(String userName, String password) {
+    public void addUser(String userName, String password) {
         User newUser = new User(userName, password);
         allUsers.add(newUser);
     }

@@ -34,10 +34,6 @@ public class User {
         return newAccount.getAccountNum();
     }
 
-    int accountsArraySize() {
-        return accountsArray.size();
-    }
-
     ArrayList getAccountsArray() {
         return accountsArray;
     }
