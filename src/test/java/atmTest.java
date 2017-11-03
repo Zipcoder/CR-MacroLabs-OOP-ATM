@@ -6,6 +6,7 @@ public class atmTest {
 
     @Test       //Test addUsers and returnAllUserSize
     public void addUserTest(){
+        atm.clearAllUsers();
         int expected = 1;
 
         atm.addUser("wes","password");
@@ -16,6 +17,7 @@ public class atmTest {
 
     @Test
     public void returnNewAccountNumTest(){
+        atm.clearAllUsers();
         int expected = 1;
 
         int actual = atm.returnNewAccountNum();
@@ -25,6 +27,7 @@ public class atmTest {
 
     @Test
     public void UserExistTest(){
+        atm.clearAllUsers();
         atm.addUser("wes","password");
         boolean expected1 = true;
         boolean expected2 = false;
@@ -34,10 +37,12 @@ public class atmTest {
 
         Assert.assertEquals(expected1,actual1);
         Assert.assertEquals(expected2,actual2);
+
     }
 
     @Test
     public void UserIndexTest(){
+        atm.clearAllUsers();
         int expected1 = 0;
         int expected2 = 1;
         atm.addUser("wes","password");
@@ -52,6 +57,7 @@ public class atmTest {
 
     @Test
     public void UserNameAndPasswordCorrectTest(){
+        atm.clearAllUsers();
         atm.addUser("wes","password");
         boolean expected1 = true;
         boolean expected2 = false;
@@ -65,6 +71,7 @@ public class atmTest {
 
     @Test
     public void EnterUserTest(){
+        atm.clearAllUsers();
         atm.addUser("wes","password");
         String expected = "wes";
 

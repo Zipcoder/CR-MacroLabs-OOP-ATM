@@ -8,6 +8,7 @@ public class userTest {
 
     @Test       //Test setUserName and getUserName
     public void setUserNameTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         String expected1 = "wes";
@@ -23,6 +24,7 @@ public class userTest {
 
     @Test      //Test setUserPassword and getUserPassword
     public void setUserPasswordTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         String expected1 = "password";
@@ -38,6 +40,7 @@ public class userTest {
 
     @Test
     public void addAccountTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("checking");
@@ -51,6 +54,7 @@ public class userTest {
 
     @Test
     public void accountArraySizeTest(){
+        Main.clearAll();
         atm.addUser("wes","pass");
         User currentUser = atm.EnterUser("wes");
         int expected1 = 0;
@@ -66,6 +70,7 @@ public class userTest {
 
     @Test
     public void getAccountArrayTest(){
+        Main.clearAll();
         atm.addUser("wes","pass");
         User currentUser = atm.EnterUser("wes");
         int expected = 1;
@@ -81,6 +86,7 @@ public class userTest {
 
     @Test
     public void removeAccountTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("checking");
@@ -105,6 +111,7 @@ public class userTest {
 
     @Test
     public void AccountExistTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("checking");
@@ -120,6 +127,7 @@ public class userTest {
 
     @Test
     public void EnterAccountTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("checking");
@@ -133,6 +141,7 @@ public class userTest {
 
     @Test
     public void withdrawTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("savings");
@@ -150,6 +159,7 @@ public class userTest {
 
     @Test
     public void depositTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("savings");
@@ -166,6 +176,7 @@ public class userTest {
 
     @Test
     public void transferTest(){
+        Main.clearAll();
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
         currentUser.addAccount("savings");

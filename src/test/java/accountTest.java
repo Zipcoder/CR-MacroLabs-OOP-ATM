@@ -27,7 +27,7 @@ public class accountTest {
         atm.addUser("wes","password");
         User currentUser = atm.EnterUser("wes");
 
-        String expected = "checking";
+        String expected = "savings";
 
         currentUser.addAccount(expected);
         Account currentAccount = currentUser.EnterAccount(1);
