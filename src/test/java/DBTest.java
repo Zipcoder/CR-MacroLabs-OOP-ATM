@@ -42,14 +42,14 @@ public class DBTest {
     }
 
     @Test
-    public void testFileNametoPath() {
-        String expected = "/Users/josh/Desktop/Projects/CR-MacroLabs-OOP-ATM/data/610393892.csv";
-        String input = "610393892.csv";
+    public void testPathToFileName() {
+        String input = "/Users/josh/Desktop/Projects/CR-MacroLabs-OOP-ATM/data/610393892.csv";
+        String expected = "610393892.csv";
         Assert.assertEquals(expected, DB.pathToFileName(input));
     }
 
     @Test
-    public void testPathtoFileName() {
+    public void testFileNametoPath() {
         String input = "610393892.csv";
         String expected = "/Users/josh/Desktop/Projects/CR-MacroLabs-OOP-ATM/data/610393892.csv";
         Assert.assertEquals(expected, DB.fileNameToPath(input, System.getProperty("user.dir")));
@@ -164,6 +164,39 @@ public class DBTest {
 
     @Test
     public void getRowLengthTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
 
+        DB db1 = null;
+        Integer rowL = random.nextInt(10);
+        try {
+            db1 = new DB(fileName, rowL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String[] row = new String[rowL];
+        db1.addRow(row);
+        Assert.assertTrue(1 == db1.length());
+
+        Assert.assertTrue(rowL == db1.getRowLength());
+    }
+
+    @Test
+    public void getFileNameTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        Integer rowL = random.nextInt(10);
+        try {
+            db1 = new DB(fileName, rowL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertTrue(fileName == db1.getFileName());
+
+        
     }
 }

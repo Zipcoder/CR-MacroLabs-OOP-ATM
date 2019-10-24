@@ -50,9 +50,9 @@ public class DB {
         return this.path;
     }
 
-    public static String pathToFileName (String FN) {
+    public static String pathToFileName (String Path) {
 
-        String[] splitter = FN.split("/");
+        String[] splitter = Path.split("/");
         return splitter[splitter.length-1];
     }
 
@@ -68,8 +68,8 @@ public class DB {
         return this.rowLength;
     }
 
-    public void setPath(String path) { //fix this shit
-        this.fileName = path;
+    public void setPath(String fName) {
+        this.fileName = fName;
     }
 
     public Boolean checkIntegrity() {
