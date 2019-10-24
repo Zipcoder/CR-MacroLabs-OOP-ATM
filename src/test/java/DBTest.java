@@ -236,5 +236,71 @@ public class DBTest {
         Assert.assertTrue(true == db1.isDeleted());
     }
 
+    @Test
+    public void integrityGoodTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
 
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+        data.add(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+
+        ArrayList<String[]> records;
+        for (int i = 0; i < 4; i++) {
+            db1.addRow(data.get(i));
+        }
+
+        Assert.assertEquals(true, db1.checkIntegrity());
+        db1.delete();
+    }
+
+    @Test
+    public void integrityBadRowAddTest() { // check to make sure it won't add an improper length of row
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c"});
+        data.add(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+
+        ArrayList<String[]> records;
+        for (int i = 0; i < 4; i++) {
+            db1.addRow(data.get(i));
+        }
+
+        Assert.assertTrue(3 == db1.readAllRows().size());
+        Assert.assertEquals(true, db1.checkIntegrity());
+        db1.delete();
+    }
+
+    @Test
+    public void integrityBadTest() { // check to make sure it won't add an improper length of row
+
+        String fileName = "testBad.csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertEquals(false, db1.checkIntegrity());
+    }
 }
