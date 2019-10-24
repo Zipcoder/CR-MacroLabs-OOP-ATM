@@ -57,18 +57,18 @@ public class DBTest {
 
     @Test
     public void tempStuff() {
-        String fileName = "test.csv";
-        DB testDB = null;
-        try {
-            testDB = new DB(fileName, 4);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        testDB.addRow(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
-        testDB.addRow(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
-        testDB.addRow(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
-        testDB.addRow(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+//        String fileName = "test.csv";
+//        DB testDB = null;
+//        try {
+//            testDB = new DB(fileName, 4);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        testDB.addRow(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+//        testDB.addRow(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+//        testDB.addRow(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+//        testDB.addRow(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
 
     }
 
