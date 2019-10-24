@@ -303,4 +303,41 @@ public class DBTest {
 
         Assert.assertEquals(false, db1.checkIntegrity());
     }
+
+    @Test
+    public void replaceRowTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+        data.add(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+
+        for (int i = 0; i < 4; i++) {
+            db1.addRow(data.get(i));
+        }
+
+        String[] replacementRow = new String[] {"Changed Item 1c", "Changed Item 2c", "Changed Item 3c", "Changed Item 4c"};
+
+        db1.replaceRow(2, replacementRow);
+
+        ArrayList<String[]> records = db1.readAllRows();
+
+        for (int i = 0; i < 4; i++) {
+            if (i == 2) {
+                Assert.assertEquals(replacementRow, records.get(i));
+            } else {
+                Assert.assertEquals(data.get(i), records.get(i));
+            }
+        }
+        db1.delete();
+    }
 }

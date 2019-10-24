@@ -117,6 +117,18 @@ public class DB {
         }
     }
 
+    public void replaceRow(Integer rowNum, String[] replacement) {
+        ArrayList<String[]> records = null;
+        if (!this.deleted && rowNum < length() && replacement.length == this.rowLength) {
+            records = readAllRows();
+            records.set(rowNum, replacement);
+        }
+        clear();
+        for (String[] row : records) {
+            addRow(row);
+        }
+    }
+
     public ArrayList<String[]> readAllRows() {
         if (!this.deleted) {
             try { // look for an existing file with that name
