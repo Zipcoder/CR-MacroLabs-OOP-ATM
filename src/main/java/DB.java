@@ -141,6 +141,23 @@ public class DB {
         }
     }
 
+    public String[] readRow(int rowNum) {
+        ArrayList<String[]> records = null;
+        if (!this.deleted && rowNum < length()) {
+            records = readAllRows();
+            return records.get(rowNum);
+        }
+        return new String[this.rowLength];
+    }
+
+    public String serialize(int rowNum) {
+        return DB.serialize(readRow(rowNum));
+    }
+
+    public static String serialize(String[] row) {
+        return String.join("/", row);
+    }
+
     public ArrayList<String[]> readAllRows() {
         if (!this.deleted) {
             try { // look for an existing file with that name
