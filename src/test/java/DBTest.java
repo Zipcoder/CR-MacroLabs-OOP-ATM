@@ -340,4 +340,40 @@ public class DBTest {
         }
         db1.delete();
     }
+
+    @Test
+    public void deleteRowTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+        data.add(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+        data.add(new String[] {"Item 1e", "Item 2e", "Item 3e", "Item 4e"});
+
+        for (int i = 0; i < data.size(); i++) {
+            db1.addRow(data.get(i));
+        }
+
+        db1.deleteRow(2);
+
+        ArrayList<String[]> records = db1.readAllRows();
+
+        for (int i = 0; i < 4; i++) {
+            if (i >= 2) {
+                Assert.assertEquals(data.get(i+1), records.get(i));
+            } else {
+                Assert.assertEquals(data.get(i), records.get(i));
+            }
+        }
+        db1.delete();
+    }
 }

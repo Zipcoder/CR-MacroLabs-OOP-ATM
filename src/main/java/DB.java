@@ -129,6 +129,18 @@ public class DB {
         }
     }
 
+    public void deleteRow(int rowNum) {
+        ArrayList<String[]> records = null;
+        if (!this.deleted && rowNum < length()) {
+            records = readAllRows();
+            records.remove(rowNum);
+        }
+        clear();
+        for (String[] row : records) {
+            addRow(row);
+        }
+    }
+
     public ArrayList<String[]> readAllRows() {
         if (!this.deleted) {
             try { // look for an existing file with that name
