@@ -13,19 +13,23 @@ public class DB {
     private String fileName;
     private String path;
     private Integer rowLength;
+    private Boolean deleted;
 
     public DB(String fileName, Integer rowLength) throws IOException {
         this.fileName = fileName;
         this.path = fileNameToPath(this.fileName, System.getProperty("user.dir"));
         this.rowLength = rowLength;
+        this.deleted = false;
 
         try { // look for an existing file with that name
             Reader reader = Files.newBufferedReader(Paths.get(this.path));
             CSVReader csvReader = new CSVReader(reader);
 
-            // get all records at once
+            // get all records at once, use that rowLength to override given one, if nec.
             List<String[]> records = csvReader.readAll();
-            // loop through records
+            if (records.size() > 0) {
+                 this.rowLength = records.get(0).length;
+            }
 
         }
         catch(NoSuchFileException e) { // make a new file, if one doesn't exist in place
@@ -43,17 +47,20 @@ public class DB {
     }
 
     public String getFileName() {
-        return this.fileName;
+        if (!this.deleted) {
+            return this.fileName;
+        } else {
+            return null;
+        }
     }
 
-    public String getPath() {
-        return this.path;
+    public Boolean isDeleted() {
+        return deleted;
     }
 
     public static String pathToFileName (String Path) {
-
         String[] splitter = Path.split("/");
-        return splitter[splitter.length-1];
+        return splitter[splitter.length - 1];
     }
 
     public static String fileNameToPath (String FN, String PWD) {
@@ -61,84 +68,110 @@ public class DB {
     }
 
     public Integer length() {
-        return readAllRows().size();
+        if (!this.deleted) {
+            return readAllRows().size();
+        } else {
+            return null;
+        }
     }
 
     public Integer getRowLength() {
-        return this.rowLength;
-    }
-
-    public void setPath(String fName) {
-        this.fileName = fName;
+        if (!this.deleted) {
+            return this.rowLength;
+        } else {
+            return null;
+        }
     }
 
     public Boolean checkIntegrity() {
-        ArrayList<String[]> records = readAllRows();
+        if (!this.deleted) {
+            ArrayList<String[]> records = readAllRows();
 
-        for (String[] row : records) {
-            if (row.length != this.rowLength) {
-                return false;
+            for (String[] row : records) {
+                if (row.length != this.rowLength) {
+                    return false;
+                }
             }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     public void addRow(String[] row) {
-        try {
-            File file = new File(this.path);
-            FileWriter outputfile = new FileWriter(file, true);
+        if (!this.deleted) {
+            try {
+                File file = new File(this.path);
+                FileWriter outputfile = new FileWriter(file, true);
 
-            // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputfile);
-            if (row.length == this.rowLength) { // only write if this row is the correct length
-                writer.writeNext(row);
+                // create CSVWriter object filewriter object as parameter
+                CSVWriter writer = new CSVWriter(outputfile);
+                if (row.length == this.rowLength) { // only write if this row is the correct length
+                    writer.writeNext(row);
+                }
+
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
     public ArrayList<String[]> readAllRows() {
-        try { // look for an existing file with that name
-            Reader reader = Files.newBufferedReader(Paths.get(this.path));
-            CSVReader csvReader = new CSVReader(reader);
+        if (!this.deleted) {
+            try { // look for an existing file with that name
+                Reader reader = Files.newBufferedReader(Paths.get(this.path));
+                CSVReader csvReader = new CSVReader(reader);
 
-            // get all records at once
-            List<String[]> records = csvReader.readAll();
-            // loop through records
-            return new ArrayList<String[]> (records);
+                // get all records at once
+                List<String[]> records = csvReader.readAll();
+                // loop through records
+                return new ArrayList<String[]>(records);
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return null;
+            }
+        } else {
             return null;
         }
 
     }
 
     public void printDB() {
-        for (String[] row : readAllRows()) {
-            System.out.println("");
+        if (!this.deleted) {
+            for (String[] row : readAllRows()) {
+                System.out.println("");
 
-            for (String field : row) {
-                System.out.print(field + "/");
+                for (String field : row) {
+                    System.out.print(field + "/");
+                }
             }
         }
     }
 
     public void clear() {
-        try {
-            File file = new File(this.path);
-            FileWriter outputfile = new FileWriter(file);
+        if (!this.deleted) {
+            try {
+                File file = new File(this.path);
+                FileWriter outputfile = new FileWriter(file);
 
-            // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputfile);
+                // create CSVWriter object filewriter object as parameter
+                CSVWriter writer = new CSVWriter(outputfile);
 
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+    }
+
+    public void delete() {
+
+        File file = new File(this.path);
+        file.delete();
+        this.deleted = true;
+
     }
 
 

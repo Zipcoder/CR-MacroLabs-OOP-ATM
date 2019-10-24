@@ -25,10 +25,26 @@ public class DBTest {
 
         String expected = fileName;
         Assert.assertEquals(db1.getFileName(), expected);
+        db1.delete();
     }
 
     @Test
-    public void testDBFileName() {
+    public void constructorBadRowLengthTest() {
+
+        String fileName = "test.csv";
+        DB testDB = null;
+        try {
+            testDB = new DB(fileName, 7);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Integer actual = testDB.getRowLength();
+        Assert.assertTrue(4 == actual);
+    }
+
+    @Test
+    public void DBFileNameTest() {
         String fileName = "test.csv";
         DB testDB = null;
         try {
@@ -42,14 +58,14 @@ public class DBTest {
     }
 
     @Test
-    public void testPathToFileName() {
+    public void pathToFileNameTest() {
         String input = "/Users/josh/Desktop/Projects/CR-MacroLabs-OOP-ATM/data/610393892.csv";
         String expected = "610393892.csv";
         Assert.assertEquals(expected, DB.pathToFileName(input));
     }
 
     @Test
-    public void testFileNametoPath() {
+    public void fileNametoPathTest() {
         String input = "610393892.csv";
         String expected = "/Users/josh/Desktop/Projects/CR-MacroLabs-OOP-ATM/data/610393892.csv";
         Assert.assertEquals(expected, DB.fileNameToPath(input, System.getProperty("user.dir")));
@@ -129,6 +145,7 @@ public class DBTest {
         ArrayList<String[]> records = db1.readAllRows();
 
         Assert.assertEquals(0,records.size());
+        db1.delete();
     }
 
     @Test
@@ -160,6 +177,7 @@ public class DBTest {
                 Assert.assertEquals(records.get(i), data.get(i));
             }
         }
+        db1.delete();
     }
 
     @Test
@@ -180,6 +198,7 @@ public class DBTest {
         Assert.assertTrue(1 == db1.length());
 
         Assert.assertTrue(rowL == db1.getRowLength());
+        db1.delete();
     }
 
     @Test
@@ -196,7 +215,26 @@ public class DBTest {
         }
 
         Assert.assertTrue(fileName == db1.getFileName());
-
-        
+        db1.delete();
     }
+
+    @Test
+    public void deleteFileTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        Integer rowL = random.nextInt(10);
+        try {
+            db1 = new DB(fileName, rowL);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Assert.assertTrue(false == db1.isDeleted());
+        db1.delete();
+        Assert.assertTrue(true == db1.isDeleted());
+    }
+
+
 }
