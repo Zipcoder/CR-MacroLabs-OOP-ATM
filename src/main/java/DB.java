@@ -151,12 +151,48 @@ public class DB {
         return new String[this.rowLength];
     }
 
+    public int findWholeRow (String[] row) {
+        if (!this.deleted) {
+            String[] expected;
+            for (int i = 0; i < this.length(); i++) {
+                if (this.serialize(row).equals(this.serialize(i))) {
+                    return i;
+                }
+            }
+            return -1;
+        } else {
+            return -1;
+        }
+    }
+
+    public int findPartialRow (String[] fragment, int[] fields) {
+        if (!this.deleted) {
+            String signature = serialize(fragment);
+            for (int i = 0; i < this.length(); i++) {
+                if (signature.equals(this.partialSerialize(i,fields))) {
+                    return i;
+                }
+            }
+            return -1;
+        } else {
+            return -1;
+        }
+    }
+
     public String serialize(int rowNum) {
-        return DB.serialize(readRow(rowNum));
+        if (!this.deleted) {
+            return DB.serialize(this.readRow(rowNum));
+        } else {
+            return null;
+        }
     }
 
     public String partialSerialize(int rowNum, int[] fields) {
-        return DB.partialSerialize(readRow(rowNum),fields);
+        if (!this.deleted) {
+            return DB.partialSerialize(this.readRow(rowNum),fields);
+        } else {
+            return null;
+        }
     }
 
     public static String serialize(String[] row) {
@@ -169,10 +205,6 @@ public class DB {
             partialArray[i] = row[fields[i]];
         }
         return String.join("/", partialArray);
-    }
-
-    public int findRow(Pattern pattern, int[] fields){
-        return 0;
     }
 
     public ArrayList<String[]> readAllRows() {
