@@ -527,7 +527,42 @@ public class DBTest {
 
         Assert.assertEquals(3, db1.findPartialRow(new String[] {"Item 1d", "Item 2d", "Item 4d"}, new int[] {0,1,3}));
         Assert.assertEquals(1, db1.findPartialRow(new String[] {"Item 3b"}, new int[] {2}));
+        Assert.assertEquals(-1, db1.findPartialRow(new String[] {"Item 3sdsdasdasdb"}, new int[] {2}));
         Assert.assertEquals(4, db1.findPartialRow(new String[] {"Item 1e", "Item 2e", "Item 3e", "Item 4e"}, new int[] {0,1,2,3}));
+
+        db1.delete();
+    }
+
+    @Test
+    public void findPartialRowMultipleTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+        data.add(new String[] {"Item 1b", "Item", "Item 3b", "Item 4d"});
+        data.add(new String[] {"Item 1e", "Item", "Item 3e", "Item 4e"});
+
+        for (int i = 0; i < data.size(); i++) {
+            db1.addRow(data.get(i));
+        }
+
+        Assert.assertEquals(1, db1.findPartialRowMultiple(new String[] {"Item 1b", "Item 3b"}, new int[] {0,2})[0]);
+        Assert.assertEquals(3, db1.findPartialRowMultiple(new String[] {"Item 1b", "Item 3b"}, new int[] {0,2})[1]);
+
+        Assert.assertEquals(0, db1.findPartialRowMultiple(new String[] {"Item"}, new int[] {1})[0]);
+        Assert.assertEquals(3, db1.findPartialRowMultiple(new String[] {"Item"}, new int[] {1})[1]);
+        Assert.assertEquals(4, db1.findPartialRowMultiple(new String[] {"Item"}, new int[] {1})[2]);
+
+        Assert.assertEquals(null, db1.findPartialRowMultiple(new String[] {"Iteasdm"}, new int[] {1}));
 
         db1.delete();
     }
