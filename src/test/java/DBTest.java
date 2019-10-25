@@ -438,4 +438,41 @@ public class DBTest {
         String[] row = new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"};
         Assert.assertEquals(String.join("/",row), DB.serialize(row));
     }
+
+    @Test
+    public void partialSerializeTest() {
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
+        DB db1 = null;
+        try {
+            db1 = new DB(fileName, 4);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ArrayList<String[]> data = new ArrayList<>();
+        data.add(new String[] {"Item 1", "Item 2", "Item 3", "Item 4"});
+        data.add(new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"});
+        data.add(new String[] {"Item 1c", "Item 2c", "Item 3c", "Item 4c"});
+        data.add(new String[] {"Item 1d", "Item 2d", "Item 3d", "Item 4d"});
+        data.add(new String[] {"Item 1e", "Item 2e", "Item 3e", "Item 4e"});
+
+        for (int i = 0; i < data.size(); i++) {
+            db1.addRow(data.get(i));
+        }
+
+
+        Assert.assertEquals("Item 1d/Item 2d/Item 4d", db1.partialSerialize(3,new int[] {0,1,3}));
+        Assert.assertEquals("Item 3e", db1.partialSerialize(4,new int[] {2}));
+        Assert.assertEquals("Item 2e/Item 3e", db1.partialSerialize(4,new int[] {1,2}));
+
+        db1.delete();
+    }
+
+    @Test
+    public void partialsStaticSerializeTest() {
+        String[] row = new String[] {"Item 1b", "Item 2b", "Item 3b", "Item 4b"};
+        int[] fields = {1,3};
+        Assert.assertEquals("Item 2b/Item 4b", DB.partialSerialize(row, fields));
+    }
 }

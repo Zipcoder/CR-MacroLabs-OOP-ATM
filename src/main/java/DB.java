@@ -7,6 +7,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 public class DB {
 
@@ -154,8 +155,24 @@ public class DB {
         return DB.serialize(readRow(rowNum));
     }
 
+    public String partialSerialize(int rowNum, int[] fields) {
+        return DB.partialSerialize(readRow(rowNum),fields);
+    }
+
     public static String serialize(String[] row) {
         return String.join("/", row);
+    }
+
+    public static String partialSerialize(String[] row, int[] fields) {
+        String[] partialArray = new String[fields.length];
+        for (int i = 0; i < fields.length; i++) {
+            partialArray[i] = row[fields[i]];
+        }
+        return String.join("/", partialArray);
+    }
+
+    public int findRow(Pattern pattern, int[] fields){
+        return 0;
     }
 
     public ArrayList<String[]> readAllRows() {
