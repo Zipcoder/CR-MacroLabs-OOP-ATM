@@ -4,14 +4,9 @@ import java.util.ArrayList;
 public class ATM {
 
     private User currentUser;
-    // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
-    private DB userDB;
-
-    // 0: credit/debit 1: accountID 2: amount (signed) 3: timeStamp 4: description
-    private DB transactionDB;
-
-    // 0: accountID 1: ownerID 2: balance 3: type 4: risk/interest/null (type-dependent)
-    private DB accountDB;
+    private DB userDB;              // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
+    private DB transactionDB;      // 0: credit/debit 1: accountID 2: amount (signed) 3: timeStamp 4: description
+    private DB accountDB;       // 0: accountID 1: ownerID 2: balance 3: type 4: risk/interest/null (type-dependent)
 
     public ATM(String userDBName, String accountDBName, String transactionDBName) {
         this.currentUser = null;
@@ -67,9 +62,15 @@ public class ATM {
 
     // log in user - don't return until you do
     public void getUser() {
+        //Read User's card
+        Console.println("Card Number:");
+        String cardNum = Console.getInput();
+
         // find user in DB
 
         // check PW
+        Console.println("Enter Password");
+        String password = Console.getInput();
 
         // instantiate user
 
