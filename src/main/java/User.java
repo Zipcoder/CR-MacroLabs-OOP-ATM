@@ -7,8 +7,7 @@ public class User implements Storeable {
     public String password;
     public Integer userID;
     public Integer cardNumber;
-
-    //private ArrayList<Acoount> accounts;
+    private ArrayList<Account> accounts;
 
     public User(String firstName, String lastName, String password, Integer userID, Integer cardNumber) {
         this.firstName = firstName;
@@ -16,5 +15,6 @@ public class User implements Storeable {
         this.password = password;
         this.userID = userID;
         this.cardNumber = cardNumber;
+        this.accounts = null;
     }
 }

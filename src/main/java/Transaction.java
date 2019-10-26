@@ -8,4 +8,11 @@ public class Transaction implements Storeable {
     public String description;
     public Boolean isCredit;
 
+    public Transaction(Double amount, Date timeStamp, Integer accountID, String description, Boolean isCredit) {
+        this.amount = amount;
+        this.timeStamp = timeStamp;
+        this.accountID = accountID;
+        this.description = description;
+        this.isCredit = isCredit;
+    }
 }

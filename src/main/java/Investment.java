@@ -1,9 +1,15 @@
 public class Investment extends Account implements Storeable {
+
     public Double risk;
+
+    public Investment(Double risk) {
+        this.risk = risk;
+    }
 
     public void setRisk(Double risk) {
         this.risk = risk;
     }
+
     public Double calcReturn(){
         return null;
     }
