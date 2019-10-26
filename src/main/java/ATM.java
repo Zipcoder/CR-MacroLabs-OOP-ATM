@@ -55,6 +55,11 @@ public class ATM {
         return this.userDB.readRow(rowNumOfUser);
     }
 
+    //find user row by id
+    public Integer getUserRowByID (Integer ID) {
+        return this.userDB.findPartialRow(new String[]{ID.toString()}, new int[]{0});
+    }
+
     //find user info by card number (helper for constructor)
     public String [] getUserInfoByCardNum (Integer cardNum) {
         int rowNumOfUser = this.userDB.findPartialRow(new String[] {cardNum.toString()}, new int[] {3});
@@ -149,5 +154,11 @@ public class ATM {
         logOut();
 
         serviceLoop();
+    }
+
+    public void saveUserToDB(User user) {
+        String[] stringRepOfUser = user.toStringArray();
+        int rowNum = getUserRowByID(this.currentUser.getUserID());
+        this.userDB.replaceRow(rowNum, stringRepOfUser);
     }
 }

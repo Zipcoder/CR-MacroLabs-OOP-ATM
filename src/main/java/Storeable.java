@@ -31,6 +31,4 @@ public interface Storeable {
         }
     }
 
-    public void saveToDB();
-
 }
