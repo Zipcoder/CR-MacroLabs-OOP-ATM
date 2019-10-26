@@ -25,19 +25,19 @@ public class ATM {
     }
 
     public User getCurrentUser() {
-        return currentUser;
+        return this.currentUser;
     }
 
     public DB getUserDB() {
-        return userDB;
+        return this.userDB;
     }
 
     public DB getTransactionDB() {
-        return transactionDB;
+        return this.transactionDB;
     }
 
     public DB getAccountDB() {
-        return accountDB;
+        return this.accountDB;
     }
 
     public void setCurrentUser(User currentUser) {
@@ -50,13 +50,13 @@ public class ATM {
 
     //find user info by id (helper for constructor)
     public String [] getUserInfoByID (Integer ID) {
-        int rowNumOfUser = this.userDB.findPartialRow(ID.toString(), new int[] {0});
+        int rowNumOfUser = this.userDB.findPartialRow(new String[] {ID.toString()}, new int[] {0});
         return this.userDB.readRow(rowNumOfUser);
     }
 
     //find user info by card number (helper for constructor)
     public String [] getUserInfoByCardNum (Integer cardNum) {
-        int rowNumOfUser = this.userDB.findPartialRow(cardNum.toString(), new int[] {3});
+        int rowNumOfUser = this.userDB.findPartialRow(new String[] {cardNum.toString()}, new int[] {3});
         return this.userDB.readRow(rowNumOfUser);
     }
 
@@ -80,27 +80,27 @@ public class ATM {
     }
 
     //find accounts by owner id (to then be used by constructor)
-    public ArrayList<String[]> getAccountInfoByUser (User user) {
-        int [] recordRowNums;
-        recordRowNums = this.accountDB.findPartialRowMultiple(new String[] {user.ID.toString()}, new int[] {1})
-
-        ArrayList<String[]> accountsInfo = new ArrayList<>();
-        for (int rowNum : recordRowNums) {
-            accountsInfo.add(this.accountDB.readRow(rowNum));
-        }
-
-        return accountsInfo;
-    }
+//    public ArrayList<String[]> getAccountInfoByUser (User user) {
+//        int [] recordRowNums;
+//        recordRowNums = this.accountDB.findPartialRowMultiple(new String[] {user.ID.toString()}, new int[] {1});
+//
+//        ArrayList<String[]> accountsInfo = new ArrayList<>();
+//        for (int rowNum : recordRowNums) {
+//            accountsInfo.add(this.accountDB.readRow(rowNum));
+//        }
+//
+//        return accountsInfo;
+//    }
 
     // load database info from disk
     public void loadDBs() {
-        // find accounts, create instances
-        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
-        ArrayList<Account> accounts = new ArrayList<>();
-        for (String[] acctInfo : accountsInfo) {
-            accounts.add(new Account(...));
-        }
-        //
+//        // find accounts, create instances
+//        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
+//        ArrayList<Account> accounts = new ArrayList<>();
+//        for (String[] acctInfo : accountsInfo) {
+//            accounts.add(new Account(...));
+//        }
+//        //
     }
 
     // deal with the user's choices

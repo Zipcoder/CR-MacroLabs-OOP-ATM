@@ -45,7 +45,9 @@ public class DBTest {
 
     @Test
     public void DBFileNameTest() {
-        String fileName = "test.csv";
+        Random random = new Random();
+        String fileName = Integer.toString(Math.abs(random.nextInt())) + ".csv";
+
         DB testDB = null;
         try {
             testDB = new DB(fileName, 4);
@@ -55,6 +57,7 @@ public class DBTest {
 
         String actual = testDB.getFileName();
         Assert.assertEquals(testDB.getFileName(), fileName);
+        testDB.delete();
     }
 
     @Test
