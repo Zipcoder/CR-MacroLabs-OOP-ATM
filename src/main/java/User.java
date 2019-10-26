@@ -8,6 +8,7 @@ public class User implements Storeable {
     public Integer userID;
     public Integer cardNumber;
     private ArrayList<Account> accounts;
+    private ArrayList<Transaction> pendingTransactions;
 
     public User(String firstName, String lastName, String password, Integer userID, Integer cardNumber) {
         this.firstName = firstName;
@@ -16,5 +17,14 @@ public class User implements Storeable {
         this.userID = userID;
         this.cardNumber = cardNumber;
         this.accounts = null;
+    }
+
+    public User(Integer userId, String password, DB data) {
+
+    }
+
+    public ArrayList<Transaction> getUserHistory() {
+
+        return pendingTransactions;
     }
 }
