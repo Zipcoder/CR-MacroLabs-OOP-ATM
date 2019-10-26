@@ -49,6 +49,20 @@ public class ATMTest {
     }
 
     @Test
+    public void getUserCount() {
+
+        DB userDB = atm.getUserDB();
+        userDB.clear();
+        Assert.assertEquals((int) 0, (int) userDB.length());
+        User user1 = new User("Jim","Brown","goolybib", 12, 12343);
+        userDB.addRow(user1.toStringArray());
+        Assert.assertEquals((int) 1, (int) userDB.length());
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 122, 1234313);
+        userDB.addRow(user2.toStringArray());
+        Assert.assertEquals((int) 2, (int) userDB.length());
+    }
+
+    @Test
     public void setCurrentUser() {
 
         User foundUser = atm.getCurrentUser();

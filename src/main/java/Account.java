@@ -3,6 +3,12 @@ abstract public class Account implements Storeable {
     public Integer ownerID;
     public Integer acctNum;
 
+    public Account(Double balance, Integer ownerID, Integer acctNum) {
+        this.balance = balance;
+        this.ownerID = ownerID;
+        this.acctNum = acctNum;
+    }
+
     public Double getBalance(){
         return balance;
     }
