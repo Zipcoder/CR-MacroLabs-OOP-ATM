@@ -2,7 +2,8 @@ public class Investment extends Account implements Storeable {
 
     public Double risk;
 
-    public Investment(Double risk) {
+    public Investment(Double balance, Integer ownerID, Integer acctNum) {
+        super(balance, ownerID, acctNum);
         this.risk = risk;
     }
 
