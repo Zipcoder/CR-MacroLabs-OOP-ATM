@@ -1,12 +1,25 @@
-public class Account {
-    private Integer ID;
-    private Integer owner;
-    private Double balance;
+abstract public class Account {
+public Double balance;
+public Integer OwnerID;
+public Integer acctNum;
 
-    public Account() {
-        this.ID = -1;
-        this.owner = -1;
-        this.balance = 0.00;
-    }
+public Double getBalance(){
+    return balance;
+}
+public void deposit(Double amount){
 
 }
+public void withdraw(Double amount){
+
+}
+public void transferWithin(){
+
+}
+public void transferToAnother(){
+
+}
+public void getAcctHist(){
+
+}
+}
+

@@ -1,11 +1,7 @@
-public class Investment extends Account {
-    private Double risk;
+public class Checkings extends Account{
 
-    public void setRisk(Double risk) {
-        this.risk = risk;
-    }
-    public Double calcReturn(){
-        return null;
+    public Checkings(){
+
     }
 
     @Override
