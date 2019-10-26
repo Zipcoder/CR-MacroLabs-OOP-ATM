@@ -26,38 +26,6 @@ public interface Storeable {
 
             return result;
 
-
-        } else if (this instanceof User) {
-
-            String[] result = new String[] {
-                    ((User) this).userID.toString(),
-                    ((User) this).lastName,
-                    ((User) this).firstName,
-                    ((User) this).cardNumber.toString(),
-                    ((User) this).password
-            };
-
-            return result;
-
-        } else if (this instanceof Transaction) {
-
-            String type;
-            if (((Transaction) this).amount > 0) {
-                type = "credit";
-            } else {
-                type = "debit";
-            }
-
-            String[] result = new String[] {
-                    type,
-                    ((Transaction) this).accountID.toString(),
-                    ((Transaction) this).amount.toString(),
-                    ((Transaction) this).timeStamp.toString(),
-                    ((Transaction) this).description
-            };
-
-            return result;
-
         } else {
             return null;
         }
