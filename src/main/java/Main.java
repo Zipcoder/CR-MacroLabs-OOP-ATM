@@ -1,10 +1,8 @@
-/**
- * Created by iyasuwatts on 10/17/17.
- */
+
 public class Main {
 
     public static void main(String[] args){
-        ATM atm = new ATM();
+        ATM atm = new ATM("users.csv", "accounts.csv", "transactions.csv");
 
         atm.serviceLoop();
     }
@@ -21,4 +19,6 @@ public class Main {
     public static void clearTransactionDB(DB transactionDB) {
         transactionDB.clear();
     }
+
+    //find (past) transactions by user
 }
