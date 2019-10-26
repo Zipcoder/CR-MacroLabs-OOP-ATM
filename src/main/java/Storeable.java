@@ -31,9 +31,6 @@ public interface Storeable {
         }
     }
 
-    default void saveToDB() {
-
-
-    }
+    public void saveToDB();
 
 }
