@@ -44,10 +44,10 @@ public class ATM {
         this.currentUser = currentUser;
     }
 
-    public User authenticate(int cardNumber, String password) {
-
-        return new User();
-    }
+//    public User authenticate(int cardNumber, String password) {
+//
+//        return new User();
+//    }
 
     //find user info by id (helper for constructor)
     public String [] getUserInfoByID (Integer ID) {

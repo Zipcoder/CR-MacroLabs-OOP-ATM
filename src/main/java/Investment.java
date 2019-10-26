@@ -1,4 +1,4 @@
-public class Investment extends Account {
+public class Investment extends Account implements Storeable {
     public Double risk;
 
     public void setRisk(Double risk) {

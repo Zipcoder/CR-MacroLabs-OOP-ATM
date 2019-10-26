@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class User {
+public class User implements Storeable {
 
     public String firstName;
     public String lastName;

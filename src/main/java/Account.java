@@ -1,4 +1,4 @@
-abstract public class Account {
+abstract public class Account implements Storeable {
 public Double balance;
 public Integer ownerID;
 public Integer acctNum;
