@@ -28,6 +28,22 @@ public class User implements Storeable {
         return pendingTransactions;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public Integer getUserID() {
+        return userID;
+    }
+
+    public ArrayList<Account> getAccounts() {
+        return accounts;
+    }
+
+    public ArrayList<Transaction> getPendingTransactions() {
+        return pendingTransactions;
+    }
+
     @Override
     public String[] toStringArray() {
         String[] result = new String[] {
@@ -39,4 +55,5 @@ public class User implements Storeable {
         };
         return result;
     }
+
 }

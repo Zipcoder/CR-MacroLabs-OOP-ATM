@@ -81,10 +81,20 @@ public class ATMTest {
 
     @Test
     public void getUserInfoByID() {
-        User user = new User("Jim","Brown","goolybib", 12, 12343);
+        DB userDB = atm.getUserDB();
+        userDB.clear();
 
-        Integer ID = 123432;
+        User user1 = new User("Jim","Brown","goolybib", 12, 12343);
+        userDB.addRow(user1.toStringArray());
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 122, 1234313);
+        userDB.addRow(user2.toStringArray());
+        User user3 = new User("Jane","Himne","gasdsdool321ybib", 32, 313);
+        userDB.addRow(user3.toStringArray());
 
+        String[] actual = atm.getUserInfoByID(122);
+        String[] expected = user2.toStringArray();
+
+        Assert.assertEquals(actual,expected);
     }
 
     @Test
