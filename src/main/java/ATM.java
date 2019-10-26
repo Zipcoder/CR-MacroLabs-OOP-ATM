@@ -167,6 +167,17 @@ public class ATM {
         }
     }
 
+    public void saveAccountrToDB(Account account) {
+        String[] stringRepOfAccount = account.toStringArray();
+        int accountID = account.getacctID();
+        int rowNum = getUserRowByID(userID);
+        if (rowNum == -1) { // user isn't in DB yet
+            this.userDB.addRow(stringRepOfUser);
+        } else { // update a found row
+            this.userDB.replaceRow(rowNum, stringRepOfUser);
+        }
+    }
+
     public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
         for (Transaction transaction : pendingTransactions) {
             this.transactionDB.addRow(transaction.toStringArray());

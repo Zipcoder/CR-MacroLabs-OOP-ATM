@@ -13,6 +13,14 @@ abstract public class Account implements Storeable {
         return balance;
     }
 
+    public Integer getOwnerID() {
+        return ownerID;
+    }
+
+    public Integer getAcctNum() {
+        return acctNum;
+    }
+
     public void deposit(Double amount){
 
     }
