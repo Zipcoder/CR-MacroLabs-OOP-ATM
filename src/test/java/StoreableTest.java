@@ -23,9 +23,25 @@ public class StoreableTest {
 
     @Test
     public void toStringArrayAccountChecking() {
-        Account account = new Checking("");
+        Account account = new Checking(12.23, 23, 3432);
 
-        String[] actual = user.toStringArray();
+        String[] actual = account.toStringArray();
+        String[] expected = new String[] {
+                "12",
+                "Brown",
+                "Jim",
+                "12343",
+                "goolybib"
+        };
+
+        Assert.assertEquals(actual, expected);
+    }
+
+    @Test
+    public void toStringArrayAccountSavings() {
+        Account account = new Savings(12.23, 23, 3432, .03);
+
+        String[] actual = account.toStringArray();
         String[] expected = new String[] {
                 "12",
                 "Brown",

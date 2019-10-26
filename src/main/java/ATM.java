@@ -65,10 +65,9 @@ public class ATM {
 
     }
 
-    // log in user
+    // log in user - don't return until you do
     public void getUser() {
         // find user in DB
-
 
         // check PW
 
@@ -103,6 +102,10 @@ public class ATM {
 //            accounts.add(new Account(...));
 //        }
 //        //
+    }
+
+    public int getUserCount() {
+        return this.userDB.length();
     }
 
     // deal with the user's choices
