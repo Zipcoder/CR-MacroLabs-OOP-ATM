@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class User implements Storeable {
 
-    public String firstName;
-    public String lastName;
-    public String password;
-    public Integer userID;
-    public Integer cardNumber;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private Integer userID;
+    private Integer cardNumber;
     private ArrayList<Account> accounts;
     private ArrayList<Transaction> pendingTransactions;
 
@@ -26,5 +26,17 @@ public class User implements Storeable {
     public ArrayList<Transaction> getUserHistory() {
 
         return pendingTransactions;
+    }
+
+    @Override
+    public String[] toStringArray() {
+        String[] result = new String[] {
+                this.userID.toString(),
+                this.lastName,
+                this.firstName,
+                this.cardNumber.toString(),
+                this.password
+        };
+        return result;
     }
 }
