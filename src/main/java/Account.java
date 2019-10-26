@@ -1,6 +1,6 @@
 abstract public class Account {
 public Double balance;
-public Integer OwnerID;
+public Integer ownerID;
 public Integer acctNum;
 
 public Double getBalance(){

@@ -2,11 +2,11 @@ import java.util.ArrayList;
 
 public class User {
 
-    private String firstName;
-    private String lastName;
-    private String password;
-    private Integer userID;
-    private Integer cardNumber;
+    public String firstName;
+    public String lastName;
+    public String password;
+    public Integer userID;
+    public Integer cardNumber;
 
     //private ArrayList<Acoount> accounts;
 

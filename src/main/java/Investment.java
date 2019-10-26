@@ -1,5 +1,5 @@
 public class Investment extends Account {
-    private Double risk;
+    public Double risk;
 
     public void setRisk(Double risk) {
         this.risk = risk;

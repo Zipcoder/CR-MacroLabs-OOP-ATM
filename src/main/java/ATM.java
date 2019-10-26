@@ -45,6 +45,7 @@ public class ATM {
     }
 
     public User authenticate(int cardNumber, String password) {
+
         return new User();
     }
 
@@ -67,6 +68,7 @@ public class ATM {
     // log in user
     public void getUser() {
         // find user in DB
+
 
         // check PW
 

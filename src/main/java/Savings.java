@@ -1,5 +1,5 @@
 public class Savings extends Account{
-    private Double interestRate;
+    public Double interestRate;
     public Savings(){
 
     }

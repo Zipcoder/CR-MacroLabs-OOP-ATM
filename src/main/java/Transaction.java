@@ -1,11 +1,11 @@
 import java.util.Date;
 
-public class Transaction {
+public class Transaction implements Storeable {
 
-    private Double amount;
-    private Date timeStamp;
-    private Integer accountId;
-    private String description;
-    private Boolean isCredit;
+    public Double amount;
+    public Date timeStamp;
+    public Integer accountID;
+    public String description;
+    public Boolean isCredit;
 
 }
