@@ -14,10 +14,12 @@ abstract public class Account implements Storeable {
     }
 
     public void deposit(Double amount){
+        balance += amount;
 
     }
 
     public void withdraw(Double amount){
+        balance -= amount;
 
     }
 
