@@ -25,10 +25,6 @@ public class ATMTest {
     }
 
     @Test
-    public void getCurrentUser() {
-    }
-
-    @Test
     public void getUserDB() {
 
         DB foundDB = atm.getUserDB();
@@ -55,11 +51,13 @@ public class ATMTest {
     @Test
     public void setCurrentUser() {
 
+        User foundUser = atm.getCurrentUser();
+        Assert.assertEquals(foundUser, null);
+
         User user = new User("Jim","Brown","goolybib", 12, 12343);
         atm.setCurrentUser(user);
 
-        User foundUser = atm.getCurrentUser();
-
+        foundUser = atm.getCurrentUser();
         Assert.assertEquals(foundUser, user);
     }
 
@@ -69,6 +67,10 @@ public class ATMTest {
 
     @Test
     public void getUserInfoByID() {
+        User user = new User("Jim","Brown","goolybib", 12, 12343);
+
+        Integer ID = 123432;
+
     }
 
     @Test
