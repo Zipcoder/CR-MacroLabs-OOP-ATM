@@ -23,7 +23,15 @@ public class Console {
         userDataBase.add(new User("Chung", "Arguello", "1","1"));
 
         ////ATM WELCOME MESSAGE////
-        System.out.println("Welcome to RhoSquad ATM Machine");
+        System.out.println("\n\n\n" +
+                "RRRRRR  HH   HH  OOOOO   SSSSS                               dd \n" +
+                "RR   RR HH   HH OO   OO SS        qqqqq uu   uu   aa aa      dd \n" +
+                "RRRRRR  HHHHHHH OO   OO  SSSSS  qq   qq uu   uu  aa aaa  dddddd \n" +
+                "RR  RR  HH   HH OO   OO      SS  qqqqqq uu   uu aa  aaa dd   dd \n" +
+                "RR   RR HH   HH  OOOO0   SSSSS       qq  uuuu u  aaa aa  dddddd \n" +
+                "                                     qq                         \n" +
+                "                                                                \n" +
+                "                   Welcome to Rho Squad Bank!                     ");
         Integer userOption;
         Integer mainOption;
 
@@ -48,19 +56,19 @@ public class Console {
                                         account.deposit(currentUser, accountChoice("deposit to"));
                                         break;
                                     case 2 :
-                                        account.withdraw(currentUser, accountChoice("withdraw from");
+                                        account.withdraw(currentUser, accountChoice("withdraw from"));
                                         break;
                                     case 3 :
-                                        account.transfer(currentUser, accountChoice("transfer from"), accountChoice("transfer to"));
+                                    //    account.transfer(currentUser, accountChoice("transfer from"), accountChoice("transfer to"));
                                         break;
                                     case 4 :
-                                        account.checkHistory(currentUser, accountChoice("review"));
+                                       // account.checkHistory(currentUser, accountChoice("review"));
                                         break;
                                     case 5 :
-                                        account.check(currentUser, accountChoice("check"));
+                                       // account.check(currentUser, accountChoice("check"));
                                         break;
                                     case 6 :
-                                        account.close(currentUser, accountChoice("close"));
+                                       // account.close(currentUser, accountChoice("close"));
                                         break;
                                     case 7 :
                                         mainMenu = false;
