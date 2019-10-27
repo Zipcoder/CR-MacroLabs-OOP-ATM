@@ -165,6 +165,18 @@ public class ATM {
         return maxID;
     }
 
+    public int getMaxAccountNumber() {
+        ArrayList<String[]> accountInfo = new ArrayList<>();
+        accountInfo = this.accountDB.readAllRows();
+        int maxID = 0;
+        for (String[] account : accountInfo) {
+            if (Integer.parseInt(account[0]) > maxID) {
+                maxID = Integer.parseInt(account[0]);
+            }
+        }
+        return maxID;
+    }
+
     // deal with the user's choices
     public void userMenu() {
 
