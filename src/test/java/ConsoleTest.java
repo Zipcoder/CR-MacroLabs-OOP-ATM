@@ -17,6 +17,12 @@ public class ConsoleTest {
     }
 
     @Test
+    public void menuOptionsTest() {
+        String[] options = new String[] {"Live", "Die", "Repeat"};
+        Console.getInput(options);
+    }
+
+    @Test
     public void getInput() {
     }
 

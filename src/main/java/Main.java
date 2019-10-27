@@ -2,7 +2,10 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
+        String[] options = new String[] {"Live", "Die", "Repeat"};
+        Console.getInput(options);
+
         ATM atm = new ATM("users.csv", "accounts.csv", "transactions.csv");
 
         atm.serviceLoop();

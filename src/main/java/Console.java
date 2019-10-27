@@ -1,3 +1,5 @@
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -20,6 +22,44 @@ public class Console {
         String input = scanner.nextLine().toLowerCase(); //get input from user
 
         return input;
+    }
+
+    public static String getInput2() {
+        Console.print("> ");
+        Scanner scanner = new Scanner(System.in);
+
+        String input = scanner.nextLine().toLowerCase(); //get input from user
+
+        return input;
+    }
+
+    public static String getInput(String[] options) {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        int numOptions = options.length;
+        int numRows = (numOptions+1) >> 1; // this is how the cool kids divide by two
+        String output = "";
+
+        String[] rows = new String[numRows];
+
+        for (int i = 0; i < numRows; i++){
+            rows[i] = Integer.toString(2*i+1) + " " + options[2*i] + "       ";
+            if (2*i + 1 < numRows) {
+                rows[i] += (options[2*i + 1] + " " + Integer.toString(2*(i+1)));
+            }
+            rows[i] += "\n";
+        }
+
+        for (int i = numRows - 1; i >= 0; i--) {
+            output += rows[i];
+        }
+
+        println(output);
+
+        return Console.getInput();
+
     }
 
     static Boolean integerCheck(String input) {
