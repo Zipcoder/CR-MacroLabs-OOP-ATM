@@ -45,22 +45,22 @@ public class Console {
 
                                 switch(mainOption){
                                     case 1 :
-
+                                        account.deposit(currentUser, accountChoice("deposit to"));
                                         break;
                                     case 2 :
-                                        account.withdraw(currentUser);
+                                        account.withdraw(currentUser, accountChoice("withdraw from");
                                         break;
                                     case 3 :
-
+                                        account.transfer(currentUser, accountChoice("transfer from"), accountChoice("transfer to"));
                                         break;
                                     case 4 :
-
+                                        account.checkHistory(currentUser, accountChoice("review"));
                                         break;
                                     case 5 :
-
+                                        account.check(currentUser, accountChoice("check"));
                                         break;
                                     case 6 :
-
+                                        account.close(currentUser, accountChoice("close"));
                                         break;
                                     case 7 :
                                         mainMenu = false;
@@ -201,6 +201,16 @@ public class Console {
         return new User(first_name, last_name, user_ID, user_password);
     }
 
+    /////////////////CREATE ACCOUNT options 2//////////
+    //////////////////////////////////////////
+
+    public int accountChoice(String action){
+        System.out.println("Which account would you like to " + action + " today?\n"+
+                            "1 - Checking Account\n"+
+                            "2 - Savings Account\n"+
+                            "3 - Investment Account\n");
+        return input.nextInt();
+    }
 
 }
 
