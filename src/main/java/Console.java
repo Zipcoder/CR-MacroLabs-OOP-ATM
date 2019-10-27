@@ -14,6 +14,7 @@ public class Console {
     private Boolean loginScreen = true;
     private Boolean mainMenu = true;
 
+    public String currentUser;
 
     public void atmStarter (){
 
@@ -26,23 +27,57 @@ public class Console {
         Integer mainOption;
 
 
+
         while(power){
             userOption = loginPrompt();
             switch(userOption){
                 case 1:
                     ///////////////
                     while(loginScreen){
+                        mainMenu = true;
                         if(login()) {
-                            System.out.println("login successful");
+                            System.out.println("login successful\n\n");
+
 
                             while(mainMenu){
-                                //mainOption
+                                mainOption = mainMenu();
+
+                                switch(mainOption){
+                                    case 1 :
+
+                                        break;
+                                    case 2 :
+
+                                        break;
+                                    case 3 :
+
+                                        break;
+                                    case 4 :
+
+                                        break;
+                                    case 5 :
+
+                                        break;
+                                    case 6 :
+
+                                        break;
+                                    case 7 :
+                                        mainMenu = false;
+                                        break;
+                                    case 8 :
+                                        mainMenu = false;
+                                        loginScreen= false;
+                                        power = false;
+                                        break;
+                                    default:
+                                        System.out.println("\nNot an option, try again\n");
+
+
+
+                                }
                             }
                         }
                     }
-
-
-
                     break;
                 case 2:
                     userDataBase.add(accountCreation());
@@ -93,6 +128,7 @@ public class Console {
 
             System.out.println("Username: ");
             userID = input.next();
+            currentUser = userID;
             System.out.println("Password: ");
             userPassword = input.next();
 
@@ -124,9 +160,15 @@ public class Console {
                 "1 - Deposit\n" +
                 "2 - Withdraw\n" +
                 "3 - Transfer\n" +
-                "");
+                "4 - Transaction History\n" +
+                "5 - Check Balance\n" +
+                "6 - Close Account\n" +
+                "7 - Log Out\n" +
+                "8 - Exit\n");
 
-        return 1;
+        result = input.nextInt();
+
+        return result;
     }
     /////////////////CREATE ACCOUNT options 2//////////
     //////////////////////////////////////////
