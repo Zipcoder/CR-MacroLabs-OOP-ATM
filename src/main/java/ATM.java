@@ -167,14 +167,14 @@ public class ATM {
         }
     }
 
-    public void saveAccountrToDB(Account account) {
+    public void saveAccountToDB(Account account) {
         String[] stringRepOfAccount = account.toStringArray();
-        int accountID = account.getacctID();
-        int rowNum = getUserRowByID(userID);
-        if (rowNum == -1) { // user isn't in DB yet
-            this.userDB.addRow(stringRepOfUser);
+        int accountNum = account.getAcctNum();
+        int rowNum = getAccountRowbyID(accountNum);
+        if (rowNum == -1) { // account isn't in DB yet
+            this.accountDB.addRow(stringRepOfAccount);
         } else { // update a found row
-            this.userDB.replaceRow(rowNum, stringRepOfUser);
+            this.accountDB.replaceRow(rowNum, stringRepOfAccount);
         }
     }
 
