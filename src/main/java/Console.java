@@ -11,6 +11,8 @@ public class Console {
     private ArrayList<User> userDataBase = new ArrayList<User>();
 
     private Boolean power = true;
+    private Boolean loginScreen = true;
+    private Boolean mainMenu = true;
 
 
     public void atmStarter (){
@@ -21,6 +23,7 @@ public class Console {
         ////ATM WELCOME MESSAGE////
         System.out.println("Welcome to RhoSquad ATM Machine");
         Integer userOption;
+        Integer mainOption;
 
 
         while(power){
@@ -28,9 +31,16 @@ public class Console {
             switch(userOption){
                 case 1:
                     ///////////////
-                    if(login()){
-                        System.out.println("login successful");
+                    while(loginScreen){
+                        if(login()) {
+                            System.out.println("login successful");
+
+                            while(mainMenu){
+                                //mainOption
+                            }
+                        }
                     }
+
 
 
                     break;
@@ -46,6 +56,8 @@ public class Console {
             }
         }
     }
+    //////////////////////STARTER SCREEN ////////////
+    ///////////////////////////////////////////////
 
     public int loginPrompt(){
         int result = 0;
@@ -102,6 +114,19 @@ public class Console {
         System.out.println("Username or Password does not match our records");
 
         return false;
+    }
+
+    ////////////////////////MAIN MENU///////////////////
+    /////////////////////////////////////////////////////
+    private int mainMenu(){
+        int result;
+        System.out.println("What would you like to do today?\n" +
+                "1 - Deposit\n" +
+                "2 - Withdraw\n" +
+                "3 - Transfer\n" +
+                "");
+
+        return 1;
     }
     /////////////////CREATE ACCOUNT options 2//////////
     //////////////////////////////////////////
