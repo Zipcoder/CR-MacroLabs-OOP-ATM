@@ -8,8 +8,10 @@ public class Main {
         atm.serviceLoop();
     }
 
+
+
     // convenience methods for dev environment to clear the DBs - only called from the IDE manually
-    public static void clearUserDB() {
+    private static void clearUserDB() {
         DB userDB = null;
         try {
             userDB = new DB("users.csv", 5);
@@ -19,7 +21,7 @@ public class Main {
         userDB.clear();
     }
 
-    public static void clearAccountDB() {
+    private static void clearAccountDB() {
         DB accountDB = null;
         try {
             accountDB = new DB("accounts.csv", 5);
@@ -29,7 +31,7 @@ public class Main {
         accountDB.clear();
     }
 
-    public static void clearTransactionDB() {
+    private static void clearTransactionDB() {
         DB transactionDB = null;
         try {
             transactionDB = new DB("transactions.csv", 5);
