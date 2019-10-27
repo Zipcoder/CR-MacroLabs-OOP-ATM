@@ -8,9 +8,8 @@ public class Savings extends Account{
     }
 
 
-    public Double calcInterestReturned(){
+    public void  calcInterestReturned(){
         balance += (interestRate * balance);
-        return getBalance();
     }
 
 

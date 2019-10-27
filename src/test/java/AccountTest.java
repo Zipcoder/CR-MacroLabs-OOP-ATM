@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -62,5 +63,43 @@ public class AccountTest {
 
     @Test
     public void getAcctHist() {
+    }
+
+    @Test
+    public void getOwnerID() {
+        // Given
+        Account account = new Checking(0.0, 3,3);
+        Integer expected = 3;
+
+
+        // Then
+        Integer actual = account.getOwnerID();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getAcctNum() {
+        // Given
+        Account account = new Checking(0.0, 3,3);
+        Integer expected = 3;
+
+
+        // Then
+        Integer actual = account.getAcctNum();
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    public void calcInterestReturned() {
+        // Given
+        Savings account = new Savings(80000.0, 3,3, 0.002);
+        Double expected = 80160.0;
+
+        account.calcInterestReturned();
+
+        // Then
+        Double actual = account.getBalance();
+        assertEquals(expected, actual);
     }
 }

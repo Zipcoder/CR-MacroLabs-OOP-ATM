@@ -31,14 +31,6 @@ abstract public class Account implements Storeable {
 
     }
 
-    public void transferWithin(){
-
-    }
-
-    public void transferToAnother(){
-
-    }
-
     public void getAcctHist(){
 
     }
