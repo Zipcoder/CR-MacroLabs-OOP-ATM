@@ -4,8 +4,9 @@ import java.util.ArrayList;
 public class ATM {
 
     private User currentUser;
-    private DB userDB;              // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
-    private DB transactionDB;      // 0: credit/debit 1: accountID 2: amount (signed) 3: timeStamp 4: description
+
+    private DB userDB;          // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
+    private DB transactionDB;   // 0: credit/debit 1: accountID 2: amount (signed) 3: timeStamp 4: description
     private DB accountDB;       // 0: accountID 1: ownerID 2: balance 3: type 4: risk/interest/null (type-dependent)
 
     public ATM(String userDBName, String accountDBName, String transactionDBName) {
@@ -73,16 +74,21 @@ public class ATM {
 
         // find user in DB
 
+        String[] userInfo = this.getUserInfoByCardNum(Integer.parseInt(cardNum));
+
         // check PW
         Console.println("Enter Password");
         String password = Console.getInput();
-
-        // instantiate user
-
+        if(password.equals(userInfo[4])) {
+            // instantiate user
+        }
     }
 
     // add new user - called by getUser()
     public User newUser() {
+
+        
+
         return null;
     }
 
@@ -142,11 +148,22 @@ public class ATM {
     }
 
     public void serviceLoop() {
-
         // authenticate a user (or die trying)
         // only returns null if the magic secret exit code is called
-        getUser();
-        if (this.currentUser == null) { return; }
+
+        //Login or new user?
+        Console.println("(1) login\n(2) Create Account");
+        String input = Console.getInput();
+        if(input.equals("1")) { //Try login
+            getUser();
+            if (this.currentUser == null) {
+                return;
+            }
+        } else if (input.equals("2")) { //Create User
+            this.newUser();
+        } else {
+            //error
+        }
 
         loadDBs();
 
