@@ -33,9 +33,7 @@ public class User implements Storeable {
             } else {
                 num = (int)(Math.random() * 10);
             }
-
             numString += num.toString();
-            System .out.print(num + ", ");
         }
         return Integer.parseInt(numString);
     }
