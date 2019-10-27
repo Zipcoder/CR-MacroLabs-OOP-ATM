@@ -384,7 +384,6 @@ public class ATMTest {
         expected = user1.toStringArray();
 
         Assert.assertNotEquals(actual,expected);
-
     }
 
     @Test
@@ -409,7 +408,48 @@ public class ATMTest {
     }
 
     @Test
-    public void getUserInfoByCardNum() {
+    public void saveAccountToDBTest() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        atm.saveAccountToDB(account1);
+        Account account2 = new Savings(120.43,12,749, 0.01);
+        atm.saveAccountToDB(account2);
+        Account account3 = new Investment(234023.23,42,48, 0.06);
+        atm.saveAccountToDB(account3);
+        Account account4 = new Checking(1532.34,42,5423);
+        atm.saveAccountToDB(account4);
+
+
+        String[] actual = atm.getAccountInfoByID(48);
+        String[] expected = account3.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+
+        actual = atm.getAccountInfoByID(1232123);
+        expected = account1.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+
+        int actual2 = accountDB.length();
+        int expected2 = 4;
+
+        Assert.assertEquals(actual,expected);
+
+        Account account10 = new Savings(9990.43,12,749, 0.01);
+        atm.saveAccountToDB(account10);
+
+        actual2 = accountDB.length();
+        expected2 = 4;
+
+        Assert.assertEquals(actual,expected);
+
+        actual = atm.getAccountInfoByID(749);
+        expected = account10.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+
     }
 
     @Test
@@ -418,10 +458,6 @@ public class ATMTest {
 
     @Test
     public void newUser() {
-    }
-
-    @Test
-    public void getAccountInfoByUser() {
     }
 
     @Test
