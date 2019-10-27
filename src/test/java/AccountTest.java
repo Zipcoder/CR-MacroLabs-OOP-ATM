@@ -46,6 +46,24 @@ public class AccountTest {
         assertEquals(expected, actual);
     }
     @Test
+    public void withdraw_Overdraft_test() {
+        // Given
+        Account account = new Checking(0.0, 3,3);
+        Account account2 = new Checking(40.0, 2,2);
+        Double expected = 0.0;
+
+        //When
+        if (account.getBalance() > 40.0){
+            account.withdraw(40.0);
+            account2.deposit(40.0);
+        }else {
+            System.out.println("Not enough funds");
+        }
+        // Then
+        Double actual = account2.getBalance();
+        assertEquals(account2.getBalance(), account.getBalance());
+    }
+    @Test
     public void risk_test() {
         Investment account = new Investment(8000.0, 3,3, .09);
 

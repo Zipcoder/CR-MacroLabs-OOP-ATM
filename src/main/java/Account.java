@@ -27,8 +27,9 @@ abstract public class Account implements Storeable {
     }
 
     public void withdraw(Double amount){
-        balance -= amount;
-
+        if (balance > amount) {
+            balance -= amount;
+        }
     }
 
     public void getAcctHist(){
