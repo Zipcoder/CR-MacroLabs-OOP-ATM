@@ -129,7 +129,7 @@ public class ATM {
     }
 
     // AL of accounts for a user
-    public ArrayList<Account> getAccountsforUser (User user) {
+    public ArrayList<Account> getAccountsForUser(User user) {
         int[] rows = getAccountRowsByUser(user);
         ArrayList<Account> accounts = new ArrayList<>();
         for (int row : rows) {
@@ -151,6 +151,18 @@ public class ATM {
 
     public int getUserCount() {
         return this.userDB.length();
+    }
+
+    public int getMaxUserNumber() {
+        ArrayList<String[]> userInfo = new ArrayList<>();
+        userInfo = this.userDB.readAllRows();
+        int maxID = 0;
+        for (String[] user : userInfo) {
+            if (Integer.parseInt(user[0]) > maxID) {
+                maxID = Integer.parseInt(user[0]);
+            }
+        }
+        return maxID;
     }
 
     // deal with the user's choices
@@ -227,10 +239,6 @@ public class ATM {
         } else { // update a found row
             this.accountDB.replaceRow(rowNum, stringRepOfAccount);
         }
-    }
-
-    private int getAccountRowbyID(int accountNum) {
-        return 0;
     }
 
     public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
