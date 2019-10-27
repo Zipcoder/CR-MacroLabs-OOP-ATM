@@ -23,47 +23,46 @@ public class ATM {
     public User getCurrentUser() {
         return this.currentUser;
     }
-
     public DB getUserDB() {
         return this.userDB;
     }
-
     public DB getTransactionDB() {
         return this.transactionDB;
     }
-
     public DB getAccountDB() {
         return this.accountDB;
     }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
-//    public User authenticate(int cardNumber, String password) {
-//
-//        return new User();
-//    }
 
-    public void logOut (User currentUser) {
-
+    // load database info from disk
+    public void loadDBs() {
+//        // find accounts, create instances
+//        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
+//        ArrayList<Account> accounts = new ArrayList<>();
+//        for (String[] acctInfo : accountsInfo) {
+//            accounts.add(new Account(...));
+//        }
+//        //
     }
 
-    // log in user - don't return until you do
-    public void getUser() {
+
+    public void authenticate() {
         //Read User's card
         Console.println("Card Number:");
         String cardNum = Console.getInput();
 
         // find user in DB
-
         String[] userInfo = this.getUserInfoByCardNum(Integer.parseInt(cardNum));
 
         // check PW
         Console.println("Enter Password");
         String password = Console.getInput();
         if(password.equals(userInfo[4])) {
-            // instantiate user
+            // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
+            currentUser = new User(userInfo[2], userInfo[1], userInfo[4], Integer.parseInt(userInfo[0]), Integer.parseInt(userInfo[3]));
         }
     }
 
@@ -92,24 +91,117 @@ public class ATM {
         return newUser;
     }
 
-
-
-    // load database info from disk
-    public void loadDBs() {
-//        // find accounts, create instances
-//        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
-//        ArrayList<Account> accounts = new ArrayList<>();
-//        for (String[] acctInfo : accountsInfo) {
-//            accounts.add(new Account(...));
-//        }
-//        //
+    // log in user - don't return until you do
+    public void getUser() {
+        Console.println("(1) login\n(2) Create Account");
+        String input = Console.getInput();
+        if(input.equals("1")) { //Try login
+            this.authenticate();
+            if (this.currentUser == null) {
+                return;
+            }
+        } else if (input.equals("2")) { //Create User
+            this.newUser();
+        } else {
+            //error
+        }
     }
-
-
 
     // deal with the user's choices
     public void userMenu() {
+        ArrayList<Account> usrAccts = getAccountsForUser(currentUser);
+        boolean loggedIn = true;
+        while (loggedIn) {
+            Console.println("(1) Logout");
+            Console.println("(2) Transaction History");
+            Console.println("(3) Add Account");
 
+            for (int i = 0; i < usrAccts.size(); i++) {
+                Console.println("(" + (4 + i) + ") " + usrAccts.get(i).getClass().getName() + " " + usrAccts.get(i).acctNum);
+            }
+
+            Integer input = Console.getInteger();
+
+            switch (input) {
+                case 1:
+                    loggedIn = false;
+                    break;
+                case 2:
+                    //print transaction hist
+                    break;
+                case 3:
+                    addAccount(usrAccts);
+                    break;
+                default:
+                    accountMenu(usrAccts.get(input - 4));
+                    break;
+            }
+        }
+
+    }
+
+    public void addAccount(ArrayList<Account> usrAccounts) {
+        boolean choosingActType = true;
+        while (choosingActType) {
+            Console.println("Type of Account:");
+            Console.println("(1) Checking");
+            Console.println("(2) Savings");
+            Console.println("(3) Investment");
+            String input = Console.getInput();
+
+            choosingActType = false;
+            switch (input) {
+                case "1":
+                    usrAccounts.add(new Checking(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
+                    break;
+                case "2":
+                    //usrAccounts.add(new Savings(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
+                    break;
+                case "3":
+                    //usrAccounts.add(new Investment(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
+                    break;
+                default:
+                    Console.println("Enter Valid Input");
+                    choosingActType = true;
+                    break;
+            }
+        }
+
+    }
+
+    public void accountMenu(Account account) {
+        boolean inAccountMenu = true;
+        while (inAccountMenu) {
+            Console.println("(1) View transaction History");
+            Console.println("(2) Deposit");
+            Console.println("(3) Withdraw");
+            Console.println("(4) Close");
+            Console.println("(5) Back To Main Menu");
+
+            String input = Console.getInput();
+
+            switch (input) {
+                case "5":
+                    inAccountMenu = false;
+                    break;
+            }
+        }
+    }
+
+
+    public void serviceLoop() {
+        // authenticate a user (or die trying)
+        // only returns null if the magic secret exit code is called
+
+        getUser();
+
+        loadDBs();
+
+        userMenu();
+
+        logOut();
+
+        serviceLoop();
     }
 
     // log out user
@@ -134,43 +226,15 @@ public class ATM {
 //        }
     }
 
-    public void serviceLoop() {
-        // authenticate a user (or die trying)
-        // only returns null if the magic secret exit code is called
 
-        //Login or new user?
-        Console.println("(1) login\n(2) Create Account");
-        String input = Console.getInput();
-        if(input.equals("1")) { //Try login
-            getUser();
-            if (this.currentUser == null) {
-                return;
-            }
-        } else if (input.equals("2")) { //Create User
-            this.newUser();
-        } else {
-            //error
-        }
-
-        loadDBs();
-
-        userMenu();
-
-        logOut();
-
-        serviceLoop();
-    }
-
-    /*
+    /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     * DB interaction methods for the ATM
     *
     * We should create a storage class or generic methods in the DB class or something in the interface, but...
-     */
-
+     */ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public int getUserCount() {
         return this.userDB.length();
     }
-
     
     //find accounts by owner id (to then be used by constructor)
     public int[] getAccountRowsByUser (User user) {
@@ -286,4 +350,8 @@ public class ATM {
             this.transactionDB.addRow(transaction.toStringArray());
         }
     }
+    /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     * End DB interaction methods for the ATM
+     */ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }

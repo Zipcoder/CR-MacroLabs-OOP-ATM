@@ -20,10 +20,6 @@ public class User implements Storeable {
         this.accounts = null;
     }
 
-    public User(Integer userId, String password, DB data) {
-
-    }
-
     public static Integer genCardNum() {
         String numString = "";
         for (int i = 0; i < 8; i++) {
