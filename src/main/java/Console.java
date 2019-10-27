@@ -9,6 +9,7 @@ public class Console {
     private Scanner input = new Scanner(System.in);
 
     private ArrayList<User> userDataBase = new ArrayList<User>();
+    private AccountActions account = new AccountActions(userDataBase);
 
     private Boolean power = true;
     private Boolean loginScreen = true;
@@ -47,7 +48,7 @@ public class Console {
 
                                         break;
                                     case 2 :
-
+                                        account.withdraw(currentUser);
                                         break;
                                     case 3 :
 
@@ -71,9 +72,6 @@ public class Console {
                                         break;
                                     default:
                                         System.out.println("\nNot an option, try again\n");
-
-
-
                                 }
                             }
                         }
@@ -87,14 +85,13 @@ public class Console {
                     break;
                 default:
                     System.out.println("\nNot an option, try again\n");
-
             }
         }
     }
     //////////////////////STARTER SCREEN ////////////
     ///////////////////////////////////////////////
 
-    public int loginPrompt(){
+    private int loginPrompt(){
         int result = 0;
         String choice = "";
 
@@ -121,7 +118,7 @@ public class Console {
     }
     //////////////////////LOGIN MENU  options 1 ////////////
     ///////////////////////////////////////////////
-    public boolean login(){
+    private boolean login(){
         String userID;
         String userPassword;
         do {
@@ -173,7 +170,7 @@ public class Console {
     /////////////////CREATE ACCOUNT options 2//////////
     //////////////////////////////////////////
 
-    public User accountCreation(){
+     private User accountCreation(){
         String first_name;
         String last_name;
         String user_ID;

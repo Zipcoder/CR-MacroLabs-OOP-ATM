@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Account {
 
     private String firstName;
@@ -5,6 +8,10 @@ public class Account {
     private Double checkingBalance;
     private Double savingBalance;
     private Double investBalance;
+    private String transaction;
+
+
+    private Scanner scanner = new Scanner(System.in);
 
     ///CONSTRUCTOR///
     public Account(String firstName, String lastName){
@@ -14,6 +21,8 @@ public class Account {
         this.checkingBalance = 0.0;
         this.savingBalance = 0.0;
         this.investBalance = 0.0;
+        this.transaction = "";
+
     }
 
     public String getFirstName() {
@@ -48,9 +57,7 @@ public class Account {
         this.checkingBalance += amount;
     }
     public void withdrawChecking(double amount){
-//        if(checkingBalance < amount){
-//            System.out.println("Sorry not enough funds in your checking account");
-//        }
+
         this.checkingBalance -= amount;
     }
     public void depositSaving(double amount){
@@ -64,6 +71,9 @@ public class Account {
     }
     public void withdrawSaving(double amount){
         this.investBalance -= amount;
+    }
+    public void setTransaction(String history){
+        this.transaction += history;
     }
 
 
