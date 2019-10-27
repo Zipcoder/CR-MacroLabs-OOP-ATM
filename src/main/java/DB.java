@@ -313,7 +313,7 @@ public class DB {
                 }
                 return result;
             } else {
-                return null;
+                return new int[0];
             }
         } else {
             return null;

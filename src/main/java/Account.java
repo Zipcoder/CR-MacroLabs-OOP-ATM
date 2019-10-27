@@ -40,5 +40,9 @@ abstract public class Account implements Storeable {
     public void getAcctHist(){
 
     }
+
+    public Boolean equals(Account account) {
+        return DB.serialize(this.toStringArray()).equals(DB.serialize(account.toStringArray()));
+    }
 }
 

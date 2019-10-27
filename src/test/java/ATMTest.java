@@ -101,6 +101,29 @@ public class ATMTest {
     }
 
     @Test
+    public void getUserInfoByCardNumTest() {
+        DB userDB = atm.getUserDB();
+        userDB.clear();
+
+        User user1 = new User("Jim","Brown","goolybib", 12, 12343);
+        userDB.addRow(user1.toStringArray());
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 122, 1234313);
+        userDB.addRow(user2.toStringArray());
+        User user3 = new User("Jane","Himne","gasdsdool321ybib", 32, 313);
+        userDB.addRow(user3.toStringArray());
+
+        String[] actual = atm.getUserInfoByCardNum(1234313);
+        String[] expected = user2.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+
+        actual = atm.getUserInfoByCardNum(313);
+        expected = user3.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
     public void getUserRowByID() {
         DB userDB = atm.getUserDB();
         userDB.clear();
@@ -126,6 +149,148 @@ public class ATMTest {
         expected = 2;
 
         Assert.assertEquals(actual,expected);
+
+        actual = atm.getUserRowByID(323232);
+        expected = -1;
+
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
+    public void getAccountInfoByID() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        accountDB.addRow(account1.toStringArray());
+        Account account2 = new Savings(120.43,12,333223, 0.01);
+        accountDB.addRow(account2.toStringArray());
+        Account account3 = new Investment(234023.23,42,9948, 0.06);
+        accountDB.addRow(account3.toStringArray());
+
+        String[] actual = atm.getAccountInfoByID(333223);
+        String[] expected = account2.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
+    public void getAccountRowByID() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        accountDB.addRow(account1.toStringArray());
+        Account account2 = new Savings(120.43,12,333223, 0.01);
+        accountDB.addRow(account2.toStringArray());
+        Account account3 = new Investment(234023.23,42,9948, 0.06);
+        accountDB.addRow(account3.toStringArray());
+
+        int actual = atm.getAccountRowByID(333223);
+        int expected = 1;
+
+        Assert.assertEquals(expected, actual);
+
+        actual = atm.getAccountRowByID(1232123);
+        expected = 0;
+
+        Assert.assertEquals(expected, actual);
+
+        actual = atm.getAccountRowByID(9948);
+        expected = 2;
+
+        Assert.assertEquals(expected, actual);
+
+        actual = atm.getAccountRowByID(99323248);
+        expected = -1;
+
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getAccountIDsByUserTest() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        DB userDB = atm.getUserDB();
+        userDB.clear();
+
+        User user1 = new User("Jim","Brown","goolybib", 98, 12343);
+        userDB.addRow(user1.toStringArray());
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 42, 1234313);
+        userDB.addRow(user2.toStringArray());
+        User user3 = new User("Jane","Himne","gasdsdool321ybib", 33, 313);
+        userDB.addRow(user3.toStringArray());
+
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        accountDB.addRow(account1.toStringArray());
+        Account account2 = new Savings(120.43,12,33, 0.01);
+        accountDB.addRow(account2.toStringArray());
+        Account account3 = new Investment(234023.23,42,48, 0.06);
+        accountDB.addRow(account3.toStringArray());
+        Account account4 = new Checking(1532.34,42,5423);
+        accountDB.addRow(account4.toStringArray());
+        Account account5 = new Savings(120.43,98,333223, 0.01);
+        accountDB.addRow(account5.toStringArray());
+        Account account6 = new Investment(234023.23,42,9948, 0.06);
+        accountDB.addRow(account6.toStringArray());
+        Account account7 = new Checking(1532.34,23,515);
+        accountDB.addRow(account7.toStringArray());
+        Account account8 = new Savings(120.43,12,749, 0.01);
+        accountDB.addRow(account8.toStringArray());
+        Account account9 = new Investment(234023.23,42,904, 0.06);
+        accountDB.addRow(account9.toStringArray());
+
+        int[] rows = atm.getAccountRowsByUser(user1);
+        String [] accountInfo;
+        int[] accts = {333223};
+        for (int i = 0; i < rows.length; i++) {
+            accountInfo =  atm.getAccountInfoByRow(rows[i]);
+            Assert.assertEquals("user1", (int)user1.getUserID(), (int) Integer.parseInt(accountInfo[1]));
+            Assert.assertEquals("user1", (int)accts[i], (int) Integer.parseInt(accountInfo[0]));
+        }
+
+        int[] rows2 = atm.getAccountRowsByUser(user2);
+        String [] accountInfo2;
+        int[] accts2 = {48,5423,9948,904};
+        for (int i = 0; i < rows2.length; i++) {
+            accountInfo2 =  atm.getAccountInfoByRow(rows2[i]);
+            Assert.assertEquals("user2", (int)user2.getUserID(), (int) Integer.parseInt(accountInfo2[1]));
+            Assert.assertEquals("user2", (int)accts2[i], (int) Integer.parseInt(accountInfo2[0]));
+        }
+
+        int[] rows3 = atm.getAccountRowsByUser(user3);
+        String [] accountInfo3;
+        int[] accts3 = {};
+        for (int i = 0; i < rows3.length; i++) {
+            accountInfo3 =  atm.getAccountInfoByRow(rows3[i]);
+            Assert.assertEquals("user3", (int)user3.getUserID(), (int) Integer.parseInt(accountInfo3[1]));
+            Assert.assertEquals("user3", (int)accts3[i], (int) Integer.parseInt(accountInfo3[0]));
+        }
+    }
+
+    @Test
+    public void getAccountByInfoTest() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        accountDB.addRow(account1.toStringArray());
+        Account account2 = new Savings(120.43,12,33, 0.01);
+        accountDB.addRow(account2.toStringArray());
+        Account account3 = new Investment(234023.23,42,48, 0.06);
+        accountDB.addRow(account3.toStringArray());
+        Account account4 = new Checking(1532.34,42,5423);
+        accountDB.addRow(account4.toStringArray());
+        Account account5 = new Savings(120.43,98,333223, 0.01);
+        accountDB.addRow(account5.toStringArray());
+
+        Assert.assertTrue("acct1", account1.equals(atm.getAccountByInfo(account1.toStringArray())));
+        Assert.assertTrue("acct2", account2.equals(atm.getAccountByInfo(account2.toStringArray())));
+        Assert.assertTrue("acct5", account5.equals(atm.getAccountByInfo(account5.toStringArray())));
+        Assert.assertEquals(null, atm.getAccountByInfo(new String[] {"","","","",""}));
+
     }
 
     @Test
