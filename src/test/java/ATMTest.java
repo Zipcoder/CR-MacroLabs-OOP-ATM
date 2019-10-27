@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
@@ -291,6 +292,53 @@ public class ATMTest {
         Assert.assertTrue("acct5", account5.equals(atm.getAccountByInfo(account5.toStringArray())));
         Assert.assertEquals(null, atm.getAccountByInfo(new String[] {"","","","",""}));
 
+    }
+
+    @Test
+    public void getAccountsForUserTest() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        DB userDB = atm.getUserDB();
+        userDB.clear();
+
+        User user1 = new User("Jim","Brown","goolybib", 98, 12343);
+        userDB.addRow(user1.toStringArray());
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 42, 1234313);
+        userDB.addRow(user2.toStringArray());
+        User user3 = new User("Jane","Himne","gasdsdool321ybib", 33, 313);
+        userDB.addRow(user3.toStringArray());
+
+
+        Account account1 = new Checking(1532.34,23,1232123);
+        accountDB.addRow(account1.toStringArray());
+        Account account2 = new Savings(120.43,12,33, 0.01);
+        accountDB.addRow(account2.toStringArray());
+        Account account3 = new Investment(234023.23,42,48, 0.06);
+        accountDB.addRow(account3.toStringArray());
+        Account account4 = new Checking(1532.34,42,5423);
+        accountDB.addRow(account4.toStringArray());
+        Account account5 = new Savings(120.43,98,333223, 0.01);
+        accountDB.addRow(account5.toStringArray());
+        Account account6 = new Investment(234023.23,42,9948, 0.06);
+        accountDB.addRow(account6.toStringArray());
+        Account account7 = new Checking(1532.34,23,515);
+        accountDB.addRow(account7.toStringArray());
+        Account account8 = new Savings(120.43,12,749, 0.01);
+        accountDB.addRow(account8.toStringArray());
+        Account account9 = new Investment(234023.23,42,904, 0.06);
+        accountDB.addRow(account9.toStringArray());
+
+        ArrayList<Account> actual = atm.getAccountsforUser(user1);
+
+        Assert.assertEquals("user1", (int) 1, (int) actual.size());
+        Assert.assertTrue("user1.1", Arrays.equals(account5.toStringArray(),actual.get(0).toStringArray()));
+
+        actual = atm.getAccountsforUser(user2);
+
+        Assert.assertEquals("user2", (int) 4, (int) actual.size());
+        Assert.assertTrue("user2.1", Arrays.equals(account6.toStringArray(),actual.get(2).toStringArray()));
+        Assert.assertTrue("user2.3", Arrays.equals(account3.toStringArray(),actual.get(0).toStringArray()));
     }
 
     @Test

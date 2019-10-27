@@ -128,6 +128,16 @@ public class ATM {
         return null;
     }
 
+    // AL of accounts for a user
+    public ArrayList<Account> getAccountsforUser (User user) {
+        int[] rows = getAccountRowsByUser(user);
+        ArrayList<Account> accounts = new ArrayList<>();
+        for (int row : rows) {
+            accounts.add(getAccountByInfo(getAccountInfoByRow(row)));
+        }
+        return accounts;
+    }
+
     // load database info from disk
     public void loadDBs() {
 //        // find accounts, create instances
