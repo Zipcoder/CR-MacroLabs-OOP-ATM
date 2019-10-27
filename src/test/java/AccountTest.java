@@ -47,17 +47,19 @@ public class AccountTest {
     }
     @Test
     public void risk_test() {
-        // Given
         Investment account = new Investment(8000.0, 3,3, .09);
 
+        Double actual;
 
-        //When
-        account.calcReturn();
-        Double expected = account.getBalance();
+        for (int i = 0; i < 1000; i++) {
+            actual = account.calcReturn();
+            Double minExpected = account.getBalance() - .8 * account.getRisk() * account.getBalance();
+            assertTrue(minExpected <= actual);
 
-        // Then
-        Double actual = account.getBalance();
-        assertEquals(expected, actual);
+            actual = account.calcReturn();
+            Double maxExpected = account.getBalance() + 1.2 * account.getRisk() * account.getBalance();
+            assertTrue(maxExpected >= actual);
+        }
     }
 
 

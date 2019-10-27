@@ -22,9 +22,10 @@ public class Investment extends Account implements Storeable {
     public Double calcReturn(){
 
 
-        Double multiplier = risk * (Math.random()/.99999);
+        Double multiplier = risk * (2 * Math.random() - .8);
 
         balance += Math.round((multiplier * balance)*100d)/100d;
+
         return getBalance();
     }
 
