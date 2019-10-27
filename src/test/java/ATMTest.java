@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Arrays;
 
-import static org.junit.Assert.*;
-
 @RunWith(JUnitParamsRunner.class)
 public class ATMTest {
 
@@ -97,6 +95,92 @@ public class ATMTest {
 
         String[] actual = atm.getUserInfoByID(122);
         String[] expected = user2.toStringArray();
+
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
+    public void getMaxUserNumberTest() {
+        DB userDB = atm.getUserDB();
+        userDB.clear();
+
+        int actual = atm.getMaxUserNumber();
+        int expected = 0;
+
+        Assert.assertEquals(actual,expected);
+
+        User user1 = new User("Jim","Brown","goolybib", 12, 12343);
+        atm.saveUserToDB(user1);
+        User user2 = new User("Ji123m","Bro23wn","gool321ybib", 122, 1234313);
+        atm.saveUserToDB(user2);
+        User user3 = new User("Jane","Himne","gasdsdool321ybib", 32, 313);
+        atm.saveUserToDB(user3);
+
+        actual = atm.getMaxUserNumber();
+        expected = 122;
+
+        Assert.assertEquals(actual,expected);
+
+        User user4 = new User("Jane","Himne","gasdsdool321ybib", 29, 313);
+        atm.saveUserToDB(user4);
+
+        actual = atm.getMaxUserNumber();
+        expected = 122;
+
+        Assert.assertEquals(actual,expected);
+
+        User user5 = new User("Jane","Himne","gasdsdool321ybib", 199, 313);
+        atm.saveUserToDB(user5);
+
+        actual = atm.getMaxUserNumber();
+        expected = 199;
+
+        Assert.assertEquals(actual,expected);
+    }
+
+    @Test
+    public void getMaxAccountNumberTest() {
+        DB accountDB = atm.getAccountDB();
+        accountDB.clear();
+
+        int actual = atm.getMaxAccountNumber();
+        int expected = 0;
+
+        Assert.assertEquals(actual,expected);
+
+        Account account1 = new Checking(1532.34,23,2123);
+        atm.saveAccountToDB(account1);
+
+        actual = atm.getMaxAccountNumber();
+        expected = 2123;
+
+        Assert.assertEquals(actual,expected);
+
+        Account account2 = new Savings(120.43,12,33, 0.01);
+        atm.saveAccountToDB(account2);
+
+        actual = atm.getMaxAccountNumber();
+        expected = 2123;
+
+        Assert.assertEquals(actual,expected);
+
+        Account account3 = new Investment(234023.23,42,48, 0.06);
+        atm.saveAccountToDB(account3);
+        Account account4 = new Checking(1532.34,42,5423);
+        atm.saveAccountToDB(account4);
+        Account account5 = new Savings(120.43,98,333223, 0.01);
+        atm.saveAccountToDB(account5);
+        Account account6 = new Investment(234023.23,42,9948, 0.06);
+        atm.saveAccountToDB(account6);
+        Account account7 = new Checking(1532.34,23,515);
+        atm.saveAccountToDB(account7);
+        Account account8 = new Savings(120.43,12,749, 0.01);
+        atm.saveAccountToDB(account8);
+        Account account9 = new Investment(234023.23,42,904, 0.06);
+        atm.saveAccountToDB(account9);
+
+        actual = atm.getMaxAccountNumber();
+        expected = 333223;
 
         Assert.assertEquals(actual,expected);
     }
@@ -329,12 +413,12 @@ public class ATMTest {
         Account account9 = new Investment(234023.23,42,904, 0.06);
         accountDB.addRow(account9.toStringArray());
 
-        ArrayList<Account> actual = atm.getAccountsforUser(user1);
+        ArrayList<Account> actual = atm.getAccountsForUser(user1);
 
         Assert.assertEquals("user1", (int) 1, (int) actual.size());
         Assert.assertTrue("user1.1", Arrays.equals(account5.toStringArray(),actual.get(0).toStringArray()));
 
-        actual = atm.getAccountsforUser(user2);
+        actual = atm.getAccountsForUser(user2);
 
         Assert.assertEquals("user2", (int) 4, (int) actual.size());
         Assert.assertTrue("user2.1", Arrays.equals(account6.toStringArray(),actual.get(2).toStringArray()));
