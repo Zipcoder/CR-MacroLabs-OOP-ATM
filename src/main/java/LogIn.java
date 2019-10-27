@@ -2,25 +2,19 @@
 
 public class LogIn {
 
-    public boolean checkUsername(String username){
+    Integer indexOfUsername;
+
+    public boolean checkUserAndPass(String username, String password){
         Account newAcc = new Account();
+        this.indexOfUsername = newAcc.getUsername(username);
 
-            if(newAcc.getUsername(username) == 0)
-                return true;
+            if (indexOfUsername != -1){
+                return newAcc.getPassword(password, indexOfUsername);
+            }
 
-                return false;
+        return false;
     }
 
-
-    public boolean checkPassword(String password){
-        Account newAcc = new Account();
-
-            if(newAcc.getPassword(password) == 0)
-                return true;
-
-                return false;
-
-    }
 
 }
 
