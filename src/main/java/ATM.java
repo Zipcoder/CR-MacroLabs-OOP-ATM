@@ -229,6 +229,10 @@ public class ATM {
         }
     }
 
+    private int getAccountRowbyID(int accountNum) {
+        return 0;
+    }
+
     public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
         for (Transaction transaction : pendingTransactions) {
             this.transactionDB.addRow(transaction.toStringArray());

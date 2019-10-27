@@ -22,18 +22,12 @@ abstract public class Account implements Storeable {
     }
 
     public void deposit(Double amount){
+        balance += amount;
 
     }
 
     public void withdraw(Double amount){
-
-    }
-
-    public void transferWithin(){
-
-    }
-
-    public void transferToAnother(){
+        balance -= amount;
 
     }
 
