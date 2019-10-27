@@ -87,6 +87,13 @@ public class ATM {
     // add new user - called by getUser()
     public User newUser() {
 
+        Console.println("Enter first your Name");
+        String firstName = Console.getInput();
+
+        Console.println("Enter last your Name");
+        String lastName = Console.getInput();
+
+        //User newUser = new User();
         
 
         return null;
