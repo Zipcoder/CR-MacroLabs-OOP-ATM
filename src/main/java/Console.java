@@ -60,7 +60,7 @@ public class Console {
 
         println(output);
 
-        return Console.getInput();
+        return Integer.toString(Console.getInteger(numOptions));
 
     }
 
@@ -89,7 +89,7 @@ public class Console {
 
         println(output);
 
-        return Console.getInput();
+        return Integer.toString(Console.getInteger(numOptions));
 
     }
 
@@ -117,6 +117,25 @@ public class Console {
         String input = getInput();
         while (true) {
             if (integerCheck(input)) break;
+            else {
+                println("Enter a number");
+                input = getInput();
+            }
+        }
+        return Integer.valueOf(input);
+    }
+
+    public static Integer getInteger(int max) {
+        String input = getInput();
+        while (true) {
+            if (integerCheck(input)) {
+                if (Integer.parseInt(input) >= 1 && Integer.parseInt(input) <= max) {
+                    break;
+                } else {
+                    println("Enter a number between 1 and " + Integer.toString(max));
+                    input = getInput();
+                }
+            }
             else {
                 println("Enter a number");
                 input = getInput();
