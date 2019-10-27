@@ -45,21 +45,32 @@ public class ATM {
 //        return new User();
 //    }
 
+    //find user row by id
+    public Integer getUserRowByID (Integer ID) {
+        return this.userDB.findPartialRow(new String[]{ID.toString()}, new int[]{0});
+    }
+
     //find user info by id (helper for constructor)
     public String [] getUserInfoByID (Integer ID) {
         int rowNumOfUser = this.userDB.findPartialRow(new String[] {ID.toString()}, new int[] {0});
         return this.userDB.readRow(rowNumOfUser);
     }
 
-    //find user row by id
-    public Integer getUserRowByID (Integer ID) {
-        return this.userDB.findPartialRow(new String[]{ID.toString()}, new int[]{0});
-    }
-
     //find user info by card number (helper for constructor)
     public String [] getUserInfoByCardNum (Integer cardNum) {
         int rowNumOfUser = this.userDB.findPartialRow(new String[] {cardNum.toString()}, new int[] {3});
         return this.userDB.readRow(rowNumOfUser);
+    }
+
+    //find account row by id
+    public Integer getAccountRowByID (Integer ID) {
+        return this.accountDB.findPartialRow(new String[]{ID.toString()}, new int[]{0});
+    }
+
+    //find account info by id (helper for constructor)
+    public String [] getAccountInfoByID (Integer ID) {
+        int rowNumOfAccount = this.accountDB.findPartialRow(new String[] {ID.toString()}, new int[] {0});
+        return this.accountDB.readRow(rowNumOfAccount);
     }
 
     public void logOut (User currentUser) {
@@ -100,17 +111,39 @@ public class ATM {
     }
 
     //find accounts by owner id (to then be used by constructor)
-//    public ArrayList<String[]> getAccountInfoByUser (User user) {
-//        int [] recordRowNums;
-//        recordRowNums = this.accountDB.findPartialRowMultiple(new String[] {user.ID.toString()}, new int[] {1});
-//
-//        ArrayList<String[]> accountsInfo = new ArrayList<>();
-//        for (int rowNum : recordRowNums) {
-//            accountsInfo.add(this.accountDB.readRow(rowNum));
-//        }
-//
-//        return accountsInfo;
-//    }
+    public int[] getAccountRowsByUser (User user) {
+        int [] recordRowNums;
+        recordRowNums = this.accountDB.findPartialRowMultiple(new String[] {user.getUserID().toString()}, new int[] {1});
+
+        return recordRowNums;
+    }
+
+    // get string representation of one account
+    public String[] getAccountInfoByRow (int rowNum) {
+        return this.accountDB.readRow(rowNum);
+    }
+
+    // account instance from info (pre-existing account)
+    public Account getAccountByInfo (String[] info) {
+        if (info[3].equals("Checking")) {
+            return new Checking(Double.parseDouble(info[2]), Integer.parseInt(info[1]), Integer.parseInt(info[0]));
+        } else if (info[3].equals("Savings")) {
+            return new Savings(Double.parseDouble(info[2]), Integer.parseInt(info[1]), Integer.parseInt(info[0]), Double.parseDouble(info[4]));
+        } else if (info[3].equals("Investment")) {
+            return new Investment(Double.parseDouble(info[2]), Integer.parseInt(info[1]), Integer.parseInt(info[0]), Double.parseDouble(info[4]));
+        }
+        return null;
+    }
+
+    // AL of accounts for a user
+    public ArrayList<Account> getAccountsforUser (User user) {
+        int[] rows = getAccountRowsByUser(user);
+        ArrayList<Account> accounts = new ArrayList<>();
+        for (int row : rows) {
+            accounts.add(getAccountByInfo(getAccountInfoByRow(row)));
+        }
+        return accounts;
+    }
 
     // load database info from disk
     public void loadDBs() {
@@ -183,7 +216,33 @@ public class ATM {
 
     public void saveUserToDB(User user) {
         String[] stringRepOfUser = user.toStringArray();
-        int rowNum = getUserRowByID(this.currentUser.getUserID());
-        this.userDB.replaceRow(rowNum, stringRepOfUser);
+        int userID = user.getUserID();
+        int rowNum = getUserRowByID(userID);
+        if (rowNum == -1) { // user isn't in DB yet
+            this.userDB.addRow(stringRepOfUser);
+        } else { // update a found row
+            this.userDB.replaceRow(rowNum, stringRepOfUser);
+        }
+    }
+
+    public void saveAccountToDB(Account account) {
+        String[] stringRepOfAccount = account.toStringArray();
+        int accountNum = account.getAcctNum();
+        int rowNum = getAccountRowByID(accountNum);
+        if (rowNum == -1) { // account isn't in DB yet
+            this.accountDB.addRow(stringRepOfAccount);
+        } else { // update a found row
+            this.accountDB.replaceRow(rowNum, stringRepOfAccount);
+        }
+    }
+
+    private int getAccountRowbyID(int accountNum) {
+        return 0;
+    }
+
+    public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
+        for (Transaction transaction : pendingTransactions) {
+            this.transactionDB.addRow(transaction.toStringArray());
+        }
     }
 }

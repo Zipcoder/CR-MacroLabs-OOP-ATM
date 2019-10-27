@@ -4,8 +4,12 @@ public class Savings extends Account{
 
     public Savings(Double balance, Integer ownerID, Integer acctNum, Double interestRate) {
         super(balance, ownerID, acctNum);
-
         this.interestRate = interestRate;
+    }
+
+
+    public void  calcInterestReturned(){
+        balance += (interestRate * balance);
     }
 
 
