@@ -49,10 +49,11 @@ public class AccountTest {
     public void risk_test() {
         // Given
         Investment account = new Investment(8000.0, 3,3, .09);
-        Double expected = .09;
+
 
         //When
         account.calcReturn();
+        Double expected = account.getBalance();
 
         // Then
         Double actual = account.getBalance();
@@ -100,6 +101,19 @@ public class AccountTest {
 
         // Then
         Double actual = account.getBalance();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setRisk() {
+        // Given
+        Investment account = new Investment(80000.0, 3,3, 0.09);
+        Double expected = 0.9;
+
+        account.setRisk(0.9);
+
+        // Then
+        Double actual = account.getRisk();
         assertEquals(expected, actual);
     }
 }
