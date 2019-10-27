@@ -1,3 +1,5 @@
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -45,9 +47,38 @@ public class Console {
         String[] rows = new String[numRows];
 
         for (int i = 0; i < numRows; i++){
-            rows[i] = Integer.toString(2*i+1) + " " + options[2*i] + "       ";
+            rows[i] = String.format("%d | %-30s", 2*i+1, options[2*i]);
             if (2*i + 1 < numRows) {
-                rows[i] += (options[2*i + 1] + " " + Integer.toString(2*(i+1)));
+                rows[i] += String.format("%30s | %d", options[2*i + 1], 2*(i+1));
+            }
+            rows[i] += "\n";
+        }
+
+        for (int i = numRows - 1; i >= 0; i--) {
+            output += rows[i];
+        }
+
+        println(output);
+
+        return Console.getInput();
+
+    }
+
+    public static String getInput(String header, String[] options) {
+
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+
+        int numOptions = options.length;
+        int numRows = (numOptions+1) >> 1; // this is how the cool kids divide by two
+        String output = StringUtils.center(header,66) + "\n\n";
+
+        String[] rows = new String[numRows];
+
+        for (int i = 0; i < numRows; i++){
+            rows[i] = String.format("%d | %-30s", 2*i+1, options[2*i]);
+            if (2*i + 1 < numOptions) {
+                rows[i] += String.format("%30s | %d", options[2*i + 1], 2*(i+1));
             }
             rows[i] += "\n";
         }
