@@ -1,6 +1,6 @@
 public class Account {
 
-    String accoutHolder[][] = new String [5][4];
+    String accoutHolder[][] = new String [4][10];
     private Double checkingBalance;
     private Double savingBalance;
     private Double investBalance;
@@ -10,36 +10,52 @@ public class Account {
 
         //Username and password of client that already exists
         accoutHolder[0][0] = "JaneDoe";
-        accoutHolder[0][1] = "p123";
+        accoutHolder[1][0] = "p123";
 
         //Username and password of client that already exists
-        accoutHolder[1][0] = "JohnS";
+        accoutHolder[0][1] = "JohnS";
         accoutHolder[1][1] = "MK67";
 
     }
 
-   public Integer getUsername(String username){
+    public Integer getUsername(String username){
 
         for (int index = 0; index < 5; index ++){
 
-            if ( username.equals(accoutHolder[index][0])){
-                return 0;
+            if ( username.equals(accoutHolder[0][index])){
+                return index;
             }
         }
 
-        return 1;
+        return -1;
     }
 
-    public Integer getPassword(String password){
+    public boolean getPassword(String password, Integer index){
 
-        for (int index = 0; index < 5; index ++){
-
-            if (password.equals(accoutHolder[index][1])){
-                return 0;
+            if (password.equals(accoutHolder[1][index])){
+                return true;
             }
+
+        return false;
+    }
+
+
+    public String setNewAccount(String username, String password){
+
+        for (int index = 0; index < 5; index++){
+
+            if (accoutHolder[0][index] == null){
+
+                accoutHolder[0][index] = username;
+                accoutHolder[1][index] = password;
+
+                return "Username: " + accoutHolder[0][index] + " and password: " + accoutHolder[1][index] +
+                        " was created.";
+            }
+
         }
 
-        return 1;
+        return "Can't create account";
     }
 
   /*  public void setFirstName() {

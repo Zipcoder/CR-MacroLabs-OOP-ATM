@@ -5,19 +5,19 @@ import org.junit.Test;
 
 public class LogInTest {
 
-    @Before
-    public void setUp() throws Exception {
-    }
+   // @Before
+  //  public void setUp() throws Exception {
+   // }
 
-    @After
-    public void tearDown() throws Exception {
-    }
+    //@After
+    //public void tearDown() throws Exception {
+    //}
 
-    @Test
+     @Test
     public void testCheckUsername() {
 
         LogIn newLogIn = new LogIn();
-        boolean actual = newLogIn.checkUsername("JaneDoe");
+        boolean actual = newLogIn.checkUserAndPass("JaneDoe", "p123");
 
         Assert.assertEquals(true, actual);
     }
@@ -26,7 +26,7 @@ public class LogInTest {
     public void testCheckUsername2() {
 
         LogIn newLogIn = new LogIn();
-        boolean actual = newLogIn.checkUsername("Mi");
+        boolean actual = newLogIn.checkUserAndPass("mi", "09");
 
         Assert.assertEquals(false, actual);
     }
@@ -34,7 +34,7 @@ public class LogInTest {
     @Test
     public void testCheckPassword(){
         LogIn newLogIn = new LogIn();
-        boolean actual = newLogIn.checkPassword("MK67");
+        boolean actual = newLogIn.checkUserAndPass("JohnS","MK67");
 
         Assert.assertEquals(true, actual);
     }
@@ -42,8 +42,16 @@ public class LogInTest {
     @Test
     public void testCheckPassword2(){
         LogIn newLogIn = new LogIn();
-        boolean actual = newLogIn.checkPassword("556");
+        boolean actual = newLogIn.checkUserAndPass("JaneDoe", "Lo");
 
         Assert.assertEquals(false, actual);
     }
+
+    @Test
+    public void testNewAccount(){
+        Account newAcc = new Account();
+        System.out.println(newAcc.setNewAccount("Milo", "9012"));
+        System.out.println(newAcc.getUsername("Milo"));
+    }
+
 }
