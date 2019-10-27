@@ -55,6 +55,11 @@ public class ATM {
         return this.userDB.readRow(rowNumOfUser);
     }
 
+    //find user row by id
+    public Integer getUserRowByID (Integer ID) {
+        return this.userDB.findPartialRow(new String[]{ID.toString()}, new int[]{0});
+    }
+
     //find user info by card number (helper for constructor)
     public String [] getUserInfoByCardNum (Integer cardNum) {
         int rowNumOfUser = this.userDB.findPartialRow(new String[] {cardNum.toString()}, new int[] {3});
@@ -65,10 +70,9 @@ public class ATM {
 
     }
 
-    // log in user
+    // log in user - don't return until you do
     public void getUser() {
         // find user in DB
-
 
         // check PW
 
@@ -103,6 +107,10 @@ public class ATM {
 //            accounts.add(new Account(...));
 //        }
 //        //
+    }
+
+    public int getUserCount() {
+        return this.userDB.length();
     }
 
     // deal with the user's choices
@@ -146,5 +154,33 @@ public class ATM {
         logOut();
 
         serviceLoop();
+    }
+
+    public void saveUserToDB(User user) {
+        String[] stringRepOfUser = user.toStringArray();
+        int userID = user.getUserID();
+        int rowNum = getUserRowByID(userID);
+        if (rowNum == -1) { // user isn't in DB yet
+            this.userDB.addRow(stringRepOfUser);
+        } else { // update a found row
+            this.userDB.replaceRow(rowNum, stringRepOfUser);
+        }
+    }
+
+    public void saveAccountToDB(Account account) {
+        String[] stringRepOfAccount = account.toStringArray();
+        int accountNum = account.getAcctNum();
+        int rowNum = getAccountRowbyID(accountNum);
+        if (rowNum == -1) { // account isn't in DB yet
+            this.accountDB.addRow(stringRepOfAccount);
+        } else { // update a found row
+            this.accountDB.replaceRow(rowNum, stringRepOfAccount);
+        }
+    }
+
+    public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
+        for (Transaction transaction : pendingTransactions) {
+            this.transactionDB.addRow(transaction.toStringArray());
+        }
     }
 }
