@@ -48,19 +48,19 @@ public class Console {
                                         account.deposit(currentUser, accountChoice("deposit to"));
                                         break;
                                     case 2 :
-                                        account.withdraw(currentUser, accountChoice("withdraw from");
+                                        account.withdraw(currentUser, accountChoice("withdraw from"));
                                         break;
                                     case 3 :
-                                        account.transfer(currentUser, accountChoice("transfer from"), accountChoice("transfer to"));
+                                        account.transfer(currentUser);
                                         break;
                                     case 4 :
-                                        account.checkHistory(currentUser, accountChoice("review"));
+                                        //account.checkHistory(currentUser, accountChoice("review"));
                                         break;
                                     case 5 :
-                                        account.check(currentUser, accountChoice("check"));
+                                        account.balance(currentUser, accountChoice("check"));
                                         break;
                                     case 6 :
-                                        account.close(currentUser, accountChoice("close"));
+                                        //account.close(currentUser, accountChoice("close"));
                                         break;
                                     case 7 :
                                         mainMenu = false;
@@ -201,7 +201,7 @@ public class Console {
         return new User(first_name, last_name, user_ID, user_password);
     }
 
-    /////////////////CREATE ACCOUNT options 2//////////
+    /////////////////ACCOUNT CHOICE//////////
     //////////////////////////////////////////
 
     public int accountChoice(String action){
