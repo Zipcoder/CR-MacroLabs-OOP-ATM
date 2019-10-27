@@ -16,11 +16,26 @@ public class User implements Storeable {
         this.password = password;
         this.userID = userID;
         this.cardNumber = cardNumber;
+
         this.accounts = null;
     }
 
     public User(Integer userId, String password, DB data) {
 
+    }
+
+    public static Integer genCardNum() {
+        String numString = "";
+        for (int i = 0; i < 8; i++) {
+            Integer num;
+            if(i == 0 || i == 7) {
+                num = (int)(Math.random() * 9 + 1);
+            } else {
+                num = (int)(Math.random() * 10);
+            }
+            numString += num.toString();
+        }
+        return Integer.parseInt(numString);
     }
 
     public ArrayList<Transaction> getUserHistory() {

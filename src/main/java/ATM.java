@@ -98,9 +98,26 @@ public class ATM {
     // add new user - called by getUser()
     public User newUser() {
 
-        
+        Console.println("Enter Your First Name");
+        String firstName = Console.getInput();
 
-        return null;
+        Console.println("Enter Your Last Name");
+        String lastName = Console.getInput();
+
+        Console.println("Enter Your Password");
+        String password = Console.getInput();
+
+        Integer cardNumber = User.genCardNum();
+        Console.println("Your Card NUmber is " + cardNumber);
+
+        Integer userID = (int) (Math.random() * 1000);
+
+
+        User newUser = new User(firstName, lastName, password, userID, cardNumber);
+        currentUser = newUser;
+        this.saveUserToDB(currentUser);
+
+        return newUser;
     }
 
     //find accounts by owner id (to then be used by constructor)
