@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Arrays;
@@ -536,27 +537,38 @@ public class ATMTest {
 
     }
 
-    @Test
-    public void logOut() {
-    }
+    // convenience methods for dev environment to clear the DBs - only called from the IDE manually
+//    @Test
+//    public void clearUserDB() {
+//        DB userDB = null;
+//        try {
+//            userDB = new DB("users.csv", 5);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        userDB.clear();
+//    }
+//
+//    @Test
+//    public void clearAccountDB() {
+//        DB accountDB = null;
+//        try {
+//            accountDB = new DB("accounts.csv", 5);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        accountDB.clear();
+//    }
+//
+//    @Test
+//    public void clearTransactionDB() {
+//        DB transactionDB = null;
+//        try {
+//            transactionDB = new DB("transactions.csv", 5);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        transactionDB.clear();
+//    }
 
-    @Test
-    public void newUser() {
-    }
-
-    @Test
-    public void loadDBs() {
-    }
-
-    @Test
-    public void userMenu() {
-    }
-
-    @Test
-    public void testLogOut() {
-    }
-
-    @Test
-    public void saveDBs() {
-    }
 }
