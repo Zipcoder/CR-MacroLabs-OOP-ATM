@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class Console {
+public class 2gitConsole {
     ///VARIABLES///
     private Scanner input = new Scanner(System.in);
 
