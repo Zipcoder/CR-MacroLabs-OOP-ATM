@@ -61,7 +61,8 @@ public class ATM {
         Console.println("Enter Password");
         String password = Console.getInput();
         if(password.equals(userInfo[4])) {
-            //currentUser = newUser()
+            // 0: ID 1: Last Name 2: First Name 3: cardNum 4: PW
+            currentUser = new User(userInfo[2], userInfo[1], userInfo[4], Integer.parseInt(userInfo[0]), Integer.parseInt(userInfo[3]));
         }
     }
 
@@ -108,7 +109,67 @@ public class ATM {
 
     // deal with the user's choices
     public void userMenu() {
+        boolean loggedIn = true;
+        while (loggedIn) {
+            Console.println("(1) Logout");
+            Console.println("(2) Transaction History");
+            Console.println("(3) Add Account");
+            Console.println("() list Of Accounts...");
 
+            String input = Console.getInput();
+
+            switch (input) {
+                case "1":
+                    loggedIn = false;
+                    break;
+            }
+        }
+    }
+
+    public void addAct() {
+        boolean choosingActType = true;
+        while (choosingActType) {
+            Console.println("Type of Account:");
+            Console.println("(1) Checking");
+            Console.println("(2) Savings");
+            Console.println("(3) Investment");
+            String input = Console.getInput();
+
+            switch (input) {
+                case "1":
+
+                    break;
+                case "2":
+
+                    break;
+                case "3":
+
+                    break;
+                default:
+
+                    break;
+            }
+        }
+
+    }
+
+    public void accountMenu(Account account) {
+        boolean inAccountMenu = true;
+        while (inAccountMenu) {
+            Console.println("(1) View transaction History");
+            Console.println("(2) Deposit");
+            Console.println("(3) Withdraw");
+            Console.println("(4) Close");
+            Console.println("(5) Back To Main Menu");
+
+            String input = Console.getInput();
+
+            switch (input) {
+                case "5":
+                    inAccountMenu = false;
+                    break;
+            }
+        }
     }
 
 
