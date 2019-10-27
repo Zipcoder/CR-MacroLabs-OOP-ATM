@@ -565,7 +565,7 @@ public class DBTest {
         Assert.assertEquals(3, db1.findPartialRowMultiple(new String[] {"Item"}, new int[] {1})[1]);
         Assert.assertEquals(4, db1.findPartialRowMultiple(new String[] {"Item"}, new int[] {1})[2]);
 
-        Assert.assertEquals(null, db1.findPartialRowMultiple(new String[] {"Iteasdm"}, new int[] {1}));
+        Assert.assertEquals((int)0, (int)db1.findPartialRowMultiple(new String[] {"Iteasdm"}, new int[] {1}).length);
 
         db1.delete();
     }
