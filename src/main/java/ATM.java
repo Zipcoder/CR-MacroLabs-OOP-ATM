@@ -23,47 +23,45 @@ public class ATM {
     public User getCurrentUser() {
         return this.currentUser;
     }
-
     public DB getUserDB() {
         return this.userDB;
     }
-
     public DB getTransactionDB() {
         return this.transactionDB;
     }
-
     public DB getAccountDB() {
         return this.accountDB;
     }
-
     public void setCurrentUser(User currentUser) {
         this.currentUser = currentUser;
     }
 
-//    public User authenticate(int cardNumber, String password) {
-//
-//        return new User();
-//    }
 
-    public void logOut (User currentUser) {
-
+    // load database info from disk
+    public void loadDBs() {
+//        // find accounts, create instances
+//        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
+//        ArrayList<Account> accounts = new ArrayList<>();
+//        for (String[] acctInfo : accountsInfo) {
+//            accounts.add(new Account(...));
+//        }
+//        //
     }
 
-    // log in user - don't return until you do
-    public void getUser() {
+
+    public void authenticate() {
         //Read User's card
         Console.println("Card Number:");
         String cardNum = Console.getInput();
 
         // find user in DB
-
         String[] userInfo = this.getUserInfoByCardNum(Integer.parseInt(cardNum));
 
         // check PW
         Console.println("Enter Password");
         String password = Console.getInput();
         if(password.equals(userInfo[4])) {
-            // instantiate user
+            //currentUser = newUser()
         }
     }
 
@@ -92,24 +90,41 @@ public class ATM {
         return newUser;
     }
 
-
-
-    // load database info from disk
-    public void loadDBs() {
-//        // find accounts, create instances
-//        ArrayList<String[]> accountsInfo = getAccountInfoByUser(this.currentUser);
-//        ArrayList<Account> accounts = new ArrayList<>();
-//        for (String[] acctInfo : accountsInfo) {
-//            accounts.add(new Account(...));
-//        }
-//        //
+    // log in user - don't return until you do
+    public void getUser() {
+        Console.println("(1) login\n(2) Create Account");
+        String input = Console.getInput();
+        if(input.equals("1")) { //Try login
+            this.authenticate();
+            if (this.currentUser == null) {
+                return;
+            }
+        } else if (input.equals("2")) { //Create User
+            this.newUser();
+        } else {
+            //error
+        }
     }
-
-
 
     // deal with the user's choices
     public void userMenu() {
 
+    }
+
+
+    public void serviceLoop() {
+        // authenticate a user (or die trying)
+        // only returns null if the magic secret exit code is called
+
+        getUser();
+
+        loadDBs();
+
+        userMenu();
+
+        logOut();
+
+        serviceLoop();
     }
 
     // log out user
@@ -134,43 +149,15 @@ public class ATM {
 //        }
     }
 
-    public void serviceLoop() {
-        // authenticate a user (or die trying)
-        // only returns null if the magic secret exit code is called
 
-        //Login or new user?
-        Console.println("(1) login\n(2) Create Account");
-        String input = Console.getInput();
-        if(input.equals("1")) { //Try login
-            getUser();
-            if (this.currentUser == null) {
-                return;
-            }
-        } else if (input.equals("2")) { //Create User
-            this.newUser();
-        } else {
-            //error
-        }
-
-        loadDBs();
-
-        userMenu();
-
-        logOut();
-
-        serviceLoop();
-    }
-
-    /*
+    /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     * DB interaction methods for the ATM
     *
     * We should create a storage class or generic methods in the DB class or something in the interface, but...
-     */
-
+     */ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public int getUserCount() {
         return this.userDB.length();
     }
-
     
     //find accounts by owner id (to then be used by constructor)
     public int[] getAccountRowsByUser (User user) {
@@ -286,4 +273,8 @@ public class ATM {
             this.transactionDB.addRow(transaction.toStringArray());
         }
     }
+    /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+     * End DB interaction methods for the ATM
+     */ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 }
