@@ -109,24 +109,38 @@ public class ATM {
 
     // deal with the user's choices
     public void userMenu() {
+        ArrayList<Account> usrAccts = getAccountsForUser(currentUser);
         boolean loggedIn = true;
         while (loggedIn) {
             Console.println("(1) Logout");
             Console.println("(2) Transaction History");
             Console.println("(3) Add Account");
-            Console.println("() list Of Accounts...");
 
-            String input = Console.getInput();
+            for (int i = 0; i < usrAccts.size(); i++) {
+                Console.println("(" + (4 + i) + ") " + usrAccts.get(i).getClass().getName() + " " + usrAccts.get(i).acctNum);
+            }
+
+            Integer input = Console.getInteger();
 
             switch (input) {
-                case "1":
+                case 1:
                     loggedIn = false;
+                    break;
+                case 2:
+                    //print transaction hist
+                    break;
+                case 3:
+                    addAccount(usrAccts);
+                    break;
+                default:
+                    accountMenu(usrAccts.get(input - 4));
                     break;
             }
         }
+
     }
 
-    public void addAct() {
+    public void addAccount(ArrayList<Account> usrAccounts) {
         boolean choosingActType = true;
         while (choosingActType) {
             Console.println("Type of Account:");
@@ -135,18 +149,20 @@ public class ATM {
             Console.println("(3) Investment");
             String input = Console.getInput();
 
+            choosingActType = false;
             switch (input) {
                 case "1":
-
+                    usrAccounts.add(new Checking(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
                     break;
                 case "2":
-
+                    //usrAccounts.add(new Savings(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
                     break;
                 case "3":
-
+                    //usrAccounts.add(new Investment(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
                     break;
                 default:
-
+                    Console.println("Enter Valid Input");
+                    choosingActType = true;
                     break;
             }
         }
