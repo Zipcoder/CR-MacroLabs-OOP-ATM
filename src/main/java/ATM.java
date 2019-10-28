@@ -56,7 +56,9 @@ public class ATM {
 
         // find user in DB
         String[] userInfo = this.getUserInfoByCardNum(cardNum);
-
+        if (userInfo == null){
+            this.authenticate();
+        }
         // check PW
         String password = Console.getInput("Enter Password: ");
         if(password.equals(userInfo[4])) {
@@ -116,7 +118,7 @@ public class ATM {
         String nextAcctChoice;
         ArrayList<Account> usrAccts = getAccountsForUser(currentUser);
         for (int i = 0; i < usrAccts.size(); i++) {
-            nextAcctChoice = String.format("%s %d",1 usrAccts.get(i).getClass().getName(), usrAccts.get(i).acctNum);
+            nextAcctChoice = String.format("%s #%d ($%,.2f)", usrAccts.get(i).getClass().getName(), usrAccts.get(i).getAcctNum(), usrAccts.get(i).getBalance());
             choices.add(nextAcctChoice);
         }
 
@@ -170,7 +172,12 @@ public class ATM {
     }
 
     public void accountMenu(Account account) {
-        String header = account.getClass().getName() + " Account #" + account.getAcctNum().toString() + "  Balance: $" + String.format("%.2f", account.getBalance());
+        String header = account.getClass().getName() + " Account #" + account.getAcctNum().toString() + "  Balance: $" + String.format("%,.2f", account.getBalance());
+        if (account instanceof Savings) {
+            header += "  Interest Rate: " + String.format("%.2f", ((Savings) account).getInterestRate())+"%%";
+        } else if (account instanceof Investment) {
+            header += "  Risk: " + String.format("%d", Math.round(100*((Investment) account).getRisk()))+"/10";
+        }
         String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
 
         switch (input) {

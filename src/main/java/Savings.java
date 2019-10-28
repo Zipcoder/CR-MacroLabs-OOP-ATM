@@ -7,6 +7,9 @@ public class Savings extends Account{
         this.interestRate = interestRate;
     }
 
+    public Double getInterestRate() {
+        return this.interestRate;
+    }
 
     public void  calcInterestReturned(){
         balance += (interestRate * balance);

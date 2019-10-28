@@ -234,9 +234,11 @@ public class DB {
      */
     public String[] readRow(int rowNum) {
         ArrayList<String[]> records = null;
-        if (!this.deleted && rowNum < length()) {
+        if (!this.deleted && rowNum < length() && rowNum >= 0) {
             records = readAllRows();
             return records.get(rowNum);
+        } else if (rowNum == -1) {
+            return null;
         }
         return new String[this.rowLength];
     }
