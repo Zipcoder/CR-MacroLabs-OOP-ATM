@@ -195,7 +195,9 @@ public class ATM {
         String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
 
         switch (input) {
-
+            case "1":
+                Console.outputTransactionsWithHeader("Transaction History", getTransactionsForAccount(account));
+                break;
             case "5":
                 break;
         }
@@ -383,13 +385,23 @@ public class ATM {
         return recordRowNums;
     }
 
+    public int[] getTransactionRowsByAccount (Account account) {
+        return this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(account.getAcctNum())}, new int[]{1});
+    }
+
     // get string array representation of one transaction
     public String[] getTransactionInfoByRow (int rowNum) {
         return this.transactionDB.readRow(rowNum);
     }
 
     public ArrayList<Transaction> getTransactionsForUser(User user) {
-        int[] rows = getTransactionRowsByUser(user);
+        return getTransactionsForRows(getTransactionRowsByUser(user));
+    }
+
+    public ArrayList<Transaction> getTransactionsForAccount(Account account) {
+        return getTransactionsForRows(getTransactionRowsByAccount(account));
+    }
+    public ArrayList<Transaction> getTransactionsForRows(int[] rows) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         String[] info = new String[5];
         for (int row : rows) {
@@ -408,6 +420,8 @@ public class ATM {
 
         return transactions;
     }
+
+
 
     public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
         for (Transaction transaction : pendingTransactions) {
