@@ -130,7 +130,8 @@ public class ATM {
                     //print transaction hist
                     break;
                 case 3:
-                    addAccount(usrAccts);
+                    Double deposit = Console.getCurrency("Initial deposit amount for this account: ");
+                    addAccount(usrAccts, deposit);
                     break;
                 default:
                     accountMenu(usrAccts.get(input - 4));
@@ -140,51 +141,47 @@ public class ATM {
 
     }
 
-    public void addAccount(ArrayList<Account> usrAccounts) {
-        boolean choosingActType = true;
-        while (choosingActType) {
-            Console.println("Type of Account:");
-            Console.println("(1) Checking");
-            Console.println("(2) Savings");
-            Console.println("(3) Investment");
-            String input = Console.getInput();
+    public void addAccount(ArrayList<Account> usrAccounts, Double deposit) {
+        String header = "Choose Account Type:";
+        String input = Console.getInput(header, new String[] {"Checking", "Savings", "Investment", "Back to Main Menu" });
+        Account newAccount;
 
-            choosingActType = false;
-            switch (input) {
-                case "1":
-                    usrAccounts.add(new Checking(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
-                    break;
-                case "2":
-                    //usrAccounts.add(new Savings(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
-                    break;
-                case "3":
-                    //usrAccounts.add(new Investment(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
-                    break;
-                default:
-                    Console.println("Enter Valid Input");
-                    choosingActType = true;
-                    break;
-            }
+        switch (input) {
+            case "1":
+                newAccount = new Checking(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000));
+                this.saveAccountToDB(newAccount);
+                usrAccounts.add(newAccount);
+                break;
+            case "2":
+                Double interestRate = .01 * (1 + Math.floor(deposit/1000));
+                Console.println(String.format("Your interest rate: %.2f", interestRate)+"%%");
+                newAccount = new Savings(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000), interestRate);
+                this.saveAccountToDB(newAccount);
+                usrAccounts.add(newAccount);
+                break;
+            case "3":
+                Console.print("On a scale of 1-10, enter your risk tolerance ");
+                int riskInput = Console.getInteger(10);
+                Double risk = riskInput * .01;
+                newAccount = new Investment(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000), risk);
+                this.saveAccountToDB(newAccount);
+                usrAccounts.add(newAccount);
+                //usrAccounts.add(new Investment(0.0, currentUser.getUserID(), (int)(Math.random()*1000)));
+                break;
+            case "4":
+                break;
         }
+
 
     }
 
     public void accountMenu(Account account) {
-        boolean inAccountMenu = true;
-        while (inAccountMenu) {
-            Console.println("(1) View transaction History");
-            Console.println("(2) Deposit");
-            Console.println("(3) Withdraw");
-            Console.println("(4) Close");
-            Console.println("(5) Back To Main Menu");
+        String header = account.getClass().getName() + " Account #" + account.getAcctNum().toString() + "  Balance: $" + String.format("%.2f", account.getBalance());
+        String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
 
-            String input = Console.getInput();
-
-            switch (input) {
-                case "5":
-                    inAccountMenu = false;
-                    break;
-            }
+        switch (input) {
+            case "5":
+                break;
         }
     }
 

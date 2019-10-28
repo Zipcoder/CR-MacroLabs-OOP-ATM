@@ -26,8 +26,8 @@ public class Console {
         return input;
     }
 
-    public static String getInput2() {
-        Console.print("> ");
+    public static String getInput(String prompt) {
+        Console.print(prompt);
         Scanner scanner = new Scanner(System.in);
 
         String input = scanner.nextLine().toLowerCase(); //get input from user
@@ -54,7 +54,7 @@ public class Console {
             rows[i] += "\n";
         }
 
-        for (int i = numRows - 1; i >= 0; i--) {
+        for (int i = 0; i < numRows; i++) {
             output += rows[i];
         }
 
@@ -83,7 +83,7 @@ public class Console {
             rows[i] += "\n";
         }
 
-        for (int i = numRows - 1; i >= 0; i--) {
+        for (int i = 0; i < numRows; i++) {
             output += rows[i];
         }
 
@@ -102,12 +102,26 @@ public class Console {
     }
 
     public static Double getCurrency() {
-        String input = getInput();
+        String input = getInput("$");
         while (true) {
             if (currencyCheck(input)) break;
             else {
                 println("Enter a number");
-                input = getInput();
+                input = getInput("$");
+            }
+        }
+        return Double.valueOf(input);
+    }
+
+    public static Double getCurrency(String prompt) {
+        Console.print(prompt);
+        String input = getInput("$");
+        while (true) {
+            if (currencyCheck(input)) break;
+            else {
+                println("Enter a valid number");
+                Console.print(prompt);
+                input = getInput("$");
             }
         }
         return Double.valueOf(input);

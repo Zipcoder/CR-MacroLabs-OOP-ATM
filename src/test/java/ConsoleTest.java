@@ -14,7 +14,6 @@ public class ConsoleTest {
 
     @Test
     public void println() {
-
     }
 
     @Test
