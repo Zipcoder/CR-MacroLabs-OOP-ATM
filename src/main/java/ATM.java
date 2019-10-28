@@ -209,7 +209,7 @@ public class ATM {
         // only returns null if the magic secret exit code is called
 
         getUser();
-        //applyInterest();
+        applyInterest();
         //calculateReturns();
 
         loadDBs();
@@ -219,6 +219,10 @@ public class ATM {
         logOut();
 
         serviceLoop();
+    }
+
+    public void applyInterest() {
+
     }
 
     // log out user
