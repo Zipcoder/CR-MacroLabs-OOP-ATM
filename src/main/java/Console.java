@@ -9,6 +9,12 @@ import java.util.Scanner;
  */
 public class Console {
 
+    public static void clearScreen() {
+        for (int i = 0; i <100; i++) {
+             Console.println(" ");
+        }
+    }
+
     public static void print(String output, Object... args) {
         System.out.printf(output, args);
     }
@@ -35,10 +41,10 @@ public class Console {
         return input;
     }
 
+
     public static String getInput(String[] options) {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        Console.clearScreen();
 
         int numOptions = options.length;
         int numRows = (numOptions+1) >> 1; // this is how the cool kids divide by two
@@ -66,8 +72,7 @@ public class Console {
 
     public static String getInput(String header, String[] options) {
 
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+        Console.clearScreen();
 
         int numOptions = options.length;
         int numRows = (numOptions+1) >> 1; // this is how the cool kids divide by two
