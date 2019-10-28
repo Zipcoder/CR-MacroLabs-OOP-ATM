@@ -62,7 +62,7 @@ public class Console {
                                        account.transfer(currentUser);
                                         break;
                                     case 4 :
-                                        //account.checkHistory(currentUser, accountChoice("review"));
+                                        account.checkHistory(currentUser);
                                         break;
                                     case 5 :
                                         account.balance(currentUser, accountChoice("check"));

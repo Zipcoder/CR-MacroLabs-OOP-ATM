@@ -197,6 +197,15 @@ public class AccountActions {
                 System.out.println("Sorry not an option");
         }
     }
+
+    public void checkHistory(String current) {
+        for (User i : database) {
+            if (i.getUserID().equals(current)) {
+                    System.out.println(i.printHistory());
+                }
+            }
+    }
+
 }
 
 

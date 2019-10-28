@@ -75,6 +75,8 @@ public class Account {
     public void setTransaction(String history){
         this.transaction += history;
     }
-
+    public String printHistory(String history){
+        return this.transaction;
+    }
 
 }
