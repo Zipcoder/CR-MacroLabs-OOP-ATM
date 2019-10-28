@@ -76,14 +76,14 @@ public class Console {
 
         int numOptions = options.length;
         int numRows = (numOptions+1) >> 1; // this is how the cool kids divide by two
-        String output = StringUtils.center(header,66) + "\n\n";
+        String output = StringUtils.center(header,86) + "\n\n";
 
         String[] rows = new String[numRows];
 
         for (int i = 0; i < numRows; i++){
-            rows[i] = String.format("%d | %-30s", 2*i+1, options[2*i]);
+            rows[i] = String.format("%d | %-40s", 2*i+1, options[2*i]);
             if (2*i + 1 < numOptions) {
-                rows[i] += String.format("%30s | %d", options[2*i + 1], 2*(i+1));
+                rows[i] += String.format("%40s | %d", options[2*i + 1], 2*(i+1));
             }
             rows[i] += "\n";
         }
