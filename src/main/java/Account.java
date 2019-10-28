@@ -14,27 +14,25 @@ abstract public class Account implements Storeable {
     }
 
     public Integer getOwnerID() {
-        return ownerID;
+        return this.ownerID;
     }
 
     public Integer getAcctNum() {
-        return acctNum;
+        return this.acctNum;
     }
 
     public void deposit(Double amount){
-        balance += amount;
-
+        this.balance += amount;
+        String bal = String.format("%.2f",this.balance);
+        this.balance = Double.parseDouble(bal);
     }
 
     public void withdraw(Double amount){
-        if (balance > amount) {
-            balance -= amount;
+        if (this.balance > amount) {
+            this.balance -= amount;
         }
     }
 
-    public void getAcctHist(){
-
-    }
 
     public Boolean equals(Account account) {
         return DB.serialize(this.toStringArray()).equals(DB.serialize(account.toStringArray()));

@@ -210,7 +210,7 @@ public class ATM {
 
         getUser();
         applyInterest();
-        //calculateReturns();
+        applyReturns();
 
         loadDBs();
 
@@ -222,8 +222,41 @@ public class ATM {
     }
 
     public void applyInterest() {
-
+        ArrayList<Account> userAccounts = getAccountsForUser(this.currentUser);
+        for (Account account : userAccounts) {
+            if (account instanceof Savings) {
+                calcInterest(account);
+            }
+        }
     }
+
+    public void calcInterest(Account account) {
+        Double interest = ((Savings) account).getInterestRate() * account.getBalance()/100;
+        account.deposit(interest);
+        saveAccountToDB(account);
+        Transaction transaction = new Transaction(Double.parseDouble(String.format("%.2f",interest)), new Date(), account.getAcctNum(), "Interest earned", true);
+        saveTransactionToDB(transaction);
+    }
+
+    public void applyReturns() {
+        ArrayList<Account> userAccounts = getAccountsForUser(this.currentUser);
+        for (Account account : userAccounts) {
+            if (account instanceof Investment) {
+                calcReturns(account);
+            }
+        }
+    }
+
+    public void calcReturns(Account account) {
+        Double multiplier = ((Investment) account).getRisk() * (2 * Math.random() - .8);
+        Double earnings =  Math.round((multiplier * account.getBalance()*100d))/100d;
+        account.deposit(earnings);
+        saveAccountToDB(account);
+        Boolean isCredit = (earnings > 0);
+        Transaction transaction = new Transaction(Double.parseDouble(String.format("%.2f",earnings)), new Date(), account.getAcctNum(), "Investment returns", isCredit);
+        saveTransactionToDB(transaction);
+    }
+
 
     // log out user
     public void logOut() {
