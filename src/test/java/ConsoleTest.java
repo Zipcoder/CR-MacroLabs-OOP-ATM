@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 @RunWith(JUnitParamsRunner.class)
 public class ConsoleTest {
@@ -44,4 +46,5 @@ public class ConsoleTest {
     public void integerCheckTest(String input, Boolean valid) {
         Assert.assertTrue(valid == Console.integerCheck(input));
     }
+
 }

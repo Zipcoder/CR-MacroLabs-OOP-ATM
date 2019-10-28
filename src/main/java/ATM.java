@@ -1,5 +1,8 @@
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ATM {
 
@@ -129,7 +132,7 @@ public class ATM {
         if (input.equals(Integer.toString(choices.size()))) {
             // log out
         } else if (input.equals("1")) {
-            //print transaction hist
+            Console.outputTransactionsWithHeader("Transaction History", getTransactionsForUser(this.currentUser));
         } else if (input.equals("2")) {
             Double deposit = Console.getCurrency("Initial deposit amount for this account: ");
             addAccount(usrAccts, deposit);
@@ -142,12 +145,17 @@ public class ATM {
         String header = "Choose Account Type:";
         String input = Console.getInput(header, new String[] {"Checking", "Savings", "Investment", "Back to Main Menu" });
         Account newAccount;
+        Transaction transaction;
+
 
         switch (input) {
             case "1":
                 newAccount = new Checking(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000));
                 this.saveAccountToDB(newAccount);
                 usrAccounts.add(newAccount);
+
+                transaction = new Transaction(deposit, new Date(), newAccount.getAcctNum(), "Opened account", true);
+                saveTransactionToDB(transaction);
                 break;
             case "2":
                 Double interestRate = .01 * (1 + Math.floor(deposit/1000));
@@ -155,6 +163,9 @@ public class ATM {
                 newAccount = new Savings(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000), interestRate);
                 this.saveAccountToDB(newAccount);
                 usrAccounts.add(newAccount);
+
+                transaction = new Transaction(deposit, new Date(), newAccount.getAcctNum(), "Opened account", true);
+                saveTransactionToDB(transaction);
                 break;
             case "3":
                 Console.print("On a scale of 1-10, enter your risk tolerance ");
@@ -163,6 +174,9 @@ public class ATM {
                 newAccount = new Investment(deposit, this.currentUser.getUserID(), (int)(Math.random()*1000), risk);
                 this.saveAccountToDB(newAccount);
                 usrAccounts.add(newAccount);
+
+                transaction = new Transaction(deposit, new Date(), newAccount.getAcctNum(), "Opened account", true);
+                saveTransactionToDB(transaction);
                 break;
             case "4":
                 break;
@@ -181,6 +195,7 @@ public class ATM {
         String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
 
         switch (input) {
+
             case "5":
                 break;
         }
@@ -192,6 +207,8 @@ public class ATM {
         // only returns null if the magic secret exit code is called
 
         getUser();
+        //applyInterest();
+        //calculateReturns();
 
         loadDBs();
 
@@ -223,6 +240,14 @@ public class ATM {
 //
 //        }
     }
+
+//    public void showTransactions(Transaction[] transactions) {
+//        String[][] rows = new String[5][transactions.length];
+//        for (int i = 0; i < transactions.length; i++) {
+//            rows[i] = transactions[i].toStringArray();
+//        }
+//        Console.outputTransactionsWithHeader("Transaction History", rows);
+//    }
 
 
     /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -343,11 +368,57 @@ public class ATM {
         }
     }
 
+    public int[] getTransactionRowsByUser (User user) {
+        int[] accountRows =  getAccountRowsByUser(user);
+        ArrayList<Integer> accountNums = new ArrayList<>();
+        for (int row : accountRows) {
+            accountNums.add(Integer.parseInt(getAccountInfoByRow(row)[0]));
+        }
+
+        int [] recordRowNums = null;
+        for (int accountNum : accountNums) {
+            recordRowNums = this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(accountNum)}, new int[]{1});
+        }
+
+        return recordRowNums;
+    }
+
+    // get string array representation of one transaction
+    public String[] getTransactionInfoByRow (int rowNum) {
+        return this.transactionDB.readRow(rowNum);
+    }
+
+    public ArrayList<Transaction> getTransactionsForUser(User user) {
+        int[] rows = getTransactionRowsByUser(user);
+        ArrayList<Transaction> transactions = new ArrayList<>();
+        String[] info = new String[5];
+        for (int row : rows) {
+            info = getTransactionInfoByRow(row);
+            try {
+                transactions.add(new Transaction(
+                        Double.parseDouble(info[2]),
+                        new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(info[3]),
+                        Integer.parseInt(info[1]),
+                        info[4],
+                        info[0] == "credit"));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return transactions;
+    }
+
     public void savePendingTransactionsToDB(ArrayList<Transaction> pendingTransactions) {
         for (Transaction transaction : pendingTransactions) {
             this.transactionDB.addRow(transaction.toStringArray());
         }
     }
+
+    public void saveTransactionToDB(Transaction transaction) {
+        this.transactionDB.addRow(transaction.toStringArray());
+    }
+
     /*  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
      * End DB interaction methods for the ATM
      */ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

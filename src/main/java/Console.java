@@ -1,7 +1,10 @@
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -96,6 +99,26 @@ public class Console {
 
         return Integer.toString(Console.getInteger(numOptions));
 
+    }
+
+    public static void outputTransactionsWithHeader(String header, ArrayList<Transaction> transactions) {
+
+        Console.clearScreen();
+
+        String output = StringUtils.center(header,86) + "\n\n";
+        String[] row;
+        for (Transaction transaction : transactions) {
+            row = transaction.toStringArray();
+            output += (String.format("%-8s", row[0])
+                            + String.format("%-10s", row[1])
+                            + String.format("%-10s", row[2])
+                            + String.format("%-20s", row[3])
+                            + String.format(" %s", row[4])
+                    );
+        }
+
+        println(output);
+        getInput("\nPress Enter");
     }
 
     static Boolean integerCheck(String input) {
