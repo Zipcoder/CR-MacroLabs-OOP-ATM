@@ -192,11 +192,32 @@ public class ATM {
         } else if (account instanceof Investment) {
             header += "  Risk: " + String.format("%d", Math.round(100*((Investment) account).getRisk()))+"/10";
         }
-        String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
+        String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdrawal", "Close Account", "Back to Main Menu" });
 
+        Double deposit;
+        Transaction transaction;
         switch (input) {
             case "1":
                 Console.outputTransactionsWithHeader("Transaction History", getTransactionsForAccount(account));
+                break;
+            case "2":
+                deposit = Console.getCurrency("Deposit amount: ");
+                account.deposit(deposit);
+                saveAccountToDB(account);
+                transaction = new Transaction(deposit, new Date(), account.getAcctNum(), "ATM deposit", true);
+                saveTransactionToDB(transaction);
+                break;
+            case "3":
+                deposit = Console.getCurrency("Withdrawal amount: ");
+                if (deposit <= account.getBalance()) {
+                    account.deposit(-1 * deposit);
+                    saveAccountToDB(account);
+                    transaction = new Transaction(deposit, new Date(), account.getAcctNum(), "ATM withdrawal", false);
+                    saveTransactionToDB(transaction);
+                } else {
+                    Console.println("Insufficient funds");
+                    Console.getInput("\nPress Enter");
+                }
                 break;
             case "5":
                 break;
