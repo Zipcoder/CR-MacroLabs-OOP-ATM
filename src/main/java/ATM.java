@@ -130,7 +130,7 @@ public class ATM {
         String input = Console.getInput(header, choices.toArray(new String[choices.size()]));
 
         if (input.equals(Integer.toString(choices.size()))) {
-            // log out
+            serviceLoop(); //not ... great, but it'll do for now
         } else if (input.equals("1")) {
             Console.outputTransactionsWithHeader("Transaction History", getTransactionsForUser(this.currentUser));
         } else if (input.equals("2")) {
@@ -139,6 +139,8 @@ public class ATM {
         } else {
             accountMenu(usrAccts.get(Integer.parseInt(input) - 3));
         }
+
+        userMenu();
     }
 
     public void addAccount(ArrayList<Account> usrAccounts, Double deposit) {
@@ -216,6 +218,18 @@ public class ATM {
                     saveTransactionToDB(transaction);
                 } else {
                     Console.println("Insufficient funds");
+                    Console.getInput("\nPress Enter");
+                }
+                break;
+            case "4":
+
+                if (account.getBalance() == 0) {
+
+                    saveAccountToDB(account);
+                    transaction = new Transaction(0.0, new Date(), account.getAcctNum(), "Account Closed", false);
+                    saveTransactionToDB(transaction);
+                } else {
+                    Console.println("Account still contains funds. Withdraw or transfer all funds before closing.");
                     Console.getInput("\nPress Enter");
                 }
                 break;
@@ -435,12 +449,28 @@ public class ATM {
             accountNums.add(Integer.parseInt(getAccountInfoByRow(row)[0]));
         }
 
-        int [] recordRowNums = null;
-        for (int accountNum : accountNums) {
-            recordRowNums = this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(accountNum)}, new int[]{1});
+        ArrayList<Integer> rows = new ArrayList<>();
+//        int [] recordRowNums = null;
+//        for (int accountNum : accountNums) {
+//            recordRowNums = this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(accountNum)}, new int[]{1});
+//
+//        }
+        ArrayList<String[]> transData = transactionDB.readAllRows();
+
+        for (int i = 0; i < transData.size(); i++) {
+            for (int acctNum : accountNums) {
+                if ((int) Integer.parseInt(transData.get(i)[1]) == acctNum) {
+                    rows.add(i);
+                }
+            }
         }
 
-        return recordRowNums;
+        int[] results = new int[rows.size()];
+        for (int i = 0; i < rows.size(); i++) {
+            results[i] = rows.get(i);
+        }
+
+        return results;
     }
 
     public int[] getTransactionRowsByAccount (Account account) {
