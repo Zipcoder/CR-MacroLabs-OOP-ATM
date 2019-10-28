@@ -225,7 +225,7 @@ public class ATM {
 
                 if (account.getBalance() == 0) {
 
-                    saveAccountToDB(account);
+                    deleteAccountFromDB(account);
                     transaction = new Transaction(0.0, new Date(), account.getAcctNum(), "Account Closed", false);
                     saveTransactionToDB(transaction);
                 } else {
@@ -439,6 +439,18 @@ public class ATM {
             this.accountDB.addRow(stringRepOfAccount);
         } else { // update a found row
             this.accountDB.replaceRow(rowNum, stringRepOfAccount);
+        }
+    }
+
+    public void deleteAccountFromDB(Account account) {
+        String[] stringRepOfAccount = account.toStringArray();
+        int accountNum = account.getAcctNum();
+        int rowNum = getAccountRowByID(accountNum);
+        if (rowNum == -1) { // account isn't in DB yet
+            this.accountDB.addRow(stringRepOfAccount);
+            return;
+        } else { // update a found row
+            this.accountDB.deleteRow(rowNum);
         }
     }
 

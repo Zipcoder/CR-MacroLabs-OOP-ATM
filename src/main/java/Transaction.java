@@ -33,7 +33,7 @@ public class Transaction implements Storeable {
         String[] result = new String[] {
                 type,
                 this.accountID.toString(),
-                this.amount.toString(),
+                String.format("%.2f",this.amount),
                 this.timeStamp.toString(),
                 this.description
         };
