@@ -6,6 +6,7 @@ Week 2 project: ATM Simulator
 - Information is stored in csv files in the /data folder. An example data set is included and will be run when you run `main()`. Any changes to accounts, users, or additional transactions will be saved there. These files are in the `.gitignore`, so any changes you make locally wouldn't overwrite them
 - One example user, for convenience of entry during testing, has card number 1 and password 1234
 - There are also a couple of test database files (`test.db` and `testbad.csv` which are used in certain tests. Other tests create and destory temporary database files
+- Every time a user logs in, interest is earned on savings accounts and investments get returns, based on random chance and risk tolerance defined when creating the account
 
 
 ## ATM Requirements
