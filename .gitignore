@@ -4,5 +4,5 @@ target/
 .project
 .classpath
 .settings
-
+data/*
 *.DS_Store
