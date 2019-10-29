@@ -130,7 +130,7 @@ public class ATM {
         String input = Console.getInput(header, choices.toArray(new String[choices.size()]));
 
         if (input.equals(Integer.toString(choices.size()))) {
-            // log out
+            serviceLoop(); //not ... great, but it'll do for now
         } else if (input.equals("1")) {
             Console.outputTransactionsWithHeader("Transaction History", getTransactionsForUser(this.currentUser));
         } else if (input.equals("2")) {
@@ -139,6 +139,8 @@ public class ATM {
         } else {
             accountMenu(usrAccts.get(Integer.parseInt(input) - 3));
         }
+
+        userMenu();
     }
 
     public void addAccount(ArrayList<Account> usrAccounts, Double deposit) {
@@ -192,11 +194,44 @@ public class ATM {
         } else if (account instanceof Investment) {
             header += "  Risk: " + String.format("%d", Math.round(100*((Investment) account).getRisk()))+"/10";
         }
-        String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdraw", "Close Account", "Back to Main Menu" });
+        String input = Console.getInput(header, new String[] {"View Transaction History", "Deposit", "Withdrawal", "Close Account", "Back to Main Menu" });
 
+        Double deposit;
+        Transaction transaction;
         switch (input) {
             case "1":
                 Console.outputTransactionsWithHeader("Transaction History", getTransactionsForAccount(account));
+                break;
+            case "2":
+                deposit = Console.getCurrency("Deposit amount: ");
+                account.deposit(deposit);
+                saveAccountToDB(account);
+                transaction = new Transaction(deposit, new Date(), account.getAcctNum(), "ATM deposit", true);
+                saveTransactionToDB(transaction);
+                break;
+            case "3":
+                deposit = Console.getCurrency("Withdrawal amount: ");
+                if (deposit <= account.getBalance()) {
+                    account.deposit(-1 * deposit);
+                    saveAccountToDB(account);
+                    transaction = new Transaction(deposit, new Date(), account.getAcctNum(), "ATM withdrawal", false);
+                    saveTransactionToDB(transaction);
+                } else {
+                    Console.println("Insufficient funds");
+                    Console.getInput("\nPress Enter");
+                }
+                break;
+            case "4":
+
+                if (account.getBalance() == 0) {
+
+                    deleteAccountFromDB(account);
+                    transaction = new Transaction(0.0, new Date(), account.getAcctNum(), "Account Closed", false);
+                    saveTransactionToDB(transaction);
+                } else {
+                    Console.println("Account still contains funds. Withdraw or transfer all funds before closing.");
+                    Console.getInput("\nPress Enter");
+                }
                 break;
             case "5":
                 break;
@@ -210,7 +245,7 @@ public class ATM {
 
         getUser();
         applyInterest();
-        //calculateReturns();
+        applyReturns();
 
         loadDBs();
 
@@ -222,8 +257,41 @@ public class ATM {
     }
 
     public void applyInterest() {
-
+        ArrayList<Account> userAccounts = getAccountsForUser(this.currentUser);
+        for (Account account : userAccounts) {
+            if (account instanceof Savings) {
+                calcInterest(account);
+            }
+        }
     }
+
+    public void calcInterest(Account account) {
+        Double interest = ((Savings) account).getInterestRate() * account.getBalance()/100;
+        account.deposit(interest);
+        saveAccountToDB(account);
+        Transaction transaction = new Transaction(Double.parseDouble(String.format("%.2f",interest)), new Date(), account.getAcctNum(), "Interest earned", true);
+        saveTransactionToDB(transaction);
+    }
+
+    public void applyReturns() {
+        ArrayList<Account> userAccounts = getAccountsForUser(this.currentUser);
+        for (Account account : userAccounts) {
+            if (account instanceof Investment) {
+                calcReturns(account);
+            }
+        }
+    }
+
+    public void calcReturns(Account account) {
+        Double multiplier = ((Investment) account).getRisk() * (2 * Math.random() - .8);
+        Double earnings =  Math.round((multiplier * account.getBalance()*100d))/100d;
+        account.deposit(earnings);
+        saveAccountToDB(account);
+        Boolean isCredit = (earnings > 0);
+        Transaction transaction = new Transaction(Double.parseDouble(String.format("%.2f",earnings)), new Date(), account.getAcctNum(), "Investment returns", isCredit);
+        saveTransactionToDB(transaction);
+    }
+
 
     // log out user
     public void logOut() {
@@ -374,6 +442,18 @@ public class ATM {
         }
     }
 
+    public void deleteAccountFromDB(Account account) {
+        String[] stringRepOfAccount = account.toStringArray();
+        int accountNum = account.getAcctNum();
+        int rowNum = getAccountRowByID(accountNum);
+        if (rowNum == -1) { // account isn't in DB yet
+            this.accountDB.addRow(stringRepOfAccount);
+            return;
+        } else { // update a found row
+            this.accountDB.deleteRow(rowNum);
+        }
+    }
+
     public int[] getTransactionRowsByUser (User user) {
         int[] accountRows =  getAccountRowsByUser(user);
         ArrayList<Integer> accountNums = new ArrayList<>();
@@ -381,12 +461,28 @@ public class ATM {
             accountNums.add(Integer.parseInt(getAccountInfoByRow(row)[0]));
         }
 
-        int [] recordRowNums = null;
-        for (int accountNum : accountNums) {
-            recordRowNums = this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(accountNum)}, new int[]{1});
+        ArrayList<Integer> rows = new ArrayList<>();
+//        int [] recordRowNums = null;
+//        for (int accountNum : accountNums) {
+//            recordRowNums = this.transactionDB.findPartialRowMultiple(new String[]{Integer.toString(accountNum)}, new int[]{1});
+//
+//        }
+        ArrayList<String[]> transData = transactionDB.readAllRows();
+
+        for (int i = 0; i < transData.size(); i++) {
+            for (int acctNum : accountNums) {
+                if ((int) Integer.parseInt(transData.get(i)[1]) == acctNum) {
+                    rows.add(i);
+                }
+            }
         }
 
-        return recordRowNums;
+        int[] results = new int[rows.size()];
+        for (int i = 0; i < rows.size(); i++) {
+            results[i] = rows.get(i);
+        }
+
+        return results;
     }
 
     public int[] getTransactionRowsByAccount (Account account) {

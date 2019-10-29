@@ -19,15 +19,6 @@ public class Investment extends Account implements Storeable {
         this.risk = risk;
     }
 
-    public Double calcReturn(){
-
-
-        Double multiplier = risk * (2 * Math.random() - .8);
-
-        balance += Math.round((multiplier * balance)*100d)/100d;
-
-        return getBalance();
-    }
 
 
 }

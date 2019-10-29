@@ -114,7 +114,7 @@ public class Console {
                             + String.format("%-10s", row[2])
                             + String.format("%-20s", row[3])
                             + String.format(" %s", row[4])
-                    );
+                     + "\n");
         }
 
         println(output);

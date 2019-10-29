@@ -11,9 +11,5 @@ public class Savings extends Account{
         return this.interestRate;
     }
 
-    public void  calcInterestReturned(){
-        balance += (interestRate * balance);
-    }
-
 
 }
