@@ -537,7 +537,7 @@ public class ATM {
                         new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy").parse(info[3]),
                         Integer.parseInt(info[1]),
                         info[4],
-                        info[0] == "credit"));
+                        info[0].equals("credit")));
             } catch (ParseException e) {
                 e.printStackTrace();
             }
