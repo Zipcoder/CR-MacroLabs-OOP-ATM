@@ -47,6 +47,8 @@ public class AccountVillageTest {
     public void getAccounts() {
         AccountVillage newAV = new AccountVillage();
         newAV.createAccount(100.0, "checking");
+        Map<Integer, Account> accounts = newAV.getAccounts();
+        Assert.assertTrue(accounts.size() == 1);
     }
 
     @Test
