@@ -22,17 +22,17 @@ public class AccountTest {
         assertEquals(10.0, a.balance(), 0.0001);
     }
 
-    @Test
-    public void testA01() {
-        Account a = new Account(0.0);
-        assertEquals(true, a.closeAccount());
-    }
-
-    @Test
-    public void testA02() {
-        Account a = new Account(10.0);
-        assertEquals(false, a.closeAccount());
-    }
+//    @Test
+//    public void testA01() {
+//        Account a = new Account(0.0);
+//        assertEquals(true, a.closeAccount());
+//    }
+//
+//    @Test
+//    public void testA02() {
+//        Account a = new Account(10.0);
+//        assertEquals(false, a.closeAccount());
+//    }
 
     @Test
     public void testA1() {
