@@ -27,6 +27,7 @@ public class AtmFlow {
     }
     //////LOGIN METHODS/////
     public void logIn(){
+
         String userName = Console.getStringInput("Enter a Username?");
         String password = Console.getStringInput("Enter a password?");
 
@@ -34,7 +35,8 @@ public class AtmFlow {
             accountStart();
         }
         else
-            logIn();
+            Console.println("No account found for " + userName +"\n Please create account : ");
+            start();
     }
 
     public void accountStart(){
