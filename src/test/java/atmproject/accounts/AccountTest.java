@@ -10,7 +10,7 @@ public class AccountTest {
     @Test
     public void getCurrentUserTest() {
         User currentUser = new User("Sabin", "Figaro", 456456);
-        Account account = new Account(currentUser, 0.0);
+        Account account = new Account(currentUser, 0.0,null);
         User expected = new User("Sabin", "Figaro", 456456);
         User actual = account.getCurrentUser();
 
