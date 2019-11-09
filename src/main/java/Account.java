@@ -1,15 +1,17 @@
 public class Account {
-    private Integer AccountID;
+    private Integer accountID;
     private Double balance;
 
-    public Account(){
-
+    public Account(Double balance, Integer id){
+        this.balance = balance;
+        this.accountID = id;
     }
 
     public Account(Double balance){
-        this.AccountID = 0;
+        this.accountID = 0;
         this.balance = balance;
     }
+
 
     public void deposit(Double amount){
         if(amount > 0.0){
@@ -37,11 +39,11 @@ public class Account {
     }
     //////GETTERS AND SETTERS//////
     public Integer getAccountID() {
-        return AccountID;
+        return accountID;
     }
 
     public void setAccountID(Integer accountID) {
-        AccountID = accountID;
+        accountID = accountID;
     }
 
     public Double getBalance() {
