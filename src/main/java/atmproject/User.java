@@ -4,6 +4,7 @@ import atmproject.accounts.Account;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 public class User {
 
@@ -11,7 +12,7 @@ public class User {
     private String lastName;
     private Integer pinNumber;
     private Integer accountNumber;
-    HashMap<String, Account> accountList;
+    TreeMap<String, Account> accountList;
     ArrayList<String> transactionHistory;
 
     public User(String firstName, String lastName, Integer accountNumber){
@@ -19,7 +20,7 @@ public class User {
         this.lastName = lastName;
         this.pinNumber = accountNumber;
         this.pinNumber = 0;
-        this.accountList = new HashMap<String, Account>();
+        this.accountList = new TreeMap<String, Account>();
         this.transactionHistory = new ArrayList<String>();
 
     }
@@ -56,11 +57,11 @@ public class User {
         this.accountNumber = accountNumber;
     }
 
-    public HashMap<String, Account> getAccountList() {
+    public TreeMap<String, Account> getAccountList() {
         return accountList;
     }
 
-    public void setAccountList(HashMap<String, Account> accountList) {
+    public void setAccountList(TreeMap<String, Account> accountList) {
         this.accountList = accountList;
     }
 
@@ -72,8 +73,8 @@ public class User {
         this.transactionHistory = transactionHistory;
     }
 
-    public Account removeAccount(Account account){
-        return accountList.remove(account);
+    public Account removeAccount(String accountName){
+        return accountList.remove(accountName);
 
     }
 }

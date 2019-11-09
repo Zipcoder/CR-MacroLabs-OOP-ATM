@@ -1,5 +1,6 @@
 package atmproject.accounts;
 
+import atmproject.Console;
 import atmproject.User;
 
 import java.security.InvalidParameterException;
@@ -8,12 +9,13 @@ public class Account {
 
     private User currentUser;
     protected Double balance;
-    private Integer accountNumber;
+    private String accountName;
+    Console console = new Console(System.in,System.out);
 
-    public Account(User currentUser, Double balance, Integer accountNumber){
+    public Account(User currentUser, Double balance, String accountName){
         this.currentUser = currentUser;
         this.balance = balance;
-        this.accountNumber = accountNumber;
+        this.accountName = accountName;
     }
 
     public Account(Double balance){
@@ -36,6 +38,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public String getAccountName() {
+        return accountName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
     public Double withdraw(Double amount) {
         if (amount < 0) {
             throw new InvalidParameterException();
@@ -55,7 +65,7 @@ public class Account {
             return balance;
     }
 
-    public void transfer(Account destinationAccount, Double amount) {
+    public Double transfer(Account destinationAccount, Double amount) {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
@@ -63,13 +73,15 @@ public class Account {
             this.withdraw(amount);
             destinationAccount.deposit(amount);
         }
+        return this.balance;
     }
 
-    public boolean closeAccount(){
+    public Boolean closeAccount(){
         if (balance > 0.0){
+            console.println("Please empty your account before attempting to close.");
             return false;
         }
-
+        currentUser.removeAccount(this.getAccountName());
         return currentUser.getAccountList().containsValue(this);
     }
 }
