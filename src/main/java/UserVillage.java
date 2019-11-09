@@ -24,7 +24,7 @@ public class UserVillage {
     }
     public Boolean checkUser(String username){
         for(User user : allUsers){
-            if(username.equals(user.getUserName()));
+            if(!username.equals(user.getUserName()));
                 return true;
         }
         return false;
