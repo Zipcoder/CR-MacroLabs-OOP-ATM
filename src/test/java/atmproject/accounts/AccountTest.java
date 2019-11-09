@@ -10,7 +10,7 @@ public class AccountTest {
     @Test
     public void getCurrentUserTest() {
         User currentUser = new User("Sabin", "Figaro", 456456);
-        Account account = new Account(currentUser);
+        Account account = new Account(currentUser, 0.0);
         User expected = new User("Sabin", "Figaro", 456456);
         User actual = account.getCurrentUser();
 
@@ -20,7 +20,7 @@ public class AccountTest {
     @Test
     public void setCurrentUser() {
         User currentUser = new User("Sabin", "Figaro", 456456);
-        Account account = new Account(null);
+        Account account = new Account(0.0);
         account.setCurrentUser(currentUser);
 
         Assert.assertEquals(account.getCurrentUser(), currentUser);
@@ -28,7 +28,7 @@ public class AccountTest {
 
     @Test
     public void getBalance() {
-        Account account = new Account(null);
+        Account account = new Account(0.0);
         Double expected = 0.0;
         Double actual = account.getBalance();
         Assert.assertEquals(expected,actual);
@@ -36,7 +36,7 @@ public class AccountTest {
 
     @Test
     public void setBalance() {
-        Account account = new Account(null);
+        Account account = new Account(0.0);
         Double expected = 100.0;
         account.setBalance(expected);
 
@@ -45,10 +45,10 @@ public class AccountTest {
 
     @Test
     public void addToBalance() {
-        Account account = new Account(null);
+        Account account = new Account(0.0);
         account.setBalance(100.0);
         Double input = 80.0;
-        account.addToBalance(input);
+        account.deposit(input);
 
 
         Double expected = 180.0;
@@ -60,10 +60,10 @@ public class AccountTest {
 
     @Test
     public void subtractFromBalance() {
-        Account account = new Account(null);
+        Account account = new Account(0.0);
         account.setBalance(100.0);
         Double input = 80.0;
-        account.subtractFromBalance(input);
+        account.withdraw(input);
 
 
         Double expected = 20.0;

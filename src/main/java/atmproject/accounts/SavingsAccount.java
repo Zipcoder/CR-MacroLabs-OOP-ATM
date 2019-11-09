@@ -8,8 +8,7 @@ public class SavingsAccount extends Account {
     protected Double interestRate;
 
     public SavingsAccount(User currentUser) {
-        super(currentUser);
-        super.setBalance(0.0);
+        super(currentUser, 0.0);
         this.interestRate = 0.0005;
     }
 
