@@ -4,6 +4,7 @@
 public class Main {
 
     public static void main(String[] args){
-        
+        AtmFlow atmFlow = new AtmFlow();
+        atmFlow.start();
     }
 }
