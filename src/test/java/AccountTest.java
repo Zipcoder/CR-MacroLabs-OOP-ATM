@@ -1,4 +1,5 @@
 
+import atmproject.accounts.Account;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

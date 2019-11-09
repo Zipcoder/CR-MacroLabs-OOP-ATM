@@ -2,6 +2,8 @@ package atmproject.accounts;
 
 import atmproject.User;
 
+import java.security.InvalidParameterException;
+
 public class Account {
 
     private User currentUser;
@@ -36,5 +38,24 @@ public class Account {
     public Double subtractFromBalance(Double input){
         this.balance = balance - input;
         return balance;
+    }
+    public void withdraw(Double amount) {
+        if (amount < 0) {
+            throw new InvalidParameterException();
+        }
+
+    }
+
+    public void deposit(Double amount) {
+        if (amount < 0) {
+            throw new InvalidParameterException();
+        }
+
+    }
+
+    public void transfer(Double amount) {
+        if (amount < 0) {
+            throw new InvalidParameterException();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package atmproject.accounts;
 
 import atmproject.User;
+import atmproject.accounts.SavingsAccount;
 
 public class InvestmentsAccount extends SavingsAccount {
 

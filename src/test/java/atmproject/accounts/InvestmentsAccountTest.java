@@ -20,7 +20,7 @@ public class InvestmentsAccountTest {
         InvestmentsAccount investmentsAccount = new InvestmentsAccount(null);
         Double expected = 35000.0;
         investmentsAccount.setMinimumDeposit(expected);
-        Assert.assertEquals(expected,investmentsAccount.getMinimumDeposit());
+        assertEquals(expected,investmentsAccount.getMinimumDeposit());
     }
 
     @Test
