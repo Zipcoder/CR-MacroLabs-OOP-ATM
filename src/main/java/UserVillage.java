@@ -4,6 +4,7 @@ import java.util.HashMap;
 public class UserVillage {
     ArrayList<User> allUsers = new ArrayList<User>();
 
+    public UserVillage(){}
     public UserVillage(User user){
         this.allUsers.add(user);
     }
