@@ -40,7 +40,10 @@ public class Account {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
-        this.balance = balance - amount;
+        if(this.balance >= amount) {
+            this.balance = balance - amount;
+            return balance;
+        }
         return balance;
     }
 
@@ -48,25 +51,25 @@ public class Account {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
-        if(this.balance > amount) {
             this.balance = balance + amount;
             return balance;
-        }
-        return balance;
     }
 
     public void transfer(Account destinationAccount, Double amount) {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
-        destinationAccount.deposit(amount);
-        this.withdraw(amount);
+        if(this.balance >= amount) {
+            this.withdraw(amount);
+            destinationAccount.deposit(amount);
+        }
     }
 
     public boolean closeAccount(){
         if (balance > 0.0){
             return false;
         }
-        return currentUser.removeAccount(this) == null;
+
+        return currentUser.getAccountList().containsValue(this);
     }
 }
