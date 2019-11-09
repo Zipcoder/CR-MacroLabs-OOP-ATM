@@ -80,7 +80,7 @@ public class AtmFlow {
     public void createAccount(){
         String userName = Console.getStringInput("Enter a Username?");
         String password = Console.getStringInput("Enter a password?");
-        if(userVillage.checkUser(userName)) {
+        if(!userVillage.checkUser(userName)) {
             userVillage.createUser(userName, password);
             start();
         }
