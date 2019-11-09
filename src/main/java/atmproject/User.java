@@ -23,4 +23,12 @@ public class User {
         this.transactionHistory = new ArrayList<String>();
 
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 }
