@@ -12,7 +12,6 @@ public class Account {
         this.balance = balance;
     }
 
-
     public void deposit(Double amount){
         if(amount > 0.0){
             this.setBalance(this.getBalance() + amount);

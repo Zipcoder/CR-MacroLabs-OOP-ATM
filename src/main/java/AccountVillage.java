@@ -5,17 +5,20 @@ public class AccountVillage {
     private Map<Integer, Account> accounts;
     private Integer nextId;
 
-    public AccountVillage(){
+
+    public AccountVillage() {
         this.accounts = new HashMap<Integer, Account>();
         this.nextId = 0;
     }
 
-    public void createAccount (Double balance, String accountType){
+    public Account createAccount(Double balance, String accountType) {
         nextId += 1;
         Account account = new Account(balance, nextId);
         this.accounts.put(nextId, account);
+        return account;
     }
-    public Account getAccountById(Integer id){
+
+    public Account getAccountById(Integer id) {
         return this.accounts.get(id);
     }
 
@@ -25,7 +28,16 @@ public class AccountVillage {
         return accounts;
     }
 
+
     public void setAccounts(Map<Integer, Account> accounts) {
         this.accounts = accounts;
+    }
+
+    public Integer getNextId() {
+        return nextId;
+    }
+
+    public void setNextId(Integer nextId) {
+        this.nextId = nextId;
     }
 }
