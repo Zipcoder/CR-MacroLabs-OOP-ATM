@@ -8,10 +8,16 @@ public class Account {
 
     private User currentUser;
     protected Double balance;
+    private Integer accountNumber;
 
-    public Account(User currentUser){
+    public Account(User currentUser, Double balance, Integer accountNumber){
         this.currentUser = currentUser;
-        this.balance = 0.0;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+    }
+
+    public Account(Double balance){
+        this.balance = balance;
     }
 
     public User getCurrentUser() {
@@ -30,32 +36,40 @@ public class Account {
         this.balance = balance;
     }
 
-    public Double addToBalance(Double input){
-        this.balance = balance + input;
+    public Double withdraw(Double amount) {
+        if (amount < 0) {
+            throw new InvalidParameterException();
+        }
+        if(this.balance >= amount) {
+            this.balance = balance - amount;
+            return balance;
+        }
         return balance;
     }
 
-    public Double subtractFromBalance(Double input){
-        this.balance = balance - input;
-        return balance;
-    }
-    public void withdraw(Double amount) {
+    public Double deposit(Double amount) {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
-
+            this.balance = balance + amount;
+            return balance;
     }
 
-    public void deposit(Double amount) {
+    public void transfer(Account destinationAccount, Double amount) {
         if (amount < 0) {
             throw new InvalidParameterException();
         }
-
+        if(this.balance >= amount) {
+            this.withdraw(amount);
+            destinationAccount.deposit(amount);
+        }
     }
 
-    public void transfer(Double amount) {
-        if (amount < 0) {
-            throw new InvalidParameterException();
+    public boolean closeAccount(){
+        if (balance > 0.0){
+            return false;
         }
+
+        return currentUser.getAccountList().containsValue(this);
     }
 }

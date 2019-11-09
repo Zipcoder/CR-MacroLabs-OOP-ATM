@@ -7,9 +7,8 @@ public class InvestmentsAccount extends SavingsAccount {
 
     private Double minimumDeposit;
 
-    public InvestmentsAccount(User currentUser) {
-        super(currentUser);
-        super.setBalance(0.0);
+    public InvestmentsAccount(User currentUser, Double balance, Integer accountNumber) {
+        super(currentUser, 0.0, null);
         super.setInterestRate(0.001);
         this.minimumDeposit = 15000.0;
     }
