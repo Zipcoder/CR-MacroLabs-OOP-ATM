@@ -16,25 +16,7 @@ public class UserVillageTest {
 
         Assert.assertEquals(expected,actual);
     }
-
-    @Test
-    public void getAllUsers() {
-        User user = new User(0,"Todd","Password");
-        User user2 = new User(1,"Ted","Password");
-        User user3 = new User(2,"Toby","Password");
-
-        UserVillage uV = new UserVillage(user);
-        uV.addUser(user2);
-        uV.addUser(user3);
-        ArrayList<User> userList = uV.getAllUsers();
-        String actual = "";
-        String expected = "012";
-        for (int i = 0; i < userList.size(); i++) {
-            actual = actual.concat(String.valueOf(userList.get(i).getUserID()));
-        }
-        Assert.assertEquals(expected,actual);
-    }
-
+    
     @Test
     public void setAllUsers() {
         User user = new User(0,"Todd","Password");
@@ -43,7 +25,6 @@ public class UserVillageTest {
 
         ArrayList<User> expected = new ArrayList<User>();
         ArrayList<User> actual;
-
         expected.add(user);
        expected.add(user2);
        expected.add(user3);
