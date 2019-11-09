@@ -4,27 +4,26 @@ import atmproject.accounts.Account;
 import atmproject.accounts.InvestmentsAccount;
 import atmproject.accounts.SavingsAccount;
 
-public class AccountMenu {
-    SavingsAccount savingsAccount;
-    Account checkingAccount;
-    InvestmentsAccount investmentsAccount;
+import java.util.Map;
 
-    public Account selectAccount(Integer input) {
+public class AccountMenu {
+    Account account;
+    Console console = new Console(System.in, System.out);
+
+    public Account selectAccount(User user) {
        Account returnedAccount = null;
 
-        switch (input) {
-            case 1:
-                returnedAccount = checkingAccount;
-            break;
-            case 2:
-                returnedAccount = savingsAccount;
-            break;
-            case 3:
-                returnedAccount = investmentsAccount;
-            break;
-            case 4:
-                returnedAccount = null;
-        }
+
+       for(String s : user.accountList.keySet()){
+           console.println(s);
+       }
+
+        String input = console.getStringInput("please select an Account:");
+
+       if (user.accountList.containsKey(input)){
+           returnedAccount = user.accountList.get(input);
+       }
+
 
         return returnedAccount;
     }
