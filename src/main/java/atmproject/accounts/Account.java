@@ -5,7 +5,7 @@ import atmproject.User;
 public class Account {
 
     private User currentUser;
-    private Double balance;
+    protected Double balance;
 
     public Account(User currentUser){
         this.currentUser = currentUser;
