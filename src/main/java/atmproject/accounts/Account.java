@@ -79,13 +79,4 @@ public class Account {
         return this.balance;
     }
 
-    public Boolean closeAccount(){
-        if (balance > 0.0){
-            console.println("Please empty your account before attempting to close.");
-            return false;
-        }
-        currentUser.removeAccount(this);
-        return !currentUser.getAccountList().containsValue(this.getAccountName());
-    }
-
 }
