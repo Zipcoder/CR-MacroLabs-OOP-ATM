@@ -15,6 +15,26 @@ public class User {
         return this.accountsIds.add(accountId);
     }
 
+    public void removeAccount(Integer accountId) {
+        if (checkIfUserHasAccount(accountId)) {
+            this.accountsIds.remove(accountId);
+        }
+    }
+
+    public ArrayList<Integer> getAccountsIds() {
+        return this.accountsIds;
+    }
+
+    public Boolean checkIfUserHasAccount(Integer accountIdToCheck) {
+        Boolean exists = false;
+        for (Integer accountId: this.accountsIds) {
+            if (accountIdToCheck == accountId) {
+                exists = true;
+            }
+        }
+        return exists;
+    }
+
     ///////GETTERS AND SETTERS
     public Integer getUserID() {
         return userID;

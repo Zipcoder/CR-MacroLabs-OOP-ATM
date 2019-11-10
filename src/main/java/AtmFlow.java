@@ -1,6 +1,7 @@
 public class AtmFlow {
     UserVillage userVillage = new UserVillage();
     AccountVillage accountVillage = new AccountVillage();
+    private String currentUsername = "";
 
     public  void start(){
         mainMenu(Console.getIntegerInput("Welcome to ATM FLOWTISTIC!\n" +
@@ -32,6 +33,7 @@ public class AtmFlow {
         String password = Console.getStringInput("Enter a password?");
 
         if(userVillage.checkLogIn(userName, password)){
+            this.currentUsername = userName;
             accountStart();
         }
         else
@@ -47,7 +49,8 @@ public class AtmFlow {
                 "4 - Transfer\n" +
                 "5 - Close Account\n" +
                 "6 - Log Out\n" +
-                "7 - Exit"));
+                "7 - Exit\n" +
+                "8 - See transaction history\n"));
     }
 
     public void accountMenu(Integer choice){
@@ -64,22 +67,32 @@ public class AtmFlow {
                 break;
             case 4 :
                 //transfer
-                //get user input : which account
                 transfer();
                 break;
             case 5 :
                 //close account
+                closeAccount();
                 break;
             case 6 :
+                this.currentUsername = "";
                 start();
                 break;
             case 7 :
                 System.exit(0);
                 break;
+            case 8:
+                showTransactions();
+                break;
             default :
                 Console.println("not an Option");
                 break;
         }
+    }
+
+    public void showTransactions() {
+        Integer accountId = accountPrompt();
+        String history = accountVillage.getAccountById(accountId).getPrintableHistory();
+        Console.println(history);
     }
 
     public void createAccount(){
@@ -100,8 +113,10 @@ public class AtmFlow {
                 "1 - Checking\n" +
                 "2 - Savings \n" +
                 "3 - Investment\n");
-        accountVillage.createAccount(amount, accountType);
-        Console.println("Account was created");
+        Account account = accountVillage.createAccount(amount, accountType);
+        Integer id = account.getAccountID();
+        userVillage.getUserByUsername(currentUsername).addingAccount(id);
+        Console.println("%s Account was created for %s", account.getName(), currentUsername);
         accountStart();
     }
 
@@ -130,16 +145,37 @@ public class AtmFlow {
         accountVillage.getAccountById(sourceAccountId).transfer(accountVillage.getAccountById(targetAccountId),transferAmount);
     }
     /////////PROMPT//////
-    public Integer accountPrompt(){
-        Integer accountType = Console.getIntegerInput("Which Account \n" +
-                "1 - Checking\n" +
-                "2 - Savings \n" +
-                "3 - Investment\n\n");
-        return accountType;
-    }
+//    public Integer accountPrompt(){
+//        Integer accountType = Console.getIntegerInput("Which Account \n" +
+//                "1 - Checking\n" +
+//                "2 - Savings \n" +
+//                "3 - Investment\n\n");
+//        return accountType;
+//    }
     public void promptNewBalance(Integer account){
         Console.println( "New Balance : " + accountVillage.getAccountById(account).getBalance() + "\n\n");
     }
 
+    public Integer accountPrompt() {
+        Integer accountId;
+        StringBuilder message = new StringBuilder();
+        User user = userVillage.getUserByUsername(currentUsername);
+        for (Integer id : user.getAccountsIds()) {
+            Account account = accountVillage.getAccountById(id);
+            message.append(String.format("%s : %s\n", id, account.getName()));
+        }
+        message.append("Choose an account to access: ");
+        do {
+            accountId = Console.getIntegerInput(message.toString());
+        } while (!user.getAccountsIds().contains(accountId));
+        return accountId;
+    }
+
+    public void closeAccount() {
+        Integer accountId = accountPrompt();
+        if (accountVillage.getAccountById(accountId).closeAccount()) {
+            userVillage.getUserByUsername(currentUsername).removeAccount(accountId);
+        }
+    }
 
 }

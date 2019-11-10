@@ -16,18 +16,21 @@ public class UserVillage {
     }
     ///GETTERS SETTERS////
     public Boolean checkLogIn(String username, String password){
+        Boolean login = false;
         for (User user : allUsers){
             if(username.equals(user.getUserName()) && password.equals(user.getPassword()))
-                return true;
+                login = true;
         }
-        return false;
+        return login;
     }
     public Boolean checkUser(String username){
+        Boolean exists = false;
         for(User user : allUsers){
-            if(!username.equals(user.getUserName()));
-                return true;
+            if(username.equals(user.getUserName())) {
+                exists = true;
+            }
         }
-        return false;
+        return exists;
     }
     public ArrayList<User> getAllUsers() {
         return allUsers;
@@ -36,4 +39,15 @@ public class UserVillage {
     public void setAllUsers(ArrayList<User> allUsers) {
         this.allUsers = allUsers;
     }
+
+    public User getUserByUsername(String username) {
+        User foundUser = null;
+        for(User user : allUsers){
+            if(username.equals(user.getUserName())) {
+                foundUser = user;
+            }
+        }
+        return foundUser;
+    }
+
 }
