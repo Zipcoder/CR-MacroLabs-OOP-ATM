@@ -34,7 +34,7 @@ public class UserLogin {
                     break;
                 case 1:
                     getUserInfo();
-                    console.println("Hello, %s! Thank you for creating an account. You user ID is %d", currentUser.getFirstName(),currentUser.getUserID());
+                    console.println("Hello, %s! Thank you for creating an account. Your user ID is %d.", currentUser.getFirstName(),currentUser.getUserID());
                     userRepository.initialAccount(currentUser);
                     break;
                 case 2:

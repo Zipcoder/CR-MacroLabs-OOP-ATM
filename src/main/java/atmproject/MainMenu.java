@@ -53,7 +53,7 @@ public class MainMenu {
             if(userInput <= chosenAccount.getBalance()){
                 return String.format("You transferred $%.2f from %s to %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
             }
-            return "ERROR: insufficient funds for transfer.\n";
+            return "ERROR: Insufficient funds for transfer.\n";
         }
     }
 
@@ -100,17 +100,21 @@ public class MainMenu {
             case 1:
                 String transaction = callDeposit();
                 console.println(transaction);
-                currentUser.addToHistory(transaction);
+                currentUser.addToHistory(transaction + "\n");
                 break;
             case 2:
                 transaction = callWithdraw();
                 console.println(transaction);
-                currentUser.addToHistory(transaction);
+                currentUser.addToHistory(transaction + "\n");
                 break;
             case 3:
-                transaction = callTransfer();
-                console.println(transaction);
-                currentUser.addToHistory(transaction);
+                if (currentUser.getAccountList().size() >= 2) {
+                    transaction = callTransfer();
+                    console.println(transaction);
+                    currentUser.addToHistory(transaction + "\n");
+                } else {
+                    console.println("ERROR: Not enough accounts to transfer money. Please create a new one.");
+                }
                 break;
             case 4:
                 console.println(checkBalance());
