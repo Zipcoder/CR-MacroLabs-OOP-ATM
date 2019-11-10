@@ -16,7 +16,6 @@ public class User {
     private Integer userID;
     private ArrayList<String> transactionHistory;
     TreeMap<String, Account> accountList;
-    TreeMap<String, SavingsAccount> savingsAccountList;
 
     public User(String firstName, String lastName, Integer userID){
         this.firstName = firstName;
@@ -88,10 +87,6 @@ public class User {
 
     public void addAccount(Account account) {
         accountList.put(account.getAccountName(), account);
-    }
-
-    public void addSavingsAccount(SavingsAccount account) {
-        savingsAccountList.put(account.getAccountName(), account);
     }
 
     public String displayHistory(){
