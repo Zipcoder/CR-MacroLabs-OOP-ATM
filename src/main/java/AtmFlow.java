@@ -64,6 +64,8 @@ public class AtmFlow {
                 break;
             case 4 :
                 //transfer
+                //get user input : which account
+                transfer();
                 break;
             case 5 :
                 //close account
@@ -113,13 +115,19 @@ public class AtmFlow {
         accountStart();
     }
     public void deposit(){
-        Double depositAmount = Console.getDoubleInput("How much would like to deposit?");
+        Double depositAmount = Console.getDoubleInput("How much would you like to deposit?");
         Integer account = accountPrompt();
         accountVillage.getAccountById(account).deposit(depositAmount);
         Console.println("Depositing : " + depositAmount);
         promptNewBalance(account);
         accountStart();
 
+    }
+    public void transfer(){
+        Double transferAmount = Console.getDoubleInput("How much would you like to transfer? ");
+        Integer sourceAccountId = accountPrompt();
+        Integer targetAccountId = Console.getIntegerInput("Select target account id: ");
+        accountVillage.getAccountById(sourceAccountId).transfer(accountVillage.getAccountById(targetAccountId),transferAmount);
     }
     /////////PROMPT//////
     public Integer accountPrompt(){
