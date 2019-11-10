@@ -81,7 +81,7 @@ public class UserTest {
         User currentUser = new User("Shadow", "???", 3454);
         Account account = new Account(currentUser, 500.0, "Checking Account 1");
         String expected = "{" + account.getAccountName() + "=" + account.toString() + "}";
-        account.addAccount(account);
+        currentUser.addAccount(account);
         Assert.assertEquals(expected,currentUser.getAccountList().toString());
     }
 
@@ -106,7 +106,11 @@ public class UserTest {
     @Test
     public void setTransactionHistory() {
         User currentUser = new User("Shadow", "???", 3454);
-        String[] expected = {"BLAH BLAH BLAH"};
+        String transaction = "BLAH BLAH BLAH";
+        ArrayList<String> expected = new ArrayList<String>();
+        expected.add(transaction);
+        currentUser.setTransactionHistory(expected);
+        Assert.assertEquals(expected.toString(), currentUser.getTransactionHistory().toString());
     }
 
     @Test

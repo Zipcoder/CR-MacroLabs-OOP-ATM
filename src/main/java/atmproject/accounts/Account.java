@@ -84,11 +84,8 @@ public class Account {
             console.println("Please empty your account before attempting to close.");
             return false;
         }
-        currentUser.removeAccount(this.getAccountName());
+        currentUser.removeAccount(this);
         return !currentUser.getAccountList().containsValue(this.getAccountName());
     }
 
-    public void addAccount(Account account){
-        currentUser.getAccountList().put(accountName,this);
-    }
 }

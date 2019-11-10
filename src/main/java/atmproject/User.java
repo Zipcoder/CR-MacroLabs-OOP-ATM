@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 public class User {
-
+    private Console console = new Console(System.in,System.out);
     private String firstName;
     private String lastName;
     private Integer pinNumber;
@@ -77,9 +77,15 @@ public class User {
         transactionHistory.add(transaction);
     }
 
-    public Account removeAccount(String accountName){
-        return accountList.remove(accountName);
+    public void removeAccount(Account account){
+        accountList.remove(account.getAccountName());
+    }
 
+    public void addAccount(Account account) {
+        if (account.getBalance() > 0.0){
+            console.println("Please empty your account before attempting to close.");
+        }
+        accountList.put(account.getAccountName(), account);
     }
 
     public String displayHistory(){
