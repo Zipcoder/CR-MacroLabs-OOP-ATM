@@ -6,7 +6,7 @@ package atmproject;
 public class Main {
 
     public static void main(String[] args){
-        UserLogin userLogin = new UserLogin();
-        userLogin.runLoginMenu();
+        ATM atm = new ATM();
+        atm.turnOnATM();
     }
 }

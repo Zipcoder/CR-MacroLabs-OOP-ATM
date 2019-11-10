@@ -65,6 +65,7 @@ public class UserLogin {
             }else{ console.println("Please try again.");}
         }
     }
+
     public void getUserInfo(){
         String firstInput = getFirstNameInput();
         String lastInput = getLastNameInput();
@@ -77,14 +78,17 @@ public class UserLogin {
         return console.getIntegerInput(":");
 
     }
+
     private Integer getPINInput(){
         console.println("Please enter your PIN :");
         return console.getIntegerInput(":");
     }
+
     private Integer tryAgainInput(){
         console.println("User Info doesn't match. Try again?\n(1) - Yes\n(2) - No\n");
         return console.getIntegerInput(":");
     }
+
     public void getLoginInfo(){
         Boolean exit = false;
         while (currentUser == null) {
@@ -105,6 +109,7 @@ public class UserLogin {
         }
 
     }
+
     public User createUser (String firstName, String lastName){
         Integer userID = userRepository.getIDNums();
         userRepository.saveUser(new User(firstName,lastName, userID), userID);
@@ -117,12 +122,13 @@ public class UserLogin {
         if(user != null && user.getPinNumber().equals(pinNumber)){
             currentUser = user;
         }
-
     }
+
     public void startMainMenu(){
         ATM ATM = new ATM();
         ATM.runMainMenu(currentUser);
     }
+
     public void exit(){
         Integer userInput = 0;
         console.println("Are you sure you want to Exit?\n(1) - Yes\n(2) - No\n");
@@ -139,5 +145,4 @@ public class UserLogin {
             }
         }
     }
-
 }
