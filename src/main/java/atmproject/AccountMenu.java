@@ -17,7 +17,7 @@ public class AccountMenu {
        Integer counter = 1;
        console.println("\n");
         for(String s : user.accountList.keySet()) {
-            console.println( counter + " " + s);
+            console.println( "(" + counter + ")" + " -> " + s);
             returnedMap.put(counter, user.accountList.get(s));
             counter++;
 
