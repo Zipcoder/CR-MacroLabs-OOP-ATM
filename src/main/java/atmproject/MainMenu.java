@@ -40,11 +40,19 @@ public class MainMenu {
         Account chosen;
         Double userInput;
         chosen = accountMenu.selectAccount(currentUser);
-
+        console.println("How much would you like to deposit?");
+       userInput = getUserDoubleInput();
+       chosen.deposit(userInput);
 
     }
 
     public void callWithdraw() {
+        Account chosen;
+        Double userInput;
+        chosen = accountMenu.selectAccount(currentUser);
+        console.println("How much would you like to withdraw?");
+        userInput = getUserDoubleInput();
+        chosen.withdraw(userInput);
 
     }
 
