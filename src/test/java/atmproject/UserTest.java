@@ -114,10 +114,34 @@ public class UserTest {
     }
 
     @Test
+    public void addAccount() {
+        User currentUser = new User("Shadow", "???", 3454);
+        Account account = new Account(currentUser, 500.0, "Checking Account 1");
+        currentUser.addAccount(account);
+        Assert.assertTrue(currentUser.getAccountList().containsKey("Checking Account 1"));
+
+    }
+
+    @Test
     public void removeAccount() {
+        User currentUser = new User("Shadow", "???", 3454);
+        Account account = new Account(currentUser, 500.0, "Checking Account 1");
+        currentUser.addAccount(account);
+        currentUser.removeAccount(account);
+        Assert.assertTrue(currentUser.getAccountList().isEmpty());
     }
 
     @Test
     public void displayHistory() {
+        User currentUser = new User("Shadow", "???", 3454);
+        String transaction = "BLAH BLAH BLAH";
+        String transaction2 = "Snip snat snoogle snork";
+        String transaction3 = "Fiddle flop flee!";
+        currentUser.addToHistory(transaction);
+        currentUser.addToHistory(transaction2);
+        currentUser.addToHistory(transaction3);
+        Assert.assertTrue(currentUser.displayHistory().contains(transaction));
     }
+
+
 }
