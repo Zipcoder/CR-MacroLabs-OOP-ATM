@@ -8,33 +8,33 @@ public class UserRepository {
     // Singleton Eager Initialization
     private static final UserRepository userRepository = new UserRepository();
 
-    private int accountNums;
+    private int idNums;
     private Map<String, User> repo;
 
     private UserRepository(){
-        accountNums = 1000;
+        idNums = 1000;
         repo = new TreeMap<String, User>();
     }
     public static UserRepository getUserRepository(){
         return userRepository;
     }
 
-    public Integer createNewAccountNum(){
-        Integer accountNum = accountNums;
-        accountNums++;
-        return accountNum;
+    public Integer createNewUserID(){
+        Integer userID = idNums;
+        idNums++;
+        return userID;
     }
-    public void saveUser(User user, Integer accountNum){
-        repo.put(String.format("%04d",accountNum),user);
+    public void saveUser(User user, Integer userID){
+        repo.put(String.format("%04d",userID),user);
     }
-    public User getUser(String accountNum){
-        return repo.get(accountNum);
+    public User getUser(String userID){
+        return repo.get(userID);
     }
 
-    public User getUser(Integer accountNum){
-        return repo.get(String.format("%4d",accountNum));
+    public User getUser(Integer userID){
+        return repo.get(String.format("%4d",userID));
     }
-    public int getAccountNums() {
-        return accountNums;
+    public int getIDNums() {
+        return idNums;
     }
 }

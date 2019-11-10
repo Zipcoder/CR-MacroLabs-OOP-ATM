@@ -1,7 +1,5 @@
 package atmproject;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
 public class UserLogin {
     private User currentUser;
     private Console console = new Console(System.in, System.out);
@@ -53,13 +51,26 @@ public class UserLogin {
         console.println("Please enter Last name :");
         return console.getStringInput(":");
     }
+
+    private void setPin() {
+        Boolean isPINSet = false;
+        while(!isPINSet) {
+            console.println("Please select 4 digit PIN :");
+            Integer pin = console.getIntegerInput(":");
+            if(pin < 10000 && pin > -1) {
+                currentUser.setPinNumber(pin);
+                isPINSet = true;
+            }else{ console.println("Please try again.");}
+        }
+    }
     public void getUserInfo(){
         String firstInput = getFirstNameInput();
         String lastInput = getLastNameInput();
-        createUser(firstInput,lastInput);
+        currentUser = createUser(firstInput,lastInput);
+        setPin();
     }
 
-    private Integer getAccountNumberInput(){
+    private Integer getUserIDInput(){
         console.println("Please enter your 4 digit Account Number :");
         return console.getIntegerInput(":");
 
@@ -75,9 +86,9 @@ public class UserLogin {
     public void getLoginInfo(){
         Boolean exit = false;
         while (currentUser == null) {
-            Integer accountNumber = getAccountNumberInput();
+            Integer userID = getUserIDInput();
             Integer pin = getPINInput();
-            login(accountNumber, pin);
+            login(userID, pin);
             if(currentUser == null){
                 Integer userInput = tryAgainInput();
                 switch(userInput){
@@ -95,14 +106,14 @@ public class UserLogin {
 
     }
     public User createUser (String firstName, String lastName){
-        Integer accountNum = userRepository.getAccountNums();
-        userRepository.saveUser(new User(firstName,lastName, accountNum), accountNum);
+        Integer userID = userRepository.getIDNums();
+        userRepository.saveUser(new User(firstName,lastName, userID), userID);
 
-        return userRepository.getUser(accountNum);
+        return userRepository.getUser(userID);
     }
 
-    public void login(Integer accountNum,Integer pinNumber ){
-        User user = userRepository.getUser(accountNum);
+    public void login(Integer userID,Integer pinNumber ){
+        User user = userRepository.getUser(userID);
         if(user != null && user.getPinNumber().equals(pinNumber)){
             currentUser = user;
         }

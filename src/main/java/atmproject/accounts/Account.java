@@ -54,6 +54,7 @@ public class Account {
             this.balance = balance - amount;
             return balance;
         }
+        currentUser.addToHistory(String.format("You withdrew $%f.0 from %s.", amount, this.getAccountName()));
         return balance;
     }
 
@@ -62,6 +63,7 @@ public class Account {
             throw new InvalidParameterException();
         }
             this.balance = balance + amount;
+            currentUser.addToHistory(String.format("You deposited $%f.0 from %s.", amount, this.getAccountName()));
             return balance;
     }
 
@@ -73,6 +75,7 @@ public class Account {
             this.withdraw(amount);
             destinationAccount.deposit(amount);
         }
+        currentUser.addToHistory(String.format("You transfered $%f.0 from %s t0 %s.",amount, this.getAccountName(), destinationAccount.getAccountName()));
         return this.balance;
     }
 
@@ -81,7 +84,8 @@ public class Account {
             console.println("Please empty your account before attempting to close.");
             return false;
         }
-        currentUser.removeAccount(this.getAccountName());
+        currentUser.removeAccount(this);
         return !currentUser.getAccountList().containsValue(this.getAccountName());
     }
+
 }

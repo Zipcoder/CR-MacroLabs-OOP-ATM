@@ -14,10 +14,10 @@ public class UserRepositoryTest {
         UserRepository userRepository = UserRepository.getUserRepository();
 
         Integer expectedAccountNum = 1000;
-        Integer actualAccountNum = userRepository.createNewAccountNum();
+        Integer actualAccountNum = userRepository.createNewUserID();
 
         Integer expectedIncrement = expectedAccountNum + 1;
-        Integer actualIncrement = userRepository.getAccountNums();
+        Integer actualIncrement = userRepository.getIDNums();
 
         assertEquals(expectedAccountNum, actualAccountNum);
         assertEquals(expectedIncrement, actualIncrement);
@@ -27,10 +27,10 @@ public class UserRepositoryTest {
         UserRepository userRepository = UserRepository.getUserRepository();
 
         Integer expectedAccountNum = 1001;
-        Integer actualAccountNum = userRepository.createNewAccountNum();
+        Integer actualAccountNum = userRepository.createNewUserID();
 
         Integer expectedIncrement = expectedAccountNum + 1;
-        Integer actualIncrement = userRepository.getAccountNums();
+        Integer actualIncrement = userRepository.getIDNums();
 
         assertEquals(expectedAccountNum, actualAccountNum);
         assertEquals(expectedIncrement, actualIncrement);
@@ -38,7 +38,7 @@ public class UserRepositoryTest {
     @Test
     public void Test03saveUser() {
         UserRepository userRepository = UserRepository.getUserRepository();
-        Integer accountNum = userRepository.createNewAccountNum();
+        Integer accountNum = userRepository.createNewUserID();
         User expected = new User("Jaime","Diamond", accountNum);
 
         userRepository.saveUser(expected, accountNum);

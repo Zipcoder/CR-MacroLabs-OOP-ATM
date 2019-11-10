@@ -28,7 +28,6 @@ public class MainMenu {
         console.println("How much would you like to deposit?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
-
     }
 
     public void callWithdraw() {
@@ -36,7 +35,6 @@ public class MainMenu {
         console.println("How much would you like to withdraw?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
-
     }
 
     public void callTransfer(){
@@ -49,14 +47,11 @@ public class MainMenu {
             Double userInput = console.getDoubleInput(":");
             chosenAccount.transfer(destinationAccount, userInput);
         }
-
-
     }
 
     public String checkBalance() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         return String.format("The balance in %s is $%f.0", chosenAccount.getAccountName(), chosenAccount.getBalance());
-        
     }
 
     public String displayHistory() {
@@ -64,18 +59,15 @@ public class MainMenu {
             return "You currently have no history, please";
         }
         return currentUser.displayHistory();
-
     }
 
     public void returnTOLoginMenu() {
         running = false;
-
     }
 
 
 
     public void mainMenuLogic(Integer userInput){
-
         switch (userInput) {
             case 1:
                 callDeposit();
@@ -96,11 +88,6 @@ public class MainMenu {
                 returnTOLoginMenu();
                 break;
         }
-
-
-
-
-
     }
 
     public User getCurrentUser() {

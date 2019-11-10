@@ -8,18 +8,18 @@ import java.util.HashMap;
 import java.util.TreeMap;
 
 public class User {
-
+    private Console console = new Console(System.in,System.out);
     private String firstName;
     private String lastName;
     private Integer pinNumber;
-    private Integer accountNumber;
+    private Integer userID;
     TreeMap<String, Account> accountList;
     ArrayList<String> transactionHistory;
 
-    public User(String firstName, String lastName, Integer accountNumber){
+    public User(String firstName, String lastName, Integer userID){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accountNumber = accountNumber;
+        this.userID = userID;
         this.pinNumber = 0;
         this.accountList = new TreeMap<String, Account>();
         this.transactionHistory = new ArrayList<String>();
@@ -50,12 +50,12 @@ public class User {
         this.pinNumber = pinNumber;
     }
 
-    public Integer getAccountNumber() {
-        return accountNumber;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setAccountNumber(Integer accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setUserID(Integer accountNumber) {
+        this.userID = accountNumber;
     }
 
     public TreeMap<String, Account> getAccountList() {
@@ -73,10 +73,19 @@ public class User {
     public void setTransactionHistory(ArrayList<String> transactionHistory) {
         this.transactionHistory = transactionHistory;
     }
+    public void addToHistory(String transaction){
+        transactionHistory.add(transaction);
+    }
 
-    public Account removeAccount(String accountName){
-        return accountList.remove(accountName);
+    public void removeAccount(Account account){
+        accountList.remove(account.getAccountName());
+    }
 
+    public void addAccount(Account account) {
+        if (account.getBalance() > 0.0){
+            console.println("Please empty your account before attempting to close.");
+        }
+        accountList.put(account.getAccountName(), account);
     }
 
     public String displayHistory(){
