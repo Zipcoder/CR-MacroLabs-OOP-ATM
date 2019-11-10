@@ -22,34 +22,35 @@ public class MainMenu {
 
     public void callDeposit() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
-        Double userInput;
         console.println("How much would you like to deposit?");
-        userInput = console.getDoubleInput(":");
+        Double userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
 
     }
 
     public void callWithdraw() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
-        Double userInput;
         console.println("How much would you like to withdraw?");
-        userInput = console.getDoubleInput(":");
+        Double userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
 
     }
 
     public void callTransfer() {
-        Account chosenAccount;
-        chosenAccount = accountMenu.selectAccount(currentUser);
-        console.println("The balance in %s is $%f.0", chosenAccount.getAccountName(), chosenAccount.getBalance());
+
     }
 
-    public void checkBalance() {
+    public String checkBalance() {
+        Account chosenAccount = accountMenu.selectAccount(currentUser);
+        return String.format("The balance in %s is $%f.0", chosenAccount.getAccountName(), chosenAccount.getBalance());
         
     }
 
-    public void displayHistory() {
-        console.println(currentUser.displayHistory());
+    public String displayHistory() {
+        if(currentUser.getTransactionHistory().isEmpty()){
+            return "You currently have no history, please";
+        }
+        return currentUser.displayHistory();
 
     }
 
@@ -73,10 +74,10 @@ public class MainMenu {
                 callTransfer();
                 break;
             case 4:
-                checkBalance();
+                console.println(displayHistory());
                 break;
             case 5:
-                displayHistory();
+                console.println(checkBalance());
                 break;
             case 6:
                 returnTOLoginMenu();
