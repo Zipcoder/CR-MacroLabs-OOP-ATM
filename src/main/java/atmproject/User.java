@@ -18,7 +18,7 @@ public class User {
     public User(String firstName, String lastName, Integer accountNumber){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.pinNumber = accountNumber;
+        this.accountNumber = accountNumber;
         this.pinNumber = 0;
         this.accountList = new TreeMap<String, Account>();
         this.transactionHistory = new ArrayList<String>();
