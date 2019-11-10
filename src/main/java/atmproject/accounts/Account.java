@@ -82,6 +82,6 @@ public class Account {
             return false;
         }
         currentUser.removeAccount(this.getAccountName());
-        return currentUser.getAccountList().containsValue(this);
+        return !currentUser.getAccountList().containsValue(this.getAccountName());
     }
 }
