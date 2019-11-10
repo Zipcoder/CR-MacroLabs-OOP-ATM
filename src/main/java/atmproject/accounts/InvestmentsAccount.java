@@ -25,6 +25,6 @@ public class InvestmentsAccount extends SavingsAccount {
         if(input < this.minimumDeposit){
             return String.format("We apologize. Your starting balance must be at least $%f0", minimumDeposit);
         }
-        return "Thank you for creating this new account.";
+        return "Thank you! Enjoy your new investment account.";
     }
 }

@@ -2,6 +2,7 @@ package atmproject;
 
 
 import atmproject.accounts.Account;
+import atmproject.accounts.SavingsAccount;
 
 
 public class MainMenu {
@@ -61,13 +62,18 @@ public class MainMenu {
         Integer typeOfAccount = console.getIntegerInput(":");
         switch(typeOfAccount) {
             case 1:
+                Account account = new Account(currentUser,20.0,(currentUser.getAccountList().size() + 1) + " - Checkings Account");
+                currentUser.addAccount(account);
+                break;
+            case 2:
+                account = new SavingsAccount(currentUser,20.0,(currentUser.getAccountList().size() + 1) + " - Savings Account");
+                currentUser.addAccount(account);
+                break;
+            case 3:
+                console.println("At this bank, you'll need an initial deposit of $15,000 to open an investment account.\nHow" +
+                        "much would you like to deposit?");
+                Integer input = console.getIntegerInput(":");
 
-        if(typeOfAccount == 1 || typeOfAccount == 2) {
-            currentUser.addAccount(currentUser, typeOfAccount);
-        } else if(typeOfAccount == 3){
-
-        } else {
-            console.println("ERROR: INVALID ENTRY");
         }
     }
 

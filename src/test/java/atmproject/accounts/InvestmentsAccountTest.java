@@ -36,7 +36,7 @@ public class InvestmentsAccountTest {
     public void enoughForInitialBalanceTrueTest() {
         InvestmentsAccount investmentsAccount = new InvestmentsAccount(null,null,null);
         Double input = 17000.0;
-        String expected = "Thank you for creating this new account.";
+        String expected = "Thank you! Enjoy your new investment account.";
         String actual = investmentsAccount.enoughForInitialBalance(input);
         Assert.assertEquals(expected,actual);
     }
