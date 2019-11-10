@@ -28,6 +28,7 @@ public class MainMenu {
         console.println("How much would you like to deposit?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
+        currentUser.addToHistory(String.format("You deposited $%f.0 to %s.", userInput, chosenAccount.getAccountName()));
     }
 
     public void callWithdraw() {
@@ -35,6 +36,9 @@ public class MainMenu {
         console.println("How much would you like to withdraw?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
+        if(userInput <= chosenAccount.getBalance()){
+            currentUser.addToHistory(String.format("You withdrew $%f.0 from %s.", userInput, chosenAccount.getAccountName()))
+        }
     }
 
     public void callTransfer(){
@@ -46,6 +50,9 @@ public class MainMenu {
             console.println("How much would you like to transfer?");
             Double userInput = console.getDoubleInput(":");
             chosenAccount.transfer(destinationAccount, userInput);
+            if(userInput <= chosenAccount.getBalance()){
+                currentUser.addToHistory(String.format("You transfered $%f.0 from %s t0 %s.",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName()));
+            }
         }
     }
 
