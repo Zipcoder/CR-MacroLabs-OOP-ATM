@@ -87,9 +87,9 @@ public class ATM {
         return String.format("The balance in %s is $%.2f\n", chosenAccount.getAccountName(), chosenAccount.getBalance());
     }
 
-    public String displayHistory() {
+    public String displayHistory(User currentUser) {
         if(currentUser.getTransactionHistory().isEmpty()){
-            return "You currently have no history,";
+            return "You currently have no history.";
         }
         return currentUser.displayHistory();
     }
@@ -125,7 +125,7 @@ public class ATM {
                 console.println(checkBalance());
                 break;
             case 5:
-                console.println(displayHistory());
+                console.println(displayHistory(currentUser));
                 break;
             case 6:
                 callCreateAccount();
