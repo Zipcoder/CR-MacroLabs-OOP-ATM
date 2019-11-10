@@ -8,7 +8,7 @@ public class UserLogin {
     private boolean running;
     private UserRepository userRepository;
 
-    public UserLogin(){
+    public UserLogin() {
         userRepository = UserRepository.getUserRepository();
     }
 
@@ -16,14 +16,15 @@ public class UserLogin {
         running = true;
         while (running) {
             assignUser();
-            if(currentUser != null){
+            if (currentUser != null) {
                 startMainMenu();
             }
             exit();
         }
     }
-    public void assignUser (){
-        while(currentUser != null) {
+
+    public void assignUser() {
+        while (currentUser == null) {
             console.println("Welcome to the ATM!\n Enter 1 for new account, 2 for login, 0 to exit");
             Integer userInput = console.getIntegerInput(":");
             Boolean exit = false;
@@ -38,32 +39,61 @@ public class UserLogin {
                     getLoginInfo();
                     break;
             }
-            if(exit){ break;}
+            if (exit) {
+                break;
+            }
         }
+    }
+
+    private String getFirstNameInput() {
+    console.println("Please enter your First name :");
+    return console.getStringInput(":");
+    }
+    private String getLastNameInput() {
+        console.println("Please enter Last name :");
+        return console.getStringInput(":");
     }
     public void getUserInfo(){
-        console.println("Please enter");
+        String firstInput = getFirstNameInput();
+        String lastInput = getLastNameInput();
+        createUser(firstInput,lastInput);
+    }
+
+    private Integer getAccountNumberInput(){
+        console.println("Please enter your 4 digit Account Number :");
+        return console.getIntegerInput(":");
+
+    }
+    private Integer getPINInput(){
+        console.println("Please enter your PIN :");
+        return console.getIntegerInput(":");
+    }
+    private Integer tryAgainInput(){
+        console.println("User Info doesn't match. Try again?\n 1 - Yes  2 - No");
+        return console.getIntegerInput(":");
     }
     public void getLoginInfo(){
-        console.println("woot");
-    }
+        Boolean exit = false;
+        while (currentUser == null) {
+            Integer accountNumber = getAccountNumberInput();
+            Integer pin = getPINInput();
+            login(accountNumber, pin);
+            if(currentUser == null){
+                Integer userInput = tryAgainInput();
+                switch(userInput){
+                    case 1:
+                        break;
+                    case 2:
+                        exit = true;
+                        break;
 
 
-
-
-    /*public void userLoginLogic(User currentUser) {
-        Switch(userInput){
-            case 1:
-                // this will lead to the create userMethod
-
-            case 2:
-                // this will lead to the login in method (which if passed will lead to account menu?)
+                }
+                if(exit){break;}
+            }
         }
-    }*/
 
-    /**
-     * Creating a user with a First name, Last name. Also an ID
-     */
+    }
     public User createUser (String firstName, String lastName){
         Integer accountNum = userRepository.getAccountNums();
         userRepository.saveUser(new User(firstName,lastName, accountNum), accountNum);
