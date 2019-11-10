@@ -1,5 +1,7 @@
 package atmproject;
 
+import atmproject.accounts.Account;
+
 public class UserLogin {
     private User currentUser;
     private Console console = new Console(System.in, System.out);
@@ -33,6 +35,7 @@ public class UserLogin {
                 case 1:
                     getUserInfo();
                     console.println("Hello, %s! Thank you for creating an account. You user ID is %d", currentUser.getFirstName(),currentUser.getUserID());
+                    userRepository.initialAccount(currentUser);
                     break;
                 case 2:
                     getLoginInfo();

@@ -62,12 +62,12 @@ public class MainMenu {
         Integer typeOfAccount = console.getIntegerInput(":");
         switch(typeOfAccount) {
             case 1:
-                Account account = new Account(currentUser,20.0,(currentUser.getAccountList().size() + 1) + " - Checkings Account");
+                Account account = new Account(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Checkings Account");
                 currentUser.addAccount(account);
                 break;
             case 2:
-                account = new SavingsAccount(currentUser,20.0,(currentUser.getAccountList().size() + 1) + " - Savings Account");
-                currentUser.addAccount(account);
+                SavingsAccount savingsAccount = new SavingsAccount(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Savings Account");
+                currentUser.addSavingsAccount(savingsAccount);
                 break;
             case 3:
                 console.println("At this bank, you'll need an initial deposit of $15,000 to open an investment account.\nHow" +
@@ -84,7 +84,7 @@ public class MainMenu {
 
     public String displayHistory() {
         if(currentUser.getTransactionHistory().isEmpty()){
-            return "You currently have no history, please";
+            return "You currently have no history,";
         }
         return currentUser.displayHistory();
     }

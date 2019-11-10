@@ -1,5 +1,7 @@
 package atmproject;
 
+import atmproject.accounts.Account;
+
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -36,5 +38,10 @@ public class UserRepository {
     }
     public int getIDNums() {
         return idNums;
+    }
+
+    public void initialAccount(User currentUser){
+        Account account = new Account(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Checkings Account");
+        currentUser.addAccount(account);
     }
 }

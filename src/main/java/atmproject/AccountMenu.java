@@ -12,11 +12,12 @@ public class AccountMenu {
 
     public Account selectAccount(User user) {
        Account returnedAccount = null;
-       for(String s : user.accountList.keySet()) {
-           console.println(s);
-       }
 
-       String input = console.getStringInput("please select an Account:");
+
+       String input = console.getStringInput("please select an Account:\n");
+        for(String s : user.accountList.keySet()) {
+            console.println(s);
+        }
 
        if (user.accountList.containsKey(input)){
            returnedAccount = user.accountList.get(input);

@@ -1,6 +1,7 @@
 package atmproject;
 
 import atmproject.accounts.Account;
+import atmproject.accounts.SavingsAccount;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,6 +86,10 @@ public class User {
     }
 
     public void addAccount(Account account) {
+        accountList.put(account.getAccountName(), account);
+    }
+
+    public void addSavingsAccount(SavingsAccount account) {
         accountList.put(account.getAccountName(), account);
     }
 
