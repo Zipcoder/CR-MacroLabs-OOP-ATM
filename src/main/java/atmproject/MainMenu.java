@@ -2,9 +2,7 @@ package atmproject;
 
 
 import atmproject.accounts.Account;
-import exceptions.SameAccountException;
 
-import java.util.logging.Logger;
 
 public class MainMenu {
     private Console console = new Console(System.in, System.out);
@@ -37,7 +35,7 @@ public class MainMenu {
         Double userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
         if(userInput <= chosenAccount.getBalance()){
-            currentUser.addToHistory(String.format("You withdrew $%f.0 from %s.", userInput, chosenAccount.getAccountName()))
+            currentUser.addToHistory(String.format("You withdrew $%f.0 from %s.", userInput, chosenAccount.getAccountName()));
         }
     }
 
@@ -112,41 +110,4 @@ public class MainMenu {
     public void setRunning(boolean running) {
         this.running = running;
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
