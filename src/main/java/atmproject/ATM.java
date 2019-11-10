@@ -5,7 +5,7 @@ import atmproject.accounts.Account;
 import atmproject.accounts.SavingsAccount;
 
 
-public class MainMenu {
+public class ATM {
     private Console console = new Console(System.in, System.out);
     private User currentUser;
     private boolean running = true;

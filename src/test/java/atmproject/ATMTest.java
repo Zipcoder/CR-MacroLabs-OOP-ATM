@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MainMenuTest {
+public class ATMTest {
 
     @Test
     public void runMainMenu() {
@@ -32,11 +32,11 @@ public class MainMenuTest {
 
     @Test
     public void returnTOLoginMenu() {
-      MainMenu mainMenu = new MainMenu();
+      ATM ATM = new ATM();
 
-      mainMenu.returnToLoginMenu();
+      ATM.returnToLoginMenu();
 
-      assertFalse(mainMenu.isRunning());
+      assertFalse(ATM.isRunning());
 
 
     }
