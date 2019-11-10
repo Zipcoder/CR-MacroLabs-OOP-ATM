@@ -1,7 +1,5 @@
 package atmproject;
 
-import atmproject.accounts.Account;
-
 public class UserLogin {
     private User currentUser;
     private Console console = new Console(System.in, System.out);
@@ -122,8 +120,8 @@ public class UserLogin {
 
     }
     public void startMainMenu(){
-        MainMenu mainMenu = new MainMenu();
-        mainMenu.runMainMenu(currentUser);
+        ATM ATM = new ATM();
+        ATM.runMainMenu(currentUser);
     }
     public void exit(){
         Integer userInput = 0;
