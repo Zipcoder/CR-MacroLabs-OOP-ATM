@@ -7,10 +7,15 @@ import atmproject.accounts.SavingsAccount;
 
 public class ATM {
     private Console console = new Console(System.in, System.out);
+    private UserLogin userLogin = new UserLogin();
     private User currentUser;
     private boolean running = true;
     private AccountMenu accountMenu = new AccountMenu();
     private Language language = new Language();
+
+    public void turnOnATM(){
+        userLogin.runLoginMenu();
+    }
 
 
     public void runMainMenu(User currentUser) {
