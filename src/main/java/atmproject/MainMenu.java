@@ -21,42 +21,44 @@ public class MainMenu {
         }
     }
 
-    public void callDeposit() {
+    public String callDeposit() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to deposit?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
-        currentUser.addToHistory(String.format("You deposited $%f.0 to %s.", userInput, chosenAccount.getAccountName()));
+        return String.format("You deposited $%f.0 to %s.", userInput, chosenAccount.getAccountName());
     }
 
-    public void callWithdraw() {
+    public String callWithdraw() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to withdraw?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
         if(userInput <= chosenAccount.getBalance()){
-            currentUser.addToHistory(String.format("You withdrew $%f.0 from %s.", userInput, chosenAccount.getAccountName()));
+            return String.format("You withdrew $%f.0 from %s.\n", userInput, chosenAccount.getAccountName());
         }
+        return "ERROR: insufficient funds for withdraw.\n";
     }
 
-    public void callTransfer(){
+    public String callTransfer(){
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         Account destinationAccount = accountMenu.selectAccount(currentUser);
         if(chosenAccount.equals(destinationAccount)){
-            console.println("Please select two separate accounts.");
+            return "ERROR: Incorrect account entry\n";
         } else {
             console.println("How much would you like to transfer?");
             Double userInput = console.getDoubleInput(":");
             chosenAccount.transfer(destinationAccount, userInput);
             if(userInput <= chosenAccount.getBalance()){
-                currentUser.addToHistory(String.format("You transfered $%f.0 from %s t0 %s.",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName()));
+                return String.format("You transferred $%f.0 from %s t0 %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
             }
+            return "ERROR: insufficient funds for transfer.\n";
         }
     }
 
     public String checkBalance() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
-        return String.format("The balance in %s is $%f.0", chosenAccount.getAccountName(), chosenAccount.getBalance());
+        return String.format("The balance in %s is $%f.0\n", chosenAccount.getAccountName(), chosenAccount.getBalance());
     }
 
     public String displayHistory() {
@@ -75,13 +77,19 @@ public class MainMenu {
     public void mainMenuLogic(Integer userInput){
         switch (userInput) {
             case 1:
-                callDeposit();
+                String transaction = callDeposit();
+                console.println(transaction);
+                currentUser.addToHistory(transaction);
                 break;
             case 2:
-                callWithdraw();
+                transaction = callWithdraw();
+                console.println(transaction);
+                currentUser.addToHistory(transaction);
                 break;
             case 3:
-                callTransfer();
+                transaction = callTransfer();
+                console.println(transaction);
+                currentUser.addToHistory(transaction);
                 break;
             case 4:
                 console.println(displayHistory());
