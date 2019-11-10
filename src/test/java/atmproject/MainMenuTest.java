@@ -34,7 +34,7 @@ public class MainMenuTest {
     public void returnTOLoginMenu() {
       MainMenu mainMenu = new MainMenu();
 
-      mainMenu.returnTOLoginMenu();
+      mainMenu.returnToLoginMenu();
 
       assertFalse(mainMenu.isRunning());
 

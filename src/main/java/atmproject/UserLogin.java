@@ -84,7 +84,7 @@ public class UserLogin {
         return console.getIntegerInput(":");
     }
     private Integer tryAgainInput(){
-        console.println("User Info doesn't match. Try again?\n(1) - Yes\n (2) - No\n");
+        console.println("User Info doesn't match. Try again?\n(1) - Yes\n(2) - No\n");
         return console.getIntegerInput(":");
     }
     public void getLoginInfo(){

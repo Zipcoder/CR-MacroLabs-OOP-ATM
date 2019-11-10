@@ -41,7 +41,7 @@ public class UserRepository {
     }
 
     public void initialAccount(User currentUser){
-        Account account = new Account(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Checkings Account");
+        Account account = new Account(currentUser, 0.0, "Checkings Account#" + (currentUser.getAccountList().size() + 1));
         currentUser.addAccount(account);
     }
 }

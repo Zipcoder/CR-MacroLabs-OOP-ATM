@@ -27,16 +27,16 @@ public class MainMenu {
         console.println("How much would you like to deposit?");
         Double userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
-        return String.format("You deposited $%f.0 to %s.", userInput, chosenAccount.getAccountName());
+        return String.format("You deposited $%.2f to %s.", userInput, chosenAccount.getAccountName());
     }
 
     public String callWithdraw() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to withdraw?");
         Double userInput = console.getDoubleInput(":");
-        chosenAccount.withdraw(userInput);
         if(userInput <= chosenAccount.getBalance()){
-            return String.format("You withdrew $%f.0 from %s.\n", userInput, chosenAccount.getAccountName());
+            chosenAccount.withdraw(userInput);
+            return String.format("You withdrew $%.2f from %s.\n", userInput, chosenAccount.getAccountName());
         }
         return "ERROR: insufficient funds for withdraw.\n";
     }
@@ -51,7 +51,7 @@ public class MainMenu {
             Double userInput = console.getDoubleInput(":");
             chosenAccount.transfer(destinationAccount, userInput);
             if(userInput <= chosenAccount.getBalance()){
-                return String.format("You transferred $%f.0 from %s t0 %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
+                return String.format("You transferred $%.2f from %s to %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
             }
             return "ERROR: insufficient funds for transfer.\n";
         }
@@ -62,11 +62,11 @@ public class MainMenu {
         Integer typeOfAccount = console.getIntegerInput(":");
         switch(typeOfAccount) {
             case 1:
-                Account account = new Account(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Checkings Account");
+                Account account = new Account(currentUser, 0.0, "Checkings Account#" + (currentUser.getAccountList().size() + 1));
                 currentUser.addAccount(account);
                 break;
             case 2:
-                SavingsAccount savingsAccount = new SavingsAccount(currentUser, 0.0, "(" +(currentUser.getAccountList().size() + 1) + ")" + " - Savings Account");
+                SavingsAccount savingsAccount = new SavingsAccount(currentUser, 0.0, "Savings Account#" + (currentUser.getAccountList().size() + 1));
                 currentUser.addSavingsAccount(savingsAccount);
                 break;
             case 3:
@@ -79,7 +79,7 @@ public class MainMenu {
 
     public String checkBalance() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
-        return String.format("The balance in %s is $%f.0\n", chosenAccount.getAccountName(), chosenAccount.getBalance());
+        return String.format("The balance in %s is $%.2f\n", chosenAccount.getAccountName(), chosenAccount.getBalance());
     }
 
     public String displayHistory() {
@@ -89,7 +89,7 @@ public class MainMenu {
         return currentUser.displayHistory();
     }
 
-    public void returnTOLoginMenu() {
+    public void returnToLoginMenu() {
         running = false;
     }
 
@@ -120,8 +120,9 @@ public class MainMenu {
                 break;
             case 6:
                 callCreateAccount();
+                break;
             case 7:
-                returnTOLoginMenu();
+                returnToLoginMenu();
                 break;
         }
     }
