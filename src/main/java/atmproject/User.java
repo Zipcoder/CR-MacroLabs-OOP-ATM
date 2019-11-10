@@ -3,6 +3,7 @@ package atmproject;
 import atmproject.accounts.Account;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -76,5 +77,10 @@ public class User {
     public Account removeAccount(String accountName){
         return accountList.remove(accountName);
 
+    }
+
+    public String displayHistory(){
+        Object[] history = transactionHistory.toArray();
+        return Arrays.toString(history);
     }
 }

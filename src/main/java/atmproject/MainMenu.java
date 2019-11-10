@@ -37,22 +37,22 @@ public class MainMenu {
     }
 
     public void callDeposit() {
-        Account chosen;
+        Account chosenAccount;
         Double userInput;
-        chosen = accountMenu.selectAccount(currentUser);
+        chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to deposit?");
-       userInput = getUserDoubleInput();
-       chosen.deposit(userInput);
+        userInput = getUserDoubleInput();
+        chosenAccount.deposit(userInput);
 
     }
 
     public void callWithdraw() {
-        Account chosen;
+        Account chosenAccount;
         Double userInput;
-        chosen = accountMenu.selectAccount(currentUser);
+        chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to withdraw?");
         userInput = getUserDoubleInput();
-        chosen.withdraw(userInput);
+        chosenAccount.withdraw(userInput);
 
     }
 
@@ -61,10 +61,11 @@ public class MainMenu {
     }
 
     public void checkBalance() {
-
+        
     }
 
     public void displayHistory() {
+        console.println(currentUser.displayHistory());
 
     }
 
