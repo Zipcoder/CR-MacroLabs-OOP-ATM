@@ -92,10 +92,10 @@ public class MainMenu {
                 currentUser.addToHistory(transaction);
                 break;
             case 4:
-                console.println(displayHistory());
+                console.println(checkBalance());
                 break;
             case 5:
-                console.println(checkBalance());
+                console.println(displayHistory());
                 break;
             case 6:
                 returnTOLoginMenu();
