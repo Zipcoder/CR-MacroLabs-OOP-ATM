@@ -2,8 +2,12 @@ package atmproject;
 
 
 import atmproject.accounts.Account;
+import exceptions.SameAccountException;
+
+import java.util.logging.Logger;
 
 public class MainMenu {
+    private static final Logger LOGGER = Logger.getLogger();
     private Console console = new Console(System.in, System.out);
     private User currentUser;
     private boolean running = true;
@@ -36,7 +40,17 @@ public class MainMenu {
 
     }
 
-    public void callTransfer() {
+    public void callTransfer(){
+        Account chosenAccount = accountMenu.selectAccount(currentUser);
+        Account destinationAccount = accountMenu.selectAccount(currentUser);
+        if(chosenAccount.equals(destinationAccount)){
+            console.println("Please select to separate accounts.");
+        } else {
+            console.println("How much would you like to transfer?");
+            Double userInput = console.getDoubleInput(":");
+            chosenAccount.transfer(destinationAccount, userInput);
+        }
+
 
     }
 
