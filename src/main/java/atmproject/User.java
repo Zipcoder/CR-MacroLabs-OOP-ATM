@@ -13,8 +13,8 @@ public class User {
     private String lastName;
     private Integer pinNumber;
     private Integer userID;
+    private ArrayList<String> transactionHistory;
     TreeMap<String, Account> accountList;
-    ArrayList<String> transactionHistory;
 
     public User(String firstName, String lastName, Integer userID){
         this.firstName = firstName;
