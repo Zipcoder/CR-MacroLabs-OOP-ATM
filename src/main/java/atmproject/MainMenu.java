@@ -6,58 +6,42 @@ import atmproject.accounts.Account;
 public class MainMenu {
     private Console console = new Console(System.in, System.out);
     private User currentUser;
-
-
-
     private boolean running = true;
     private AccountMenu accountMenu = new AccountMenu();
+    private Language language = new Language();
 
 
     public void runMainMenu(User currentUser) {
-       setCurrentUser(currentUser);
+        setCurrentUser(currentUser);
         while (running) {
-            console.println("please select your option");
-            console.println("(1) - Deposit");
-            console.println("(2) - Withdraw");
-            console.println("(3) - Transfer");
-            console.println("(4) - Balance");
-            console.println("(5) - View History");
-            console.println("(6) - Return To Login Menu");
-            Integer userInput = getUserInput();
+            console.println(language.getLang(Language.LangKey.MAINMENU));
+            Integer userInput = console.getIntegerInput(":");
             mainMenuLogic(userInput);
         }
-
-
-    }
-    private Double getUserDoubleInput(){
-        return console.getDoubleInput(":");
-    }
-    private Integer getUserInput(){
-        return console.getIntegerInput(":");
     }
 
     public void callDeposit() {
-        Account chosenAccount;
+        Account chosenAccount = accountMenu.selectAccount(currentUser);
         Double userInput;
-        chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to deposit?");
-        userInput = getUserDoubleInput();
+        userInput = console.getDoubleInput(":");
         chosenAccount.deposit(userInput);
 
     }
 
     public void callWithdraw() {
-        Account chosenAccount;
+        Account chosenAccount = accountMenu.selectAccount(currentUser);
         Double userInput;
-        chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to withdraw?");
-        userInput = getUserDoubleInput();
+        userInput = console.getDoubleInput(":");
         chosenAccount.withdraw(userInput);
 
     }
 
     public void callTransfer() {
-
+        Account chosenAccount;
+        chosenAccount = accountMenu.selectAccount(currentUser);
+        console.println("The balance in %s is $%f.0", chosenAccount.getAccountName(), chosenAccount.getBalance());
     }
 
     public void checkBalance() {
