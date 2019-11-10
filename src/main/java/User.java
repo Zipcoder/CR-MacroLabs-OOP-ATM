@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public class User {
@@ -6,12 +7,13 @@ public class User {
     private String password;
     private ArrayList<Integer> accountsIds = new ArrayList<Integer>();
 
-    public User(Integer userID, String userName, String password){
+    public User(Integer userID, String userName, String password) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
     }
-    public Boolean addingAccount(Integer accountId){
+
+    public Boolean addingAccount(Integer accountId) {
         return this.accountsIds.add(accountId);
     }
 
@@ -27,7 +29,7 @@ public class User {
 
     public Boolean checkIfUserHasAccount(Integer accountIdToCheck) {
         Boolean exists = false;
-        for (Integer accountId: this.accountsIds) {
+        for (Integer accountId : this.accountsIds) {
             if (accountIdToCheck == accountId) {
                 exists = true;
             }
@@ -59,5 +61,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
+
+
+

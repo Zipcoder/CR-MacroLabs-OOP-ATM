@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Account {
     private Integer accountID;
     private Double balance;
@@ -63,6 +64,7 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance = balance;
     }
+
     public void setBalance(Double balance, String transactionType) {
         Double oldBal = this.getBalance();
         this.setBalance(balance);
@@ -78,7 +80,7 @@ public class Account {
 
     public void addTransactionReportToTransactionHistory(String transactionReport) {
         transactionHistory.add(transactionReport);
-        Console.println("\n\n"+transactionReport+"\n\n");
+        Console.println("\n\n" + transactionReport + "\n\n");
     }
 
     public ArrayList<String> getTransactionHistory() {
@@ -89,12 +91,14 @@ public class Account {
         StringBuilder history = new StringBuilder();
         history.append("Transaction History:");
         for (String report : this.getTransactionHistory()) {
-            history.append("\n"+report);
+            history.append("\n" + report);
         }
         return history.toString();
     }
 
-    public String getName(){
+    public String getName() {
         return "Account";
     }
 }
+
+
