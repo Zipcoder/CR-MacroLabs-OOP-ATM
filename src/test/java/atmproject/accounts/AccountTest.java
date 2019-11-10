@@ -7,6 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import java.security.InvalidParameterException;
+
 import static org.junit.Assert.assertEquals;
 
 
@@ -24,18 +26,6 @@ public class AccountTest {
         Account a = new Account(10.0);
         assertEquals(10.0, a.getBalance(), 0.0001);
     }
-
-    /*@Test
-    public void testA01() {
-        Account a = new Account(0.0);
-        assertEquals(true, a.closeAccount());
-    }
-
-    @Test
-    public void testA02() {
-        Account a = new Account(10.0);
-        assertEquals(false, a.closeAccount());
-    }*/
 
     @Test
     public void testA1() {
@@ -120,7 +110,7 @@ public class AccountTest {
     }
 
     @Test
-    public void addToBalance() {
+    public void depositTest() {
         Account account = new Account(0.0);
         account.setBalance(100.0);
         Double input = 80.0;
@@ -130,12 +120,17 @@ public class AccountTest {
         Double expected = 180.0;
 
         Assert.assertEquals(expected,account.getBalance());
+    }
 
-
+    @Test (expected = InvalidParameterException.class)
+    public void depositTestFalse() throws InvalidParameterException {
+        Account account = new Account(0.0);
+        Double input = -80.0;
+        account.deposit(input);
     }
 
     @Test
-    public void subtractFromBalance() {
+    public void withdrawTest() {
         Account account = new Account(0.0);
         account.setBalance(100.0);
         Double input = 80.0;
@@ -145,6 +140,13 @@ public class AccountTest {
         Double expected = 20.0;
 
         Assert.assertEquals(expected,account.getBalance());
+    }
+
+    @Test (expected = InvalidParameterException.class)
+    public void withdrawTestFalse() throws InvalidParameterException{
+        Account account = new Account(0.0);
+        Double input = -80.0;
+        account.withdraw(input);
     }
 
     @Test
@@ -165,5 +167,11 @@ public class AccountTest {
         Assert.assertEquals(expected,account.getAccountName());
     }
 
-
+    @Test (expected = InvalidParameterException.class)
+    public void transferTestFalse() throws InvalidParameterException{
+        Account account = new Account(0.0);
+        Account account2 = new Account(0.0);
+        Double input = -80.0;
+        account.transfer(account2, input);
+    }
 }

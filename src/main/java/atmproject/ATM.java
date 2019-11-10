@@ -2,6 +2,7 @@ package atmproject;
 
 
 import atmproject.accounts.Account;
+import atmproject.accounts.InvestmentsAccount;
 import atmproject.accounts.SavingsAccount;
 
 
@@ -72,12 +73,15 @@ public class ATM {
                 break;
             case 2:
                 SavingsAccount savingsAccount = new SavingsAccount(currentUser, 0.0, "Savings Account#" + (currentUser.getAccountList().size() + 1));
-                currentUser.addSavingsAccount(savingsAccount);
+                currentUser.addAccount(savingsAccount);
                 break;
             case 3:
                 console.println("At this bank, you'll need an initial deposit of $15,000 to open an investment account.\nHow" +
                         "much would you like to deposit?");
                 Integer input = console.getIntegerInput(":");
+                InvestmentsAccount investmentsAccount = new InvestmentsAccount(currentUser, input + 0.0, "Investment Account#" + (currentUser.getAccountList().size() + 1));
+                currentUser.addAccount(investmentsAccount);
+                break;
 
         }
     }
