@@ -17,18 +17,22 @@ public class AccountMenu {
        Integer counter = 1;
        console.println("\n");
         for(String s : user.accountList.keySet()) {
-            console.println( "(" + counter + ")" + " -> " + s);
+            console.println( "(" + counter + ")" + " - " + s);
             returnedMap.put(counter, user.accountList.get(s));
             counter++;
 
         }
-        console.println("\nPlease select an account.");
-        Integer input = console.getIntegerInput(":");
+        while (returnedAccount == null) {
+            console.println("\nPlease select an account.");
+            Integer input = console.getIntegerInput(":");
 
+            if (returnedMap.containsKey(input)) {
+                returnedAccount = returnedMap.get(input);
+            } else {
+                console.println("\nAccount does not exist. Try again: ");
+            }
 
-       if (returnedMap.containsKey(input)){
-           returnedAccount = returnedMap.get(input);
-       }
+        }
 
 
         return returnedAccount;
