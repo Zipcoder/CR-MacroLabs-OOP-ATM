@@ -12,7 +12,7 @@ public class AccountMenu {
 
     public Account selectAccount(User user) {
        Account returnedAccount = null;
-       for(String s : user.accountList.keySet()){
+       for(String s : user.accountList.keySet()) {
            console.println(s);
        }
 

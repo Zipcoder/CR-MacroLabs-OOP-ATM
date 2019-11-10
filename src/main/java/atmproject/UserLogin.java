@@ -23,7 +23,7 @@ public class UserLogin {
 
     public void assignUser() {
         while (currentUser == null) {
-            console.println("Welcome to the ATM!\n Enter 1 for new account, 2 for login, 0 to exit");
+            console.println("Welcome to the ATM!\n(1) - Create New Account\n(2) - Login to Existing Account\n(0) - Exit ATM");
             Integer userInput = console.getIntegerInput(":");
             Boolean exit = false;
             switch (userInput) {
@@ -32,6 +32,7 @@ public class UserLogin {
                     break;
                 case 1:
                     getUserInfo();
+                    console.println("Hello, %s! Thank you for creating an account. You user ID is %d", currentUser.getFirstName(),currentUser.getUserID());
                     break;
                 case 2:
                     getLoginInfo();
@@ -80,7 +81,7 @@ public class UserLogin {
         return console.getIntegerInput(":");
     }
     private Integer tryAgainInput(){
-        console.println("User Info doesn't match. Try again?\n 1 - Yes  2 - No");
+        console.println("User Info doesn't match. Try again?\n(1) - Yes\n (2) - No\n");
         return console.getIntegerInput(":");
     }
     public void getLoginInfo(){
@@ -97,8 +98,6 @@ public class UserLogin {
                     case 2:
                         exit = true;
                         break;
-
-
                 }
                 if(exit){break;}
             }
@@ -125,7 +124,7 @@ public class UserLogin {
     }
     public void exit(){
         Integer userInput = 0;
-        console.println("Are you sure you want to Exit?\n 1 - Yes  2 - No");
+        console.println("Are you sure you want to Exit?\n(1) - Yes\n(2) - No\n");
         while (!userInput.equals(1) && !userInput.equals(2)) {
             userInput = console.getIntegerInput(":");
             switch (userInput) {
@@ -135,7 +134,7 @@ public class UserLogin {
                 case 2:
                     break;
                 default:
-                    console.print("Please enter 1 or 2");
+                    console.print("Please enter (1) or (2)");
             }
         }
     }
