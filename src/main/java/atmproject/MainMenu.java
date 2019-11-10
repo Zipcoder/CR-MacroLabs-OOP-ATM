@@ -56,6 +56,21 @@ public class MainMenu {
         }
     }
 
+    public void callCreateAccount(){
+        console.println("What kind of account would you like to create?\n(1) - Checkings\n(2) - Savings\n(3) - Investments");
+        Integer typeOfAccount = console.getIntegerInput(":");
+        switch(typeOfAccount) {
+            case 1:
+
+        if(typeOfAccount == 1 || typeOfAccount == 2) {
+            currentUser.addAccount(currentUser, typeOfAccount);
+        } else if(typeOfAccount == 3){
+
+        } else {
+            console.println("ERROR: INVALID ENTRY");
+        }
+    }
+
     public String checkBalance() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         return String.format("The balance in %s is $%f.0\n", chosenAccount.getAccountName(), chosenAccount.getBalance());
@@ -98,6 +113,8 @@ public class MainMenu {
                 console.println(displayHistory());
                 break;
             case 6:
+                callCreateAccount();
+            case 7:
                 returnTOLoginMenu();
                 break;
         }

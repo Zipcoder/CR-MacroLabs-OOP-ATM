@@ -78,13 +78,13 @@ public class User {
     }
 
     public void removeAccount(Account account){
+        if (account.getBalance() > 0.0){
+            console.println("Please empty your account before attempting to close.");
+        }
         accountList.remove(account.getAccountName());
     }
 
     public void addAccount(Account account) {
-        if (account.getBalance() > 0.0){
-            console.println("Please empty your account before attempting to close.");
-        }
         accountList.put(account.getAccountName(), account);
     }
 
