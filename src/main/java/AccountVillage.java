@@ -1,3 +1,4 @@
+import javax.security.sasl.SaslServer;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,10 +12,23 @@ public class AccountVillage {
         this.nextId = 0;
     }
 
-    public Account createAccount(Double balance, String accountType) {
+    public Account createAccount(Double balance, Integer accountType) {
         nextId += 1;
-        Account account = new Account(balance, nextId);
-        this.accounts.put(nextId, account);
+        Account account = null;
+        switch(accountType){
+            case 1:
+                account = new Checking(balance, nextId);
+                break;
+            case 2 :
+                account = new Savings(balance, nextId);
+                break;
+            case 3 :
+                account = new Investment(balance, nextId);
+                break;
+        }
+        if (account != null) {
+            this.accounts.put(nextId, account);
+        }
         return account;
     }
 

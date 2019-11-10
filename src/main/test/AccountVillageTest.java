@@ -22,7 +22,7 @@ public class AccountVillageTest {
     public void createAccountTest() {
         AccountVillage newAV = new AccountVillage();
         Integer expectedSize = newAV.getAccounts().size() + 1;
-        newAV.createAccount(100.0, "checking");
+        newAV.createAccount(100.0, 1);
 
         Integer actualSize = newAV.getAccounts().size();
         Assert.assertEquals(expectedSize, actualSize);
@@ -34,7 +34,7 @@ public class AccountVillageTest {
         AccountVillage newAV = new AccountVillage();
         Double expectedBalance = 100.0;
         Integer expectedAccountId = 1;
-        Account account = newAV.createAccount(100.0, "checking");
+        Account account = newAV.createAccount(100.0, 1);
 
         Double actualBalance = newAV.getAccountById(1).getBalance();
         Integer actualAccountId = newAV.getAccountById(1).getAccountID();
@@ -46,7 +46,7 @@ public class AccountVillageTest {
     @Test
     public void getAccounts() {
         AccountVillage newAV = new AccountVillage();
-        newAV.createAccount(100.0, "checking");
+        newAV.createAccount(100.0, 1);
         Map<Integer, Account> accounts = newAV.getAccounts();
         Assert.assertTrue(accounts.size() == 1);
     }

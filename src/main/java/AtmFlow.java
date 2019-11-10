@@ -51,13 +51,14 @@ public class AtmFlow {
     public void accountMenu(Integer choice){
         switch(choice){
             case 1 :
-                //create account
+                createBankAccount();
                 break;
             case 2 :
-                //withdraw
+                withdraw();
                 break;
             case 3 :
                 //deposit
+                deposit();
                 break;
             case 4 :
                 //transfer
@@ -87,9 +88,48 @@ public class AtmFlow {
         else{
             createAccount();
         }
-
     }
 
+    public void createBankAccount(){
+        Double amount = Console.getDoubleInput("How much would you like to deposit");
+        Integer accountType = Console.getIntegerInput("Which type of Account\n" +
+                "1 - Checking\n" +
+                "2 - Savings \n" +
+                "3 - Investment\n");
+        accountVillage.createAccount(amount, accountType);
+        Console.println("Account was created");
+        accountStart();
+    }
+
+
+    public void withdraw(){
+        Double withdrawAmount = Console.getDoubleInput("How much would you like to withdraw?");
+        Integer account = accountPrompt();
+        accountVillage.getAccountById(account).withdraw(withdrawAmount);
+        Console.println("Withdrawing : " + withdrawAmount );
+        promptNewBalance(account);
+        accountStart();
+    }
+    public void deposit(){
+        Double depositAmount = Console.getDoubleInput("How much would like to deposit?");
+        Integer account = accountPrompt();
+        accountVillage.getAccountById(account).deposit(depositAmount);
+        Console.println("Depositing : " + depositAmount);
+        promptNewBalance(account);
+        accountStart();
+
+    }
+    /////////PROMPT//////
+    public Integer accountPrompt(){
+        Integer accountType = Console.getIntegerInput("Which Account \n" +
+                "1 - Checking\n" +
+                "2 - Savings \n" +
+                "3 - Investment\n\n");
+        return accountType;
+    }
+    public void promptNewBalance(Integer account){
+        Console.println( "New Balance : " + accountVillage.getAccountById(account).getBalance() + "\n\n");
+    }
 
 
 }
