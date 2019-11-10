@@ -5,12 +5,19 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AccountMenuTest {
-
-    /*@Test
+    @Test
     public void selectAccount() {
-        AccountMenu menu = new AccountMenu();
-        User newUser = new User(" ", " ", 1);
+    }
 
-        menu.selectAccount(newUser);
-    }*/
+    @Test
+    public void getUserSelectedAccount() {
+    }
+
+    @Test
+    public void getUsersInput() {
+    }
+
+    @Test
+    public void printAndStoreAccounts() {
+    }
 }
