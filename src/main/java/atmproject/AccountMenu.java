@@ -8,12 +8,12 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AccountMenu {
-    Account account;
+    Account returnedAccount;
     Console console = new Console(System.in, System.out);
 
     public Account selectAccount(User user) {
         Map<Integer, Account> returnedMap = new LinkedHashMap<>();
-        Account returnedAccount = null;
+        returnedAccount = null;
         Integer counter = 1;
         printAndStoreAccounts(user, returnedMap, counter);
         returnedAccount = getUserSelectedAccount(returnedMap, returnedAccount);

@@ -8,12 +8,12 @@ import java.util.TreeMap;
 public class UserRepository {
 
     // Singleton Eager Initialization
-    private static final UserRepository userRepository = new UserRepository();
+    protected static final UserRepository userRepository = new UserRepository();
 
     private int idNums;
     private Map<String, User> repo;
 
-    private UserRepository(){
+    protected UserRepository(){
         idNums = 1000;
         repo = new TreeMap<String, User>();
     }
