@@ -133,7 +133,6 @@ public class UserLogin {
     }
 
 
-
     public void initialAccount(User currentUser){
         Account account = new Account(currentUser, 0.0, "Checkings Account#" + (currentUser.getAccountList().size() + 1));
         currentUser.addAccount(account);

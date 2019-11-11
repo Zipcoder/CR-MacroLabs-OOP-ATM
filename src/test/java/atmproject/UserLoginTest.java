@@ -45,14 +45,15 @@ public class UserLoginTest {
     }
 
     @Test
+    public void initialAccountTest(){
+        UserLogin login = new UserLogin();
+        User currentUser = new User(null,null,null);
+        login.initialAccount(currentUser);
+
+        Assert.assertTrue(currentUser.getAccountList().containsKey("Checkings Account#1"));
+    }
+
+    @Test
     public void login() {
-    }
-
-    @Test
-    public void startMainMenu() {
-    }
-
-    @Test
-    public void exit() {
     }
 }
