@@ -95,8 +95,8 @@ public class ATM {
         } else {
             console.println("How much would you like to transfer?");
             Double userInput = console.getDoubleInput("$");
-            chosenAccount.transfer(destinationAccount, userInput);
             if(userInput <= chosenAccount.getBalance()){
+                chosenAccount.transfer(destinationAccount, userInput);
                 return String.format("You transferred $%.2f from %s to %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
             }
             return "ERROR: Insufficient funds for transfer.\n";
