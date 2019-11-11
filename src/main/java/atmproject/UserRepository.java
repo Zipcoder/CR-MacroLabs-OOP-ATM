@@ -13,7 +13,7 @@ public class UserRepository {
     private int idNums;
     private Map<String, User> repo;
 
-    private UserRepository(){
+    protected UserRepository(){
         idNums = 1000;
         repo = new TreeMap<String, User>();
     }
