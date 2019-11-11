@@ -59,6 +59,9 @@ public class ATM {
                 callCreateAccount();
                 break;
             case 7:
+                callRemoveAccount();
+                break;
+            case 8:
                 returnToLoginMenu();
                 break;
         }
@@ -116,6 +119,15 @@ public class ATM {
                 createInvestmentAccount();
                 break;
 
+        }
+    }
+
+    public void callRemoveAccount() {
+        Account chosenAccount = accountMenu.selectAccount(currentUser);
+        if(currentUser.getAccountList().containsValue(chosenAccount)){
+            currentUser.removeAccount(chosenAccount);
+        } else {
+            console.println("ERROR: Chosen account not found.");
         }
     }
 
