@@ -29,19 +29,12 @@ public class UserRepository {
     public void saveUser(User user, Integer userID){
         repo.put(String.format("%04d",userID),user);
     }
-    public User getUser(String userID){
-        return repo.get(userID);
-    }
 
     public User getUser(Integer userID){
         return repo.get(String.format("%4d",userID));
     }
+
     public int getIDNums() {
         return idNums;
-    }
-
-    public void initialAccount(User currentUser){
-        Account account = new Account(currentUser, 0.0, "Checkings Account#" + (currentUser.getAccountList().size() + 1));
-        currentUser.addAccount(account);
     }
 }

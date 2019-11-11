@@ -23,7 +23,7 @@ public class ATM {
         setCurrentUser(currentUser);
         while (running) {
             console.println(language.getLang(Language.LangKey.MAINMENU));
-            Integer userInput = console.getIntegerInput("$");
+            Integer userInput = console.getIntegerInput(":");
             mainMenuLogic(userInput);
         }
     }
@@ -54,7 +54,7 @@ public class ATM {
             return "ERROR: Incorrect account entry\n";
         } else {
             console.println("How much would you like to transfer?");
-            Double userInput = console.getDoubleInput(":");
+            Double userInput = console.getDoubleInput("$");
             chosenAccount.transfer(destinationAccount, userInput);
             if(userInput <= chosenAccount.getBalance()){
                 return String.format("You transferred $%.2f from %s to %s.\n",userInput, chosenAccount.getAccountName(), destinationAccount.getAccountName());
