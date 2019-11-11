@@ -127,7 +127,6 @@ public class UserTest {
     public void removeAccount() {
         User currentUser = new User("Shadow", "???", 3454);
         Account account = new Account(currentUser, 500.0, "Savings Account 1");
-        currentUser.addAccount(account);
         currentUser.removeAccount(account);
         assertEquals(1, currentUser.getAccountList().size());
     }
@@ -141,7 +140,7 @@ public class UserTest {
         currentUser.addToHistory(transaction);
         currentUser.addToHistory(transaction2);
         currentUser.addToHistory(transaction3);
-        Assert.assertTrue(currentUser.displayHistory().contains(transaction));
+        Assert.assertTrue(currentUser.displayHistory().contains(transaction2));
     }
 
 
