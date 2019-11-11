@@ -113,17 +113,21 @@ public class ATM {
                 currentUser.addAccount(savingsAccount);
                 break;
             case 3:
-                console.println("At this bank, you'll need an initial deposit of $15,000 to open an investment account.\nHow " +
-                        "much would you like to deposit?");
-                Integer input = console.getIntegerInput(":");
-                if(input > 14999) {
-                    InvestmentsAccount investmentsAccount = new InvestmentsAccount(currentUser, (double)input, "Investment Account#" + (currentUser.getAccountList().size() + 1));
-                    currentUser.addAccount(investmentsAccount);
-                } else {
-                    console.println("That is not enough of an initial deposit");
-                }
+                createInvestmentAccount();
                 break;
 
+        }
+    }
+
+    private void createInvestmentAccount() {
+        console.println("At this bank, you'll need an initial deposit of $15,000 to open an investment account.\nHow " +
+                "much would you like to deposit?");
+        Integer input = console.getIntegerInput(":");
+        if(input > 14999) {
+            InvestmentsAccount investmentsAccount = new InvestmentsAccount(currentUser, (double)input, "Investment Account#" + (currentUser.getAccountList().size() + 1));
+            currentUser.addAccount(investmentsAccount);
+        } else {
+            console.println("That is not enough of an initial deposit");
         }
     }
 
