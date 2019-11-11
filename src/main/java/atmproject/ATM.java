@@ -23,7 +23,7 @@ public class ATM {
         setCurrentUser(currentUser);
         while (running) {
             console.println(language.getLang(Language.LangKey.MAINMENU));
-            Integer userInput = console.getIntegerInput(":");
+            Integer userInput = console.getIntegerInput("$");
             mainMenuLogic(userInput);
         }
     }
@@ -31,7 +31,7 @@ public class ATM {
     public String callDeposit() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to deposit?");
-        Double userInput = console.getDoubleInput(":");
+        Double userInput = console.getDoubleInput("$");
         chosenAccount.deposit(userInput);
         return String.format("You deposited $%.2f to %s.", userInput, chosenAccount.getAccountName());
     }
@@ -39,7 +39,7 @@ public class ATM {
     public String callWithdraw() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to withdraw?");
-        Double userInput = console.getDoubleInput(":");
+        Double userInput = console.getDoubleInput("$");
         if(userInput <= chosenAccount.getBalance()){
             chosenAccount.withdraw(userInput);
             return String.format("You withdrew $%.2f from %s.\n", userInput, chosenAccount.getAccountName());

@@ -45,16 +45,17 @@ public class UserLogin {
         }
     }
 
-    private String getFirstNameInput() {
-    console.println("Please enter your First name :");
-    return console.getStringInput(":");
+    protected String getFirstNameInput() {
+        console.println("Please enter your First name :");
+        return console.getStringInput(":");
     }
-    private String getLastNameInput() {
+
+    protected String getLastNameInput() {
         console.println("Please enter Last name :");
         return console.getStringInput(":");
     }
 
-    private void setPin() {
+    protected void setPin() {
         Boolean isPINSet = false;
         while(!isPINSet) {
             console.println("Please select 4 digit PIN :");
