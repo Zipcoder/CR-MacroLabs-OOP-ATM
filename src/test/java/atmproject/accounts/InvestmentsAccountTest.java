@@ -1,5 +1,6 @@
 package atmproject.accounts;
 
+import atmproject.User;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -8,6 +9,20 @@ import static org.junit.Assert.*;
 public class InvestmentsAccountTest {
 
     @Test
+    public void constructorTest(){
+        User currentUser = new User("Shadow",null,null);
+        Double expectedBalance = 15000.0;
+        String expectedName = "Investments Account 1";
+        InvestmentsAccount account = new InvestmentsAccount(currentUser, expectedBalance, expectedName);
+
+        Double actualBalance = account.getBalance();
+        String actualName = account.getAccountName();
+
+        Assert.assertEquals(expectedBalance,actualBalance);
+        Assert.assertEquals(expectedName,actualName);
+    }
+
+/*    @Test
     public void getMinimumDepositTest() {
         InvestmentsAccount investmentsAccount = new InvestmentsAccount(null,null,null);
         Double expected = 15000.0;
@@ -40,5 +55,5 @@ public class InvestmentsAccountTest {
         String actual = investmentsAccount.enoughForInitialBalance(input);
         Assert.assertEquals(expected,actual);
     }
-
+*/
 }

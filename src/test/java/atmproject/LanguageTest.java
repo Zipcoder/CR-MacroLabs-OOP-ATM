@@ -19,7 +19,8 @@ public class LanguageTest {
     public void getLangTest2() {
         Language language = new Language();
         String expected = "Please select your option:\n" + "(1) - Deposit\n" + "(2) - Withdraw\n" +
-                "(3) - Transfer\n" + "(4) - Balance\n" + "(5) - View History\n" + "(6) - Create new Account\n" + "(7) - Exit ATM";
+                "(3) - Transfer\n" + "(4) - Balance\n" + "(5) - View History\n" + "(6) - Create New Account\n" + "(7) - Remove Account\n" +
+                "(8) - Exit ATM";
         String actual = language.getLang(Language.LangKey.MAINMENU);
         Assert.assertEquals(expected,actual);
     }

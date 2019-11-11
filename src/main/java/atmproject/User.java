@@ -16,6 +16,7 @@ public class User {
     private Integer userID;
     private ArrayList<String> transactionHistory;
     TreeMap<String, Account> accountList;
+    TreeMap<String, SavingsAccount> savingsAccountList;
 
     public User(String firstName, String lastName, Integer userID){
         this.firstName = firstName;
@@ -81,8 +82,9 @@ public class User {
     public void removeAccount(Account account){
         if (account.getBalance() > 0.0){
             console.println("Please empty your account before attempting to close.");
+        } else {
+            accountList.remove(account.getAccountName());
         }
-        accountList.remove(account.getAccountName());
     }
 
     public void addAccount(Account account) {

@@ -1,5 +1,7 @@
 package atmproject;
 
+import atmproject.accounts.Account;
+
 public class UserLogin {
     private User currentUser;
     private Console console = new Console(System.in, System.out);
@@ -33,7 +35,7 @@ public class UserLogin {
                 case 1:
                     getUserInfo();
                     console.println("Hello, %s! Thank you for creating an account. Your user ID is %d.", currentUser.getFirstName(),currentUser.getUserID());
-                    userRepository.initialAccount(currentUser);
+                    initialAccount(currentUser);
                     break;
                 case 2:
                     getLoginInfo();
@@ -45,16 +47,17 @@ public class UserLogin {
         }
     }
 
-    private String getFirstNameInput() {
-    console.println("Please enter your First name :");
-    return console.getStringInput(":");
+    protected String getFirstNameInput() {
+        console.println("Please enter your First name :");
+        return console.getStringInput(":");
     }
-    private String getLastNameInput() {
+
+    protected String getLastNameInput() {
         console.println("Please enter Last name :");
         return console.getStringInput(":");
     }
 
-    private void setPin() {
+    protected void setPin() {
         Boolean isPINSet = false;
         while(!isPINSet) {
             console.println("Please select 4 digit PIN :");
@@ -127,6 +130,12 @@ public class UserLogin {
     public void startMainMenu(){
         ATM ATM = new ATM();
         ATM.runMainMenu(currentUser);
+    }
+
+
+    public void initialAccount(User currentUser){
+        Account account = new Account(currentUser, 0.0, "Checkings Account#" + (currentUser.getAccountList().size() + 1));
+        currentUser.addAccount(account);
     }
 
     public void exit(){
