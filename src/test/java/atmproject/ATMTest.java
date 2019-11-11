@@ -3,16 +3,29 @@ package atmproject;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import static org.junit.Assert.*;
 
 public class ATMTest {
 
     @Test
     public void runMainMenu() {
+
     }
 
     @Test
     public void callDeposit() {
+        ATM atm = new ATM();
+        User user = new User("Chris","santana",1111);
+
+
+
+
+
+
+
     }
 
     @Test
@@ -25,6 +38,11 @@ public class ATMTest {
 
     @Test
     public void checkBalance() {
+        ATM atm = new ATM();
+        User currentUser = new User( null, null,null);
+
+
+
     }
 
     @Test
@@ -58,13 +76,9 @@ public class ATMTest {
 
     @Test
     public void mainMenuLogic() {
+
+
     }
 
-    @Test
-    public void getCurrentUser() {
-    }
 
-    @Test
-    public void setCurrentUser() {
-    }
 }
