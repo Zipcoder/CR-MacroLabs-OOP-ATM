@@ -76,18 +76,18 @@ public class UserLogin {
         setPin();
     }
 
-    private Integer getUserIDInput(){
+    protected Integer getUserIDInput(){
         console.println("Please enter your 4 digit Account Number :");
         return console.getIntegerInput(":");
 
     }
 
-    private Integer getPINInput(){
+    protected Integer getPINInput(){
         console.println("Please enter your PIN :");
         return console.getIntegerInput(":");
     }
 
-    private Integer tryAgainInput(){
+    protected Integer tryAgainInput(){
         console.println("User Info doesn't match. Try again?\n(1) - Yes\n(2) - No\n");
         return console.getIntegerInput(":");
     }

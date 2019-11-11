@@ -127,8 +127,18 @@ public class UserTest {
     public void removeAccount() {
         User currentUser = new User("Shadow", "???", 3454);
         Account account = new Account(currentUser, 500.0, "Savings Account 1");
+        currentUser.addAccount(account);
         currentUser.removeAccount(account);
         assertEquals(1, currentUser.getAccountList().size());
+    }
+
+    @Test
+    public void removeAccount2() {
+        User currentUser = new User("Shadow", "???", 3454);
+        Account account = new Account(currentUser, 0.0, "Savings Account 1");
+        currentUser.addAccount(account);
+        currentUser.removeAccount(account);
+        Assert.assertTrue(currentUser.getAccountList().isEmpty());
     }
 
     @Test

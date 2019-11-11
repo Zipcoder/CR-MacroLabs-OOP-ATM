@@ -41,8 +41,36 @@ public class UserLoginTest {
     }
 
     @Test
-    public void getPINInputTest(){
+    public void getUserIDinput(){
+        String input = "3453";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
 
+        UserLogin login = new UserLogin();
+        String actual = login.getUserIDInput().toString();
+        Assert.assertEquals(input,actual);
+    }
+
+    @Test
+    public void getPINInputTest(){
+        String input = "3453";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        UserLogin login = new UserLogin();
+        String actual = login.getPINInput().toString();
+        Assert.assertEquals(input,actual);
+    }
+
+    @Test
+    public void tryAgaininput(){
+        String input = "1";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+
+        UserLogin login = new UserLogin();
+        String actual = login.tryAgainInput().toString();
+        Assert.assertEquals(input,actual);
     }
 
     @Test
