@@ -90,10 +90,6 @@ public class User {
         accountList.put(account.getAccountName(), account);
     }
 
-    public void addSavingsAccount(SavingsAccount account) {
-        savingsAccountList.put(account.getAccountName(), account);
-    }
-
     public String displayHistory(){
         StringBuilder sb = new StringBuilder();
         for(String s : transactionHistory){

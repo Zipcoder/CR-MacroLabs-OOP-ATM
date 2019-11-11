@@ -1,6 +1,7 @@
 package atmproject;
 
 import atmproject.accounts.Account;
+import atmproject.accounts.SavingsAccount;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -125,7 +126,7 @@ public class UserTest {
     @Test
     public void removeAccount() {
         User currentUser = new User("Shadow", "???", 3454);
-        Account account = new Account(currentUser, 500.0, "Checking Account 1");
+        Account account = new Account(currentUser, 500.0, "Savings Account 1");
         currentUser.addAccount(account);
         currentUser.removeAccount(account);
         Assert.assertTrue(currentUser.getAccountList().isEmpty());
