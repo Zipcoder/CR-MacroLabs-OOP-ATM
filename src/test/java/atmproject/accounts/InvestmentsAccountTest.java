@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class InvestmentsAccountTest {
-
+/*
     @Test
     public void getMinimumDepositTest() {
         InvestmentsAccount investmentsAccount = new InvestmentsAccount(null,null,null);
@@ -40,5 +40,5 @@ public class InvestmentsAccountTest {
         String actual = investmentsAccount.enoughForInitialBalance(input);
         Assert.assertEquals(expected,actual);
     }
-
+*/
 }
