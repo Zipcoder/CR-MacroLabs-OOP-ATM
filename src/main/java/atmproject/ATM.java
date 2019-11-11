@@ -28,6 +28,43 @@ public class ATM {
         }
     }
 
+    public void mainMenuLogic(Integer userInput){
+        switch (userInput) {
+            case 1:
+                String transaction = callDeposit();
+                console.println(transaction);
+                currentUser.addToHistory(transaction + "\n");
+                break;
+            case 2:
+                transaction = callWithdraw();
+                console.println(transaction);
+                currentUser.addToHistory(transaction + "\n");
+                break;
+            case 3:
+                if (currentUser.getAccountList().size() >= 2) {
+                    transaction = callTransfer();
+                    console.println(transaction);
+                    currentUser.addToHistory(transaction + "\n");
+                } else {
+                    console.println("ERROR: Not enough accounts to transfer money. Please create a new one.");
+                }
+                break;
+            case 4:
+                console.println(checkBalance());
+                break;
+            case 5:
+                console.println(displayHistory(currentUser));
+                break;
+            case 6:
+                callCreateAccount();
+                break;
+            case 7:
+                returnToLoginMenu();
+                break;
+        }
+        giveInterest();
+    }
+
     public String callDeposit() {
         Account chosenAccount = accountMenu.selectAccount(currentUser);
         console.println("How much would you like to deposit?");
@@ -106,46 +143,12 @@ public class ATM {
         running = false;
     }
 
-
-
-    public void mainMenuLogic(Integer userInput){
-        switch (userInput) {
-            case 1:
-                String transaction = callDeposit();
-                console.println(transaction);
-                currentUser.addToHistory(transaction + "\n");
-                break;
-            case 2:
-                transaction = callWithdraw();
-                console.println(transaction);
-                currentUser.addToHistory(transaction + "\n");
-                break;
-            case 3:
-                if (currentUser.getAccountList().size() >= 2) {
-                    transaction = callTransfer();
-                    console.println(transaction);
-                    currentUser.addToHistory(transaction + "\n");
-                } else {
-                    console.println("ERROR: Not enough accounts to transfer money. Please create a new one.");
-                }
-                break;
-            case 4:
-                console.println(checkBalance());
-                break;
-            case 5:
-                console.println(displayHistory(currentUser));
-                break;
-            case 6:
-                callCreateAccount();
-                break;
-            case 7:
-                returnToLoginMenu();
-                break;
+    public void giveInterest(){
+        for(String name : currentUser.getAccountList().keySet()){
+            if(currentUser.getAccountList().get(name) instanceof SavingsAccount){
+                ((SavingsAccount) currentUser.getAccountList().get(name)).addInterest();
+            }
         }
-    }
-
-    public User getCurrentUser() {
-        return currentUser;
     }
 
     public void setCurrentUser(User currentUser) {
@@ -154,9 +157,5 @@ public class ATM {
 
     public boolean isRunning() {
         return running;
-    }
-
-    public void setRunning(boolean running) {
-        this.running = running;
     }
 }
