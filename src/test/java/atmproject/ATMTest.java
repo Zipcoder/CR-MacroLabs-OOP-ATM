@@ -12,7 +12,7 @@ public class ATMTest {
 
     @Test
     public void runMainMenu() {
-        String input = "7";
+        String input = "8";
         InputStream in = new ByteArrayInputStream(input.getBytes());
         System.setIn(in);
 
