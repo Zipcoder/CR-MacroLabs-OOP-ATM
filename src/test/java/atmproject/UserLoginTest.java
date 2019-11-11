@@ -41,6 +41,11 @@ public class UserLoginTest {
     }
 
     @Test
+    public void getPINInputTest(){
+
+    }
+
+    @Test
     public void createUser() {
     }
 
