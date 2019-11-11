@@ -129,7 +129,7 @@ public class UserTest {
         Account account = new Account(currentUser, 500.0, "Savings Account 1");
         currentUser.addAccount(account);
         currentUser.removeAccount(account);
-        Assert.assertTrue(currentUser.getAccountList().isEmpty());
+        assertEquals(1, currentUser.getAccountList().size());
     }
 
     @Test
