@@ -16,10 +16,10 @@ public class AccountMenuTest {
 
         AccountMenu accountmenu = new AccountMenu();
         ATM atm = new ATM();
-        UserRepository userRepository = new UserRepository();
+        UserLogin userLogin = new UserLogin();
         User user = new User("mich", "kin", 1000);
 
-        userRepository.initialAccount(user);
+        userLogin.initialAccount(user);
 
         atm.setCurrentUser(user);
 
