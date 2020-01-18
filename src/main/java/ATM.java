@@ -526,6 +526,7 @@ public class ATM {
     public ArrayList<Transaction> getTransactionsForAccount(Account account) {
         return getTransactionsForRows(getTransactionRowsByAccount(account));
     }
+
     public ArrayList<Transaction> getTransactionsForRows(int[] rows) {
         ArrayList<Transaction> transactions = new ArrayList<>();
         String[] info = new String[5];
