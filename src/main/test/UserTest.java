@@ -12,29 +12,34 @@ import org.testng.annotations.Test;
 public class UserTest {
 
 
-//    @Test   // tests default constructor
-//    public void nulleryConstructorTest() {
-//    }
-//
-//    @Test   // tests default constructor
-//    public void nulleryConstructorTestNeg() {
-//    }
-//
-//    @Test   // tests constructor for user with name & password
-//    public void constructorUserNamePWTest() {
-//    }
-//
-//    @Test   // tests constructor for user with name & password
-//    public void constructorUserNamePWTestNeg() {
-//    }
-//
-//    @Test   // tests constructor for user with name, password & accounts array
-//    public void constructorUserNamePWAcctsTest() {
-//    }
-//
-//    @Test   // tests constructor for user with name, password & accounts array
-//    public void constructorUserNamePWAcctsTestNeg() {
-//    }
+    @Test   // tests default constructor
+    public void nulleryConstructorTest() {
+    }
+
+    @Test   // tests default constructor
+    public void nulleryConstructorTestNeg() {
+    }
+
+    @Test   // tests constructor for user with name & password
+    public void constructorUserNamePWTest() {
+        String expectedUsername = "User01";
+        String expectedPassword = "password123";
+        User testUser = new User(expectedUsername, expectedPassword);
+        String actualUsername = testUser.getUsername();
+        String actualPassword = testUser.getPassword;
+    }
+
+    @Test   // tests constructor for user with name & password
+    public void constructorUserNamePWTestNeg() {
+    }
+
+    @Test   // tests constructor for user with name, password & accounts array
+    public void constructorUserNamePWAcctsTest() {
+    }
+
+    @Test   // tests constructor for user with name, password & accounts array
+    public void constructorUserNamePWAcctsTestNeg() {
+    }
 
     @Test   // method sets/resets username  how to test: create user, pass in name arg, use set/reset method
             // double check return is the new value you set it to, not the first argument that you
@@ -64,7 +69,7 @@ public class UserTest {
 
     @Test   // method returns username   how to test: pass in username value, check to make sure username returned
             // is same as what you passed in
-    public void getUserNameTest() {
+    public void getUsernameTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
         User testUser = new User(expectedUsername, expectedPassword);
@@ -74,7 +79,7 @@ public class UserTest {
     }
 
     @Test
-    public void getUserNameTestNeg() {
+    public void getUsernameTestNeg() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
         User testUser = new User(expectedUsername, expectedPassword);
@@ -87,13 +92,14 @@ public class UserTest {
             // double check return is the new value you set it to, not the first argument that you
             // passed in w/ get method
     public void setPasswordTest() {
-        String expectedUsername = "User01";
+        String initialUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
-        String newPassword = testUser.setPassword(expectedPassword);
-        String actualPassword = testUser.getUsername();
+        User testUser = new User(initialUsername, expectedPassword);
+        testUser.setPassword("121212");
+        String actualPassword = testUser.getPassword();
 
-        Assert.assertEquals(actualPassword, newPassword);
+
+        Assert.assertEquals(actualPassword, "121212");
     }
 
     @Test
@@ -101,8 +107,8 @@ public class UserTest {
         String initialUsername = "User01";
         String expectedPassword = "password123";
         User testUser = new User(initialUsername, expectedPassword);
-        String newPassword = testUser.setPassword(expectedPassword);
-        String actualPassword = testUser.getUsername();
+        testUser.setPassword("121212");
+        String actualPassword = testUser.getPassword();
 
         Assert.assertNotEquals(actualPassword, initialUsername);
     }

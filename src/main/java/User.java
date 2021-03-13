@@ -1,6 +1,3 @@
-import java.util.Arrays;
-
-
 /*
 Questions:
 1. instance field password - access modifier for this private? if private, do we need a getter for this?
@@ -18,6 +15,11 @@ Questions:
 9. ***** Do we need to use a map for username and passwords? ****
 10. Help with syntax for the add/remove functions of user's account array
 11. Help with syntax for the get accounts array
+12. need console class? manages console interactions. Create a console mock for testing
+        (provide scripted user input using this object)
+13. persistence = the Dikstra 2 stack algorithm - implement?
+14. users are authenticated with a password - generated or provided on user creation?
+    generated password created with default constructor?
 
  */
 
@@ -25,7 +27,7 @@ Questions:
 public class User {
 
     public String username;
-    private String password;  // *** access modifier for this??? if private, do we need a getter for this?
+    public String password;  // *** access modifier for this??? if private, do we need a getter for this?
     public Account[] accounts;
 
 
@@ -61,7 +63,7 @@ public class User {
     }
 
         // sets password if none assigned at construction, else resets password
-    private void setPassword(String password) {    // *** access modifier for this???
+    public void setPassword(String password) {    // *** access modifier for this???
         this.password = password;
     }
 
@@ -71,7 +73,7 @@ public class User {
     }
 
         // returns password as string
-    private String getPassword() {  // *** access modifier?
+        public String getPassword() {  // *** access modifier?
         return password;
     }
 
