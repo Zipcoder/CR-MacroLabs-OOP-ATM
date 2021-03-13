@@ -9,8 +9,11 @@ Questions:
         in that?
 3. exceptions - how to set up? intelliJ interface different from the images from Dolio
 4. JUnit testing - how to configure?
-5. Do we need to set up an account number that has a limit on length? uniformity with account number properties?
+5. Do we need to set up an account number that has a limit on length? uniformity with account number properties? account number as int data type?
 6. Is the return of username a string?
+7. Do we need to set up a get password method?
+8. Do we need a getter for Accounts[] array of user's accounts?
+9. ***** Do we need to use a map for username and passwords? ****
 
  */
 
@@ -31,7 +34,7 @@ public class User {
     // CONSTRUCTORS
 
     // default constructor
-    public User() {     // <- should this constructor set up an Accounts[] array to an empty array of n length?
+    public User() {                           // <- should this constructor set up an Accounts[] array to an empty array of n length?
         Account[] accounts = new Account[30]; // <- length of array?
 
 
@@ -54,17 +57,42 @@ public class User {
 
     // METHODS
 
-    public void setUserName() {}
+        // sets userName if none assigned at construction, else resets username
+    public void setUserName() {
+        this.userName = userName;
+    }
 
-    private void setPassWord() {}  // *** access modifier for this???
+        // sets password if none assigned at construction, else resets password
+    private void setPassWord() {    // *** access modifier for this???
+        this.passWord = passWord;
+    }
 
+            // returns username as string
     public String getUserName() {  // *** return type for this?
         return userName;
     }
 
-    public void addAccount() {}
+        // returns password as string
+    private String getPassWord() {  // *** access modifier?
+        return passWord;
+    }
 
-    public void removeAccount() {}
+        // adds account to end of user's account array
+    public void addAccount(Account[] account, accountNumber) {
+        for (Account[] element : accounts) {
+            int i = 0;
+            if (accounts[i] == null) {
+                accounts += accountNumber;
+            }
+        }
+    }
+
+        // removes account from specified index of user's account array
+    public void removeAccount(int accountNumber) {}
+
+    public Account[] getAccounts() {
+        return accounts;
+    }
 
 
 }
