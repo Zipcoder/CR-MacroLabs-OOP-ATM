@@ -8,7 +8,10 @@ Questions:
         2.2 should default constructor create empty accounts array of specified length? what would be the use
         in that?
 3. exceptions - how to set up? intelliJ interface different from the images from Dolio
-4. Do we need to set up an account number that has a limit on length? uniformity with account number properties?
+4. JUnit testing - how to configure?
+5. Do we need to set up an account number that has a limit on length? uniformity with account number properties?
+6. Is the return of username a string?
+
  */
 
 
@@ -29,12 +32,12 @@ public class User {
 
     // default constructor
     public User() {     // <- should this constructor set up an Accounts[] array to an empty array of n length?
-        Account[] accounts = new Account[30], // <- length of array?
+        Account[] accounts = new Account[30]; // <- length of array?
 
 
     }
 
-    // Constructor for user with name, password, and account
+    // Constructor for user with name & password
     public User(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
@@ -55,21 +58,16 @@ public class User {
 
     private void setPassWord() {}  // *** access modifier for this???
 
+    public String getUserName() {  // *** return type for this?
+        return userName;
+    }
+
     public void addAccount() {}
 
     public void removeAccount() {}
 
 
-
 }
 
 
 
-
-
-
-
-
-
-
-}
