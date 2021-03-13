@@ -24,8 +24,8 @@ Questions:
 
 public class User {
 
-    public String userName;
-    private String passWord;  // *** access modifier for this??? if private, do we need a getter for this?
+    public String username;
+    private String password;  // *** access modifier for this??? if private, do we need a getter for this?
     public Account[] accounts;
 
 
@@ -39,15 +39,15 @@ public class User {
     }
 
     // Constructor for user with name & password
-    public User(String userName, String passWord) {
-        this.userName = userName;
-        this.passWord = passWord;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     // Constructor for user with name, password, and account
-    public User(String userName, String passWord, Account[] accounts) {
-        this.userName = userName;
-        this.passWord = passWord;
+    public User(String username, String password, Account[] accounts) {
+        this.username = username;
+        this.password = password;
         this.accounts = accounts;
 
     }
@@ -56,23 +56,23 @@ public class User {
     // METHODS
 
         // sets userName if none assigned at construction, else resets username
-    public void setUserName() {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
         // sets password if none assigned at construction, else resets password
-    private void setPassWord() {    // *** access modifier for this???
-        this.passWord = passWord;
+    private void setPassword(String password) {    // *** access modifier for this???
+        this.password = password;
     }
 
             // returns username as string
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
         // returns password as string
-    private String getPassWord() {  // *** access modifier?
-        return passWord;
+    private String getPassword() {  // *** access modifier?
+        return password;
     }
 
         // adds new account to end of user's account array
