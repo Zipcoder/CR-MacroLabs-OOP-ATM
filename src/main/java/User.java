@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 
 /*
 Questions:
@@ -10,18 +12,14 @@ Questions:
 3. exceptions - how to set up? intelliJ interface different from the images from Dolio
 4. JUnit testing - how to configure?
 5. Do we need to set up an account number that has a limit on length? uniformity with account number properties? account number as int data type?
-6. Is the return of username a string?
+
 7. Do we need to set up a get password method?
 8. Do we need a getter for Accounts[] array of user's accounts?
 9. ***** Do we need to use a map for username and passwords? ****
+10. Help with syntax for the add/remove functions of user's account array
+11. Help with syntax for the get accounts array
 
  */
-
-
-
-
-
-
 
 
 public class User {
@@ -68,7 +66,7 @@ public class User {
     }
 
             // returns username as string
-    public String getUserName() {  // *** return type for this?
+    public String getUserName() {
         return userName;
     }
 
@@ -77,20 +75,30 @@ public class User {
         return passWord;
     }
 
-        // adds account to end of user's account array
-    public void addAccount(Account[] account, accountNumber) {
+        // adds new account to end of user's account array
+    public void addAccount(Account[] accounts, Account accountToAdd) {
+        int i = 0;
         for (Account[] element : accounts) {
-            int i = 0;
-            if (accounts[i] == null) {
-                accounts += accountNumber;
-            }
+            if (element[i] == null) {
+                element[i] += accountToAdd;     // **** HELP W THE SYNTAX OF THIS METHOD ***
+            }  i++;
         }
     }
 
-        // removes account from specified index of user's account array
-    public void removeAccount(int accountNumber) {}
+        // removes specified account from user's account array, replaces space in index with null
+    public void removeAccount(Account[] accounts, Account accountToRemove) {
+        int i = 0;
+        for (Account[] element : accounts) {    // for each element in the User's array of their accounts,
+                                                // check to see if the value at i is equal to the account to remove
+            if (element[i] == accountToRemove) {   // if the value at accounts[i] is equal to the account to remove,
+                element[i] = null;                 // replace the value at accounts[i] with null
+            }   i++;
+        }
+    }
 
+        // returns accounts, prints accounts array to string
     public Account[] getAccounts() {
+        System.out.println(accounts.toString);  // double check syntax on this one?
         return accounts;
     }
 

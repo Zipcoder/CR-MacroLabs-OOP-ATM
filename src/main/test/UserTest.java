@@ -12,68 +12,87 @@ public class UserTest {
 
 
     @Test   // tests default constructor
-    public void nulleryConstructorTest() {}
+    public void nulleryConstructorTest() {
+    }
 
     @Test   // tests default constructor
-    public void nulleryConstructorTestNeg() {}
+    public void nulleryConstructorTestNeg() {
+    }
 
     @Test   // tests constructor for user with name & password
-    public void constructorUserNamePWTest() {}
+    public void constructorUserNamePWTest() {
+    }
 
     @Test   // tests constructor for user with name & password
-    public void constructorUserNamePWTestNeg() {}
+    public void constructorUserNamePWTestNeg() {
+    }
 
     @Test   // tests constructor for user with name, password & accounts array
-    public void constructorUserNamePWAcctsTest() {}
+    public void constructorUserNamePWAcctsTest() {
+    }
 
     @Test   // tests constructor for user with name, password & accounts array
-    public void constructorUserNamePWAcctsTestNeg() {}
+    public void constructorUserNamePWAcctsTestNeg() {
+    }
 
     @Test
-    public void setUserNameTest() {}
+    public void setUserNameTest() {
+    }
 
     @Test
-    public void setUserNameTestNeg() {}
+    public void setUserNameTestNeg() {
+    }
 
     @Test
-    public void getUserNameTest() {}
+    public void getUserNameTest() {
+    }
 
     @Test
-    public void getUserNameTestNeg() {}
+    public void getUserNameTestNeg() {
+    }
 
     @Test
-    public void setPasswordTest() {}
+    public void setPasswordTest() {
+    }
 
     @Test
-    public void setPasswordTestNeg() {}
+    public void setPasswordTestNeg() {
+    }
 
     @Test
-    public void getPasswordTest() {}
+    public void getPasswordTest() {
+    }
 
     @Test
-    public void getPasswordTestNeg() {}
+    public void getPasswordTestNeg() {
+    }
 
     @Test
-    public void getAccountsArrayTest() {}
+    public void getAccountsArrayTest() {
+    }
 
     @Test
-    public void getAccountsArrayTestNeg() {}
+    public void getAccountsArrayTestNeg() {
+    }
 
     @Test
-    public void addAccountTest() {}
+    public void addAccountTest() {
+    }
 
     @Test
-    public void addAccountTestNeg() {}
+    public void addAccountTestNeg() {
+    }
 
     @Test
-    public void removeAccountTest() {}
+    public void removeAccountTest() {
+    }
 
     @Test
-    public void removeAccountTestNeg() {}
+    public void removeAccountTestNeg() {
+    }
 
 
-
-
+}
 
 
 
