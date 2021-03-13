@@ -26,7 +26,7 @@ public class UserTest {
         String expectedPassword = "password123";
         User testUser = new User(expectedUsername, expectedPassword);
         String actualUsername = testUser.getUsername();
-        String actualPassword = testUser.getPassword;
+        String actualPassword = testUser.getPassword;    // *** finish writing this test body ****
     }
 
     @Test   // tests constructor for user with name & password
@@ -41,7 +41,7 @@ public class UserTest {
     public void constructorUserNamePWAcctsTestNeg() {
     }
 
-    @Test   // method sets/resets username  how to test: create user, pass in name arg, use set/reset method
+    @Test   // method sets/resets username  how to test: create user, pass in name arg,  use set/reset method
             // double check return is the new value you set it to, not the first argument that you
             // passed in w/ get method
     public void setUsernameTest() {
@@ -88,7 +88,7 @@ public class UserTest {
         Assert.assertNotEquals(actualUsername, "unknown");
     }
 
-    @Test   // method sets/resets username  how to test: create user, pass in name arg, use set/reset method
+    @Test   // method sets/resets password  how to test: create user, pass in pw arg, use set/reset method
             // double check return is the new value you set it to, not the first argument that you
             // passed in w/ get method
     public void setPasswordTest() {
@@ -113,7 +113,7 @@ public class UserTest {
         Assert.assertNotEquals(actualPassword, initialUsername);
     }
 
-    @Test   // method returns username   how to test: pass in username value, check to make sure username returned
+    @Test   // method returns password   how to test: pass in username value, check to make sure username returned
             // is same as what you passed in
     public void getPasswordTest() {
         String expectedUsername = "User01";

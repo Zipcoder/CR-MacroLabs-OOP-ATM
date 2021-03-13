@@ -59,21 +59,25 @@ public class User {
 
         // sets userName if none assigned at construction, else resets username
     public void setUsername(String username) {
+
         this.username = username;
     }
 
         // sets password if none assigned at construction, else resets password
     public void setPassword(String password) {    // *** access modifier for this???
         this.password = password;
+
     }
 
             // returns username as string
     public String getUsername() {
+
         return username;
     }
 
         // returns password as string
         public String getPassword() {  // *** access modifier?
+
         return password;
     }
 
