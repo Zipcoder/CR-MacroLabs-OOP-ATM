@@ -14,7 +14,7 @@ Tests should demonstrate proper behavior, and proper handling of misuse (eg. att
   - Checking
   - Savings
   - Investment
-- Account Actions
+- AccountsAndTransactions.Account Actions
   - Withdraw from acct
   - Deposit to acct
   - Transfer across accounts (self)
