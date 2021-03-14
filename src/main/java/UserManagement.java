@@ -13,10 +13,12 @@ public class UserManagement {
         this.userNamePasswordMap = new HashMap<String, String>();
         // FOR TESTING
         this.userNamePasswordMap.put("TestAccount", "123");
+        this.userNamePasswordMap.put("TestAccount2", "456");
 
         this.userAccountsList = new ArrayList<User>();
         // FOR TESTING
         userAccountsList.add(new User("TestAccount", "123"));
+        userAccountsList.add(new User("TestAccount2", "456"));
     }
 
     public String getEnteredUserName() {
