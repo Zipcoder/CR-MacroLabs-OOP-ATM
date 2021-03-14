@@ -16,18 +16,6 @@ public class UserAccount {
         this.userBankAccounts.put("Investment", new BankAccount("Investment"));
     }
 
-    public void closeCheckingAccount() {
-        this.userBankAccounts.put("Checking", null);
-    }
-
-    public void closeSavingsAccount() {
-        this.userBankAccounts.put("Savings", null);
-    }
-
-    public void closeInvestmentAccount() {
-        this.userBankAccounts.put("Investment", null);
-    }
-
     public BankAccount getCheckingAccount() {
         return this.userBankAccounts.get("Checking");
     }
@@ -42,6 +30,10 @@ public class UserAccount {
 
     public String getUsername() {
         return this.username;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 
 }
