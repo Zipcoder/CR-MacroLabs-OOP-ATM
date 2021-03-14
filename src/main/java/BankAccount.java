@@ -1,32 +1,38 @@
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
-public class TranscationHist {
+public class BankAccount {
 
-    String type;
-    double balance;
+    private String accountType;
+    private double currentBalance;
+    NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
+    public BankAccount(String chosenAccountType) {
+        this.accountType = chosenAccountType;
+        this.currentBalance = 0;
+    }
 
     void setType(String accType) {
-
-        type = accType;
+        accountType = accType;
     }
     void setBalance(Double accBal) {
-
-        balance = accBal;
+        currentBalance = accBal;
     }
 
     void deposit(Double dep) {
-        balance = balance +  dep;
+        currentBalance = currentBalance +  dep;
     }
+
     void withdraw(Double wit) {
-
-        balance = balance - wit;
+        currentBalance = currentBalance - wit;
     }
+
     Double getBalance() {
-
-        return balance;
+        return currentBalance;
     }
+
     void printTxn(String txnType, Double amt, Double balance){
 
         System.out.println("");

@@ -1,70 +1,20 @@
 
-
-
-
-
-
 // Test the expected User class from ATM.
-/*
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class UserTest {
-
-
-    @Test   // tests default constructor
-    public void nulleryConstructorTest() {
-    }
-
-    @Test   // tests default constructor
-    public void nulleryConstructorTestNeg() {
-    }
-
+public class UserAccountTest {
+/*
     @Test   // tests constructor for user with name & password
     public void constructorUserNamePWTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
         String actualUsername = testUser.getUsername();
-        String actualPassword = testUser.getPassword;    // *** finish writing this test body ****
-    }
+        String actualPassword = testUser.getPassword();
 
-    @Test   // tests constructor for user with name & password
-    public void constructorUserNamePWTestNeg() {
-    }
-
-    @Test   // tests constructor for user with name, password & accounts array
-    public void constructorUserNamePWAcctsTest() {
-    }
-
-    @Test   // tests constructor for user with name, password & accounts array
-    public void constructorUserNamePWAcctsTestNeg() {
-    }
-
-    @Test   // method sets/resets username  how to test: create user, pass in name arg,  use set/reset method
-            // double check return is the new value you set it to, not the first argument that you
-            // passed in w/ get method
-    public void setUsernameTest() {
-        String expectedUsername = "User01";
-        String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
-        String newUsername = "User02";
-        testUser.setUsername(newUsername);
-        String actualUsername = testUser.getUsername();
-
-        Assert.assertEquals(actualUsername, newUsername);
-    }
-
-    @Test
-    public void setUsernameTestNeg() {
-        String expectedUsername = "User01";
-        String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
-        String newUsername = "User02";
-        testUser.setUsername(newUsername);
-        String actualUsername = testUser.getUsername();
-
-        Assert.assertEquals(actualUsername, newUsername);
+        Assert.assertEquals(expectedUsername, actualUsername);
+        Assert.assertEquals(expectedPassword, actualPassword);
     }
 
     @Test   // method returns username   how to test: pass in username value, check to make sure username returned
@@ -72,7 +22,7 @@ public class UserTest {
     public void getUsernameTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
         String actualUsername = testUser.getUsername();
 
         Assert.assertEquals(actualUsername, expectedUsername);
@@ -82,7 +32,7 @@ public class UserTest {
     public void getUsernameTestNeg() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
         String actualUsername = testUser.getUsername();
 
         Assert.assertNotEquals(actualUsername, "unknown");
@@ -94,7 +44,7 @@ public class UserTest {
     public void setPasswordTest() {
         String initialUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(initialUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(initialUsername, expectedPassword);
         testUser.setPassword("121212");
         String actualPassword = testUser.getPassword();
 
@@ -246,7 +196,4 @@ public class UserTest {
 
 }
 
-
-
-}
-*/
+ */
