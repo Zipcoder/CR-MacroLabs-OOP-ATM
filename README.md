@@ -6,7 +6,7 @@ Week 2 project: Menu Simulator
 Every feature must have corresponding unit tests
 Tests should demonstrate proper behavior, and proper handling of misuse (eg. attempts to deposit/transfer/withdraw negative amounts
 
-- User interface: CLI (Command line interface) Only
+- UserAccount interface: CLI (Command line interface) Only
   - Direct Input
   - Numbered options (instead of on-screen buttons)
   - ASCII art welcome but not required
@@ -14,7 +14,7 @@ Tests should demonstrate proper behavior, and proper handling of misuse (eg. att
   - Checking
   - Savings
   - Investment
-- TranscationHist Actions
+- BankAccount Actions
   - Withdraw from acct
   - Deposit to acct
   - Transfer across accounts (self)

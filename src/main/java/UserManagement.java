@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserManagement {
@@ -7,7 +6,7 @@ public class UserManagement {
     private String enteredUserName;
     private String enteredPassword;
     private HashMap<String, String> userNamePasswordMap;
-    private ArrayList<User> userAccountsList;
+    private HashMap<String, UserAccount> userAccountsList;
 
     public UserManagement() {
         this.userNamePasswordMap = new HashMap<String, String>();
@@ -15,10 +14,10 @@ public class UserManagement {
         this.userNamePasswordMap.put("TestAccount", "123");
         this.userNamePasswordMap.put("TestAccount2", "456");
 
-        this.userAccountsList = new ArrayList<User>();
+        this.userAccountsList = new HashMap<String, UserAccount>();
         // FOR TESTING
-        userAccountsList.add(new User("TestAccount", "123"));
-        userAccountsList.add(new User("TestAccount2", "456"));
+        userAccountsList.put("TestAccount", new UserAccount("TestAccount", "123"));
+        userAccountsList.put("TestAccount2", new UserAccount("TestAccount2", "456"));
     }
 
     public String getEnteredUserName() {
@@ -45,25 +44,20 @@ public class UserManagement {
         return this.userNamePasswordMap.get(this.enteredUserName).equals(this.enteredPassword);
     }
 
-    public boolean validateLoginCredentials() {
-        int attempts = 0;
-        while (attempts < 3) {
-            if(this.validateUserNameExists() == false) {
-                System.out.println("No such user exists.");
-                attempts += 1;
-            } else if (this.validatePasswordCorrect() == false) {
-                System.out.println("Password is incorrect.");
-                attempts += 1;
-            } else {
-                System.out.println("You are now logged in.");
-                return true;
-            }
+    public UserAccount validateLoginCredentials() {
+        if(this.validateUserNameExists() == false) {
+            System.out.println("No such user exists.");
+        } else if (this.validatePasswordCorrect() == false) {
+            System.out.println("Password is incorrect.");
+        } else {
+            System.out.println("You are now logged in.");
+            return userAccountsList.get(this.enteredUserName);
         }
 
-        return false;
+        return null;
     }
 
-    public boolean createNewUserAccount() {
+    public UserAccount createNewUserAccount() {
         System.out.println("Enter your new username and password.");
         int attempts = 0;
         while (attempts < 3) {
@@ -71,19 +65,24 @@ public class UserManagement {
                 getPassword();
                 setUpUserAccount();
                 System.out.println("Congratulations " + this.enteredUserName + "! You have successfully created an account!");
-                return true;
+                return userAccountsList.get(this.enteredUserName);
             } else {
                 System.out.println("Username is already taken. Please select another.");
                 attempts += 1;
             }
         }
-
-        return false;
+        return null;
     }
 
     public void setUpUserAccount() {
         this.userNamePasswordMap.put(this.enteredUserName, this.enteredPassword);
-        this.userAccountsList.add(new User(this.enteredUserName, this.enteredPassword));
+        this.userAccountsList.put(this.enteredUserName, new UserAccount(this.enteredUserName, this.enteredPassword));
+    }
+
+    public void closeAccount() {
+        this.userNamePasswordMap.remove(this.enteredUserName);
+        this.userAccountsList.remove(this.enteredUserName);
+        System.out.println("Sorry to see you go" + this.enteredUserName + "! Your account is now closed.");
     }
 }
 
