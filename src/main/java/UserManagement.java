@@ -1,16 +1,22 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
-public class LogInScreen {
+public class UserManagement {
 
     Console c = new Console();
     private String enteredUserName;
     private String enteredPassword;
     private HashMap<String, String> userNamePasswordMap;
+    private ArrayList<User> userAccountsList;
 
-    public LogInScreen() {
-        // FOR TESTING
+    public UserManagement() {
         this.userNamePasswordMap = new HashMap<String, String>();
+        // FOR TESTING
         this.userNamePasswordMap.put("TestAccount", "123");
+
+        this.userAccountsList = new ArrayList<User>();
+        // FOR TESTING
+        userAccountsList.add(new User("TestAccount", "123"));
     }
 
     public String getEnteredUserName() {
@@ -61,6 +67,7 @@ public class LogInScreen {
         while (attempts < 3) {
             if (this.validateUserNameExists() == false) {
                 getPassword();
+                setUpUserAccount();
                 System.out.println("Congratulations " + this.enteredUserName + "! You have successfully created an account!");
                 return true;
             } else {
@@ -74,7 +81,7 @@ public class LogInScreen {
 
     public void setUpUserAccount() {
         this.userNamePasswordMap.put(this.enteredUserName, this.enteredPassword);
-        User newUser = new User(this.enteredUserName, this.enteredPassword);
+        this.userAccountsList.add(new User(this.enteredUserName, this.enteredPassword));
     }
 }
 

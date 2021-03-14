@@ -1,16 +1,14 @@
-import java.util.Scanner;
-
-public class ATM {
+public class Menu {
 
     private Console c;
     private Integer userInput;
-    private LogInScreen ls;
+    private UserManagement ls;
     private boolean loggedIn;
     private String currentUser;
 
-    public ATM () {
+    public Menu() {
         this.c = new Console();
-        this.ls = new LogInScreen();
+        this.ls = new UserManagement();
         this.loggedIn = false;
         this.currentUser = "";
     }
@@ -53,16 +51,21 @@ public class ATM {
     public void printUserMenu() {
         System.out.println("WELCOME " + this.currentUser);
         System.out.println("USER MENU");
-        System.out.println("1 - LogOut");
+        System.out.println("0 - LogOut");
+        System.out.println("1 - Withdraw");
+        System.out.println("2 - Transfer Funds");
+        System.out.println("3 - Check Balance");
 
         this.userInput = c.getIntegerInput();
 
         switch (userInput) {
-            case 1:
+            case 0:
                 this.loggedIn = false;
                 this.currentUser = "";
                 this.printWelcomeMenu();
                 break;
+            case 1:
+
             default:
                 System.out.println("Invalid input. Please select one of the listed options.");
                 break;

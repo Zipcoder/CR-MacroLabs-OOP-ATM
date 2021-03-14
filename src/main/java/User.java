@@ -35,7 +35,7 @@ public class User {
 
     // default constructor
     public User() {                           // <- should this constructor set up an Accounts[] array to an empty array of n length?
-        //Account[] accounts = new Account[30]; // <- length of array?
+        //Account[] accounts = new Account[3]; // <- length of array?
 
 
     }
@@ -47,12 +47,12 @@ public class User {
     }
 
     // Constructor for user with name, password, and account
-    public User(String username, String password /*Account[] accounts*/) {
-        this.username = username;
-        this.password = password;
+    //public User(String username, String password Account[] accounts) {
+        //this.username = username;
+        //this.password = password;
         //this.accounts = accounts;
 
-    }
+    //}
 
 /*
     // METHODS
