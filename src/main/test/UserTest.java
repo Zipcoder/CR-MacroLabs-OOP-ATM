@@ -5,7 +5,7 @@
 
 
 // Test the expected User class from ATM.
-
+/*
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -248,24 +248,5 @@ public class UserTest {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+*/

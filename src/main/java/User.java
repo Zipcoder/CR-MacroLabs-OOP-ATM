@@ -26,16 +26,16 @@ Questions:
 
 public class User {
 
-    public String username;
-    public String password;  // *** access modifier for this??? if private, do we need a getter for this?
-    public Account[] accounts;
+    private String username;
+    private String password;  // *** access modifier for this??? if private, do we need a getter for this?
+    //public Account[] accounts;
 
 
     // CONSTRUCTORS
 
     // default constructor
     public User() {                           // <- should this constructor set up an Accounts[] array to an empty array of n length?
-        Account[] accounts = new Account[30]; // <- length of array?
+        //Account[] accounts = new Account[3]; // <- length of array?
 
 
     }
@@ -47,14 +47,14 @@ public class User {
     }
 
     // Constructor for user with name, password, and account
-    public User(String username, String password, Account[] accounts) {
-        this.username = username;
-        this.password = password;
-        this.accounts = accounts;
+    //public User(String username, String password Account[] accounts) {
+        //this.username = username;
+        //this.password = password;
+        //this.accounts = accounts;
 
-    }
+    //}
 
-
+/*
     // METHODS
 
         // sets userName if none assigned at construction, else resets username
@@ -108,8 +108,9 @@ public class User {
         return accounts;
     }
 
-
+*/
 }
+
 
 
 
