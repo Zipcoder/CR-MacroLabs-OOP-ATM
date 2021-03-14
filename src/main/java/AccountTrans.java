@@ -1,12 +1,12 @@
 
 import java.text.NumberFormat;
-import java.util.Scanner;
-public class AccountEngine {
+
+public class AccountTrans {
 
     private NumberFormat formatter;
     private Console c;
 
-    public AccountEngine() {
+    public AccountTrans() {
         this.c = new Console();
         this.formatter = NumberFormat.getCurrencyInstance();
     }

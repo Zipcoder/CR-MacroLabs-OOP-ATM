@@ -1,7 +1,6 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 
-public class WelcomeEngine {
+public class UserManagement {
 
     Console c = new Console();
     private String enteredUserName;
@@ -9,7 +8,7 @@ public class WelcomeEngine {
     private HashMap<String, String> userNamePasswordMap;
     private HashMap<String, UserAccount> userAccountsList;
 
-    public WelcomeEngine() {
+    public UserManagement() {
         this.userNamePasswordMap = new HashMap<String, String>();
         // FOR TESTING
         this.userNamePasswordMap.put("TestAccount", "123");

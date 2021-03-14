@@ -3,13 +3,13 @@ public class Menu {
     private UserAccount currentUser;
     private boolean loggedIn;
     private Console c;
-    private WelcomeEngine ls;
-    private AccountEngine ae;
+    private UserManagement ls;
+    private AccountTrans ae;
 
     public Menu() {
         this.c = new Console();
-        this.ls = new WelcomeEngine();
-        this.ae = new AccountEngine();
+        this.ls = new UserManagement();
+        this.ae = new AccountTrans();
         this.loggedIn = false;
         this.currentUser = null;
     }
