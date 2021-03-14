@@ -3,16 +3,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+
+
 public class BankAccount {
+
 
     private String accountType;
     private double currentBalance;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
+
     public BankAccount(String chosenAccountType) {
         this.accountType = chosenAccountType;
         this.currentBalance = 0;
     }
+
 
     void setType(String accType) {
         accountType = accType;
