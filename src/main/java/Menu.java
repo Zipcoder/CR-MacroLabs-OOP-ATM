@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Menu {
 
     private Console c;
@@ -5,17 +7,19 @@ public class Menu {
     private UserManagement ls;
     private boolean loggedIn;
     private String currentUser;
+    private Account userAccount;
 
     public Menu() {
         this.c = new Console();
         this.ls = new UserManagement();
         this.loggedIn = false;
         this.currentUser = "";
+        this.userAccount = new Account();
     }
 
     public void printMenus() {
 
-        while(true) {
+        while (true) {
             if (this.loggedIn == false) {
                 this.printWelcomeMenu();
 
@@ -43,6 +47,8 @@ public class Menu {
                 this.loggedIn = ls.createNewUserAccount();
                 this.currentUser = ls.getEnteredUserName();
                 break;
+            case 3:
+
             default:
                 System.out.println("Invalid input. Please select either 1 or 2.");
         }
@@ -52,9 +58,10 @@ public class Menu {
         System.out.println("WELCOME " + this.currentUser);
         System.out.println("USER MENU");
         System.out.println("0 - LogOut");
-        System.out.println("1 - Withdraw");
-        System.out.println("2 - Transfer Funds");
-        System.out.println("3 - Check Balance");
+        System.out.println("1 - Deposit");
+        System.out.println("2 - Withdraw");
+        System.out.println("3 - Transfer Funds");
+        System.out.println("4 - Check Balance");
 
         this.userInput = c.getIntegerInput();
 
@@ -65,12 +72,22 @@ public class Menu {
                 this.printWelcomeMenu();
                 break;
             case 1:
-
+                this.userAccount.depositMoney();
+                break;
+            case 2:
+                this.userAccount.withdrawMoney();
+                break;
+            case 3:
+                this.userAccount.transferMoney();
+                break;
+            case 4:
+                this.userAccount.checkBalance();
+                break;
             default:
                 System.out.println("Invalid input. Please select one of the listed options.");
                 break;
-            }
         }
+    }
 }
 
 
