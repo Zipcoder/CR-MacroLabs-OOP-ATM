@@ -1,10 +1,14 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class TranscationHist {
+public class TransactionHist {
 
     String type;
     double balance;
+
+    public TransactionHist() {
+
+    }
 
 
     void setType(String accType) {

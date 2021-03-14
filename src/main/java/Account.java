@@ -13,10 +13,10 @@ public class Account {
     }
 
     // Create and instantiate checking  Account objects
-    TranscationHist checking = new TranscationHist();
+    TransactionHist checking = new TransactionHist();
     // Create and instantiate checking  Account objects
-    TranscationHist savings = new TranscationHist();
-    TranscationHist TxnHistory = new TranscationHist();
+    TransactionHist savings = new TransactionHist();
+    TransactionHist TxnHistory = new TransactionHist();
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
     private Console c;
     Scanner sc = new Scanner(System.in);
