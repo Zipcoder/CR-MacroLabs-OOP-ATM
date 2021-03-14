@@ -1,7 +1,7 @@
-# project-2-ATM
-Week 2 project: ATM Simulator
+# project-2-Menu
+Week 2 project: Menu Simulator
 
-## ATM Requirements
+## Menu Requirements
 
 Every feature must have corresponding unit tests
 Tests should demonstrate proper behavior, and proper handling of misuse (eg. attempts to deposit/transfer/withdraw negative amounts
