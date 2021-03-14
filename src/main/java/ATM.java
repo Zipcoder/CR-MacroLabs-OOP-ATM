@@ -12,20 +12,15 @@ public class ATM {
         savings.setType("Savings");
         savings.setBalance(0.00);
 
+        Account TxnHistory = new Account();
+        TxnHistory.setType("Transaction");
 
         NumberFormat formatter = NumberFormat.getCurrencyInstance();
         Scanner sc = new Scanner(System.in);
         boolean session = true;
+
         while (session) {
-// Menu options for the user
-            System.out.print("\nATM Menu: \n \n"
-                    + "1. Deposit Money \n"
-                    + "2. Withdraw Money \n"
-                    + "3. Transfer Funds \n"
-                    + "4. Check Account Balance\n"
-                    + "5. End Session\n \n"
-                    + "Enter selection: ");
-            Integer selection = sc.nextInt();
+            Integer selection = displayMainMenu();
 
             if (selection <1 || selection >5){
                 System.out.println("Error - Please enter correct option");
@@ -48,6 +43,7 @@ public class ATM {
                         }else {
                             savings.deposit(deposit);
                             System.out.println("\nYour Savings balance is now: " + formatter.format(savings.getBalance()) + "\n");
+                            TxnHistory.printTxn("Savings Deposit ", deposit, savings.getBalance());
                         }
                     } else if (depAccount == 2) {
                         System.out.println("\nYour current Checking balance is: " + formatter.format(checking.getBalance()) + "\n");
@@ -59,6 +55,7 @@ public class ATM {
                         }else {
                             checking.deposit(deposit);
                             System.out.println("\nChecking balance is now: " + formatter.format(checking.getBalance()) + "\n");
+                            TxnHistory.printTxn("Checking Deposit", deposit, checking.getBalance());
                         }
                     }
                     else{
@@ -81,6 +78,7 @@ public class ATM {
                         else {
                             savings.withdraw(withdraw);
                             System.out.println("\nYour Savings balance is now: " + formatter.format(savings.getBalance()) + "\n");
+                            TxnHistory.printTxn("Savings withdraw ", withdraw, savings.getBalance());
                         }
                     }
                     else if (witAccount == 2) {
@@ -94,6 +92,7 @@ public class ATM {
                         else {
                             checking.withdraw(withdraw);
                             System.out.println("\nYour Checking balance is now: " + formatter.format(checking.getBalance()) + "\n");
+                            TxnHistory.printTxn("Checking withdraw", withdraw, checking.getBalance());
                         }
                     }
                     break;
@@ -149,4 +148,25 @@ public class ATM {
         }
         System.out.println("\nThank you for banking with us! Have a nice time.\n");
     }
+
+    public static Integer displayMainMenu() {
+        Scanner sc1 = new Scanner(System.in);
+        System.out.print("\nATM Menu: \n \n"
+                + "1. Deposit Money \n"
+                + "2. Withdraw Money \n"
+                + "3. Transfer Funds \n"
+                + "4. Check Account Balance\n"
+                + "5. End Session\n \n"
+                + "Enter selection: ");
+        Integer selection1 = sc1.nextInt();
+        return selection1;
+    }
+
 }
+/// //Time display
+//    public static void getTime(){
+//        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        displayValue = (timeFormat.format(now));
+//    }
+///add switch case 6 for other options : create new account,  close account, print transaction receipt
