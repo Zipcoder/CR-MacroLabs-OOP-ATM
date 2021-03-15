@@ -16,7 +16,7 @@ public class ConsoleTest {
         Console c = new Console();
         String actual = c.getStringInput();
 
-        Assert.assertEquals( actual, "1");
+        Assert.assertEquals(actual, "1");
 
         System.setIn(sysInBackup);
     }

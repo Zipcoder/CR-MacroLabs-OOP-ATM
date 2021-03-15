@@ -26,7 +26,9 @@ public class BankAccount {
         currentBalance = accBal;
     }
 
-    public String getAccountType() { return accountType; }
+    public String getAccountType() {
+        return this.accountType;
+    }
 
     Double getBalance() {
         return currentBalance;

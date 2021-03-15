@@ -52,7 +52,7 @@ public class AccountTrans {
         Double tranAmount;
         tranAmount = c.getDoubleInput();
         if (tranAmount > chosenTransferFromAccount.getBalance()) {
-            System.out.println("INSUFFICIENT BALANCE! " + "Please enter a different amount.");
+            System.out.println("INSUFFICIENT BALANCE! " + "Please enter a new amount.");
         } else {
             chosenTransferFromAccount.withdraw(tranAmount);
             chosenTransferToAccount.deposit(tranAmount);
