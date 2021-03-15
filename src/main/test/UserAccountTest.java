@@ -4,9 +4,9 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class UserAccountTest {
-/*
+
     @Test   // tests constructor for user with name & password
-    public void constructorUserNamePWTest() {
+    public void testGetConstructorUserNamePWTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
         UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
@@ -19,7 +19,7 @@ public class UserAccountTest {
 
     @Test   // method returns username   how to test: pass in username value, check to make sure username returned
             // is same as what you passed in
-    public void getUsernameTest() {
+    public void testGetUsernameTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
         UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
@@ -29,7 +29,7 @@ public class UserAccountTest {
     }
 
     @Test
-    public void getUsernameTestNeg() {
+    public void testGetUsernameTestNeg() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
         UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
@@ -38,162 +38,57 @@ public class UserAccountTest {
         Assert.assertNotEquals(actualUsername, "unknown");
     }
 
-    @Test   // method sets/resets password  how to test: create user, pass in pw arg, use set/reset method
-            // double check return is the new value you set it to, not the first argument that you
-            // passed in w/ get method
-    public void setPasswordTest() {
-        String initialUsername = "User01";
-        String expectedPassword = "password123";
-        UserAccount testUser = new UserAccount(initialUsername, expectedPassword);
-        testUser.setPassword("121212");
-        String actualPassword = testUser.getPassword();
-
-
-        Assert.assertEquals(actualPassword, "121212");
-    }
-
-    @Test
-    public void setPasswordTestNeg() {
-        String initialUsername = "User01";
-        String expectedPassword = "password123";
-        User testUser = new User(initialUsername, expectedPassword);
-        testUser.setPassword("121212");
-        String actualPassword = testUser.getPassword();
-
-        Assert.assertNotEquals(actualPassword, initialUsername);
-    }
-
     @Test   // method returns password   how to test: pass in username value, check to make sure username returned
             // is same as what you passed in
-    public void getPasswordTest() {
+    public void testGetPasswordTest() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
         String actualPassword = testUser.getPassword();
 
         Assert.assertEquals(actualPassword, expectedPassword);
     }
 
     @Test
-    public void getPasswordTestNeg() {
+    public void testGetPasswordTestNeg() {
         String expectedUsername = "User01";
         String expectedPassword = "password123";
-        User testUser = new User(expectedUsername, expectedPassword);
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
         String actualPassword = testUser.getPassword();
 
         Assert.assertNotEquals(actualPassword, "Unknown");
     }
 
-    @Test   // method returns user's array of accounts  how to test: check to make sure accounts array returned
-            // (return as a string with .toString method) convert original accounts array to string
-            // matches original, passed in array   make array   use .toString method on it
-            // need accounts constructor to make multiple instances of accounts, pass into array, pass array into
-            // constructor of user
-    public void getAccountsArrayTest() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3};
-        String initialArrString = accountsArr.toString();
-        User testUser = new User("User01", "password123", accountsArr);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
+    @Test
+    public void testGetCheckingAccount() {
+        String expectedUsername = "User01";
+        String expectedPassword = "password123";
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
 
-        Assert.assertEquals(actualArrString, initialArrString);
+        String actual = testUser.getCheckingAccount().getAccountType();
 
+        Assert.assertEquals(actual, "Checking");
     }
 
     @Test
-    public void getAccountsArrayTestNeg() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3};
-        String initialArrString = accountsArr.toString();
-        User testUser = new User("User01", "password123", accountsArr);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
+    public void testGetSavingsAccount() {
+        String expectedUsername = "User01";
+        String expectedPassword = "password123";
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
 
-        Assert.assertNotEquals(actualArrString, "5");
-    }
+        String actual = testUser.getSavingsAccount().getAccountType();
 
-    @Test   // method adds account to user's array of accounts  how to test: check to make sure accounts array returns
-            // initial accounts array passed in
-            // (return as a string with .toString method) convert original accounts array to string
-            // matches original, passed in array   make array   use .toString method on it
-            // use .addAccount method, pass in account to add
-            // change output array to string, compare strings to strings
-            // save expected string to variable to pass in for expected assert type in your expected string
-            // need accounts constructor to make multiple instances of accounts, pass into array, pass array into
-            // constructor of user
-    public void addAccountTest() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account account4 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3};
-        String initialArrString = accountsArr.toString();
-        User testUser = new User("User01", "password123", accountsArr);
-        testUser.addAccount(accounts, account4);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
-
-        Assert.assertEquals(actualArrString, initialArrString);
+        Assert.assertEquals(actual, "Savings");
     }
 
     @Test
-    public void addAccountTestNeg() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account account4 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3};
-        String initialArrString = accountsArr.toString();
-        User testUser = new User("User01", "password123", accountsArr);
-        testUser.addAccount(accounts, account4);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
+    public void testGetInvestmentAccount() {
+        String expectedUsername = "User01";
+        String expectedPassword = "password123";
+        UserAccount testUser = new UserAccount(expectedUsername, expectedPassword);
 
-        Assert.assertNotEquals( actualArrString, 5);
+        String actual = testUser.getInvestmentAccount().getAccountType();
+
+        Assert.assertEquals(actual, "Investment");
     }
-
-    @Test   // method adds account to user's array of accounts  how to test: check to make sure accounts array returns
-            // initial accounts array passed in
-            // (return as a string with .toString method) convert original accounts array to string
-            // matches original, passed in array   make array   use .toString method on it
-            // use .addAccount method, pass in account to add
-            // change output array to string, compare strings to strings
-            // save expected string to variable to pass in for expected assert type in your expected string
-            // need accounts constructor to make multiple instances of accounts, pass into array, pass array into
-            // constructor of user
-    public void removeAccountTest() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account account4 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3, account4};
-        Account[] expectedArr = {account1, account3, account4};
-        String expectedArrString = expectedArr
-        User testUser = new User("User01", "password123", accountsArr);
-        testUser.removeAccount(accounts, account2);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
-
-        Assert.assertEquals(actualArrString, expectedArrString);
-    }
-
-    @Test
-    public void removeAccountTestNeg() {
-        Account account1 = new Account(accountNumber, availableBalance);
-        Account account2 = new Account(accountNumber, availableBalance);
-        Account account3 = new Account(accountNumber, availableBalance);
-        Account account4 = new Account(accountNumber, availableBalance);
-        Account[] accountsArr = {account1, account2, account3, account4};
-        Account[] expectedArr = {account1, account3, account4};
-        String expectedArrString = expectedArr
-                User testUser = new User("User01", "password123", accountsArr);
-        testUser.removeAccount(accounts, account2);
-        String actualArrString = accountsArr.toString(accountsArr.getAccounts());
-
-        Assert.assertNotEquals(actualArrString, 5);
-    }
-
-
 }
-
- */

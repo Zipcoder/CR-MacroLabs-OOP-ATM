@@ -13,7 +13,7 @@ public class AccountTrans {
 
     public void depositMoney(BankAccount chosenBankAccount) {
         // Keeps track of which account to deposit money to - checking or saving
-            System.out.println("\nYour current Savings balance is: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
+            System.out.println("\nYour current " + chosenBankAccount.getAccountType() + " balance is: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
             System.out.println("How much money would you like to deposit?");
 
             Double deposit;
@@ -22,15 +22,15 @@ public class AccountTrans {
                 System.out.println("Please enter amount greater than ZERO");
             } else {
                 chosenBankAccount.deposit(deposit);
-                System.out.println("\nYour Savings balance is now: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
-                chosenBankAccount.printTxn("Savings Deposit ", deposit, chosenBankAccount.getBalance());
+                System.out.println("\nYour " + chosenBankAccount.getAccountType() + " balance is now: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
+                chosenBankAccount.printTxn(chosenBankAccount.getAccountType() + " Deposit ", deposit, chosenBankAccount.getBalance());
                 System.out.println();
             }
     }
 
     public void withdrawMoney(BankAccount chosenBankAccount) {
 
-        System.out.println("\nYour current Savings balance is: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
+        System.out.println("\nYour current " + chosenBankAccount.getAccountType() + " balance is: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
         System.out.println("How much money would you like to withdraw?");
 
         Double withdraw;
@@ -39,15 +39,15 @@ public class AccountTrans {
             System.out.println("INSUFFICIENT BALANCE! Your request will not be processed. \n");
         } else {
             chosenBankAccount.withdraw(withdraw);
-            System.out.println("\nYour Savings balance is now: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
-            chosenBankAccount.printTxn("Savings withdraw ", withdraw, chosenBankAccount.getBalance() );
+            System.out.println("\nYour " + chosenBankAccount.getAccountType() + " balance is now: " + formatter.format(chosenBankAccount.getBalance()) + "\n");
+            chosenBankAccount.printTxn(chosenBankAccount.getAccountType() + " withdraw ", withdraw, chosenBankAccount.getBalance() );
             System.out.println();
         }
     }
 
     public void transferMoney(BankAccount chosenTransferFromAccount, BankAccount chosenTransferToAccount) {
-        System.out.println("\nYour current Savings balance is: " + formatter.format(chosenTransferFromAccount.getBalance()) + "\n");
-        System.out.print("How much money do you wish to transfer from Savings to Checking?: ");
+        System.out.println("\nYour current " + chosenTransferFromAccount.getAccountType() + " balance is: " + formatter.format(chosenTransferFromAccount.getBalance()) + "\n");
+        System.out.print("How much money do you wish to transfer from " + chosenTransferFromAccount.getAccountType() + " to " + chosenTransferToAccount.getAccountType() + "?: ");
 
         Double tranAmount;
         tranAmount = c.getDoubleInput();
@@ -57,9 +57,9 @@ public class AccountTrans {
             chosenTransferFromAccount.withdraw(tranAmount);
             chosenTransferToAccount.deposit(tranAmount);
 
-            System.out.println("\nYou successfully transferred " + formatter.format(tranAmount) + " from Savings to Checking");
-            System.out.println("\nChecking Balance: " + formatter.format(chosenTransferFromAccount.getBalance()));
-            System.out.println("Savings Balance: " + formatter.format(chosenTransferToAccount.getBalance()) + "\n");
+            System.out.println("\nYou successfully transferred " + formatter.format(tranAmount) + " from " + chosenTransferFromAccount.getAccountType() + " to " + chosenTransferToAccount.getAccountType());
+            System.out.println("\n" + chosenTransferFromAccount.getAccountType() + " Balance: " + formatter.format(chosenTransferFromAccount.getBalance()));
+            System.out.println(chosenTransferToAccount.getAccountType() + " Balance: " + formatter.format(chosenTransferToAccount.getBalance()) + "\n");
         }
     }
 

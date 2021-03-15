@@ -25,6 +25,9 @@ public class BankAccount {
     void setBalance(Double accBal) {
         currentBalance = accBal;
     }
+    public String getAccountType() {
+        return this.accountType;
+    }
 
     void deposit(Double dep) {
         currentBalance = currentBalance +  dep;
