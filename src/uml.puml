@@ -1,0 +1,60 @@
+@startuml
+
+class MainApplication{
+    run();
+}
+
+class Customer{
+    Map<String, String> credentials;
+    ArrayList<Account> ownedAccounts;
+    String name;
+
+    createUser();
+}
+
+class Display{
+    String currentDisplay;
+    String menu;
+    String transactionHistory;
+
+    //getters and setters();
+}
+
+class Console{
+    getDoubleInput(Double);
+    getStringInput(String);
+}
+
+abstract class Account{
+    Map<Integer, Double> cashMoneys;
+    Double currentBalance;
+    Integer accountNumber;
+
+    openNewAccount(Integer);
+    //getters and setters();
+}
+
+class Transactions{
+    getBalance();
+    transfer(Double);
+    withdraw(Double);
+    closeAccount(Integer);
+}
+
+class Investment{
+    //inherits stuff
+}
+
+class Savings{
+    //inherits stuff
+}
+
+class Checking{
+    //inherits stuff
+}
+
+Account <|-- Investment
+Account <|-- Savings
+Account <|-- Checking
+
+@enduml
