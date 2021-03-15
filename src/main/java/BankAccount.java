@@ -25,11 +25,10 @@ public class BankAccount {
     void setBalance(Double accBal) {
         currentBalance = accBal;
     }
+
     public String getAccountType() {
         return this.accountType;
     }
-
-    public String getAccountType() { return accountType; }
 
     Double getBalance() {
         return currentBalance;
