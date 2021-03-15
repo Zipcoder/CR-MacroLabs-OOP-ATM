@@ -1,7 +1,6 @@
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 
 
@@ -57,7 +56,6 @@ public class BankAccount {
 
         DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        //System.out.println (timeFormat.format(now));
 
         return timeFormat.format(now);
     }
