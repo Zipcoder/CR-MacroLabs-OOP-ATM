@@ -84,20 +84,34 @@ public class BankAccountTest {
 
     @Test
     public void depositTest() {
+        //Arrange
+        String givenAccountType = "Investment";
+        Double expectedAccountBal = 200.0;
+        //Act
+        BankAccount testBankAccount = new BankAccount(givenAccountType);
+        testBankAccount.setBalance(100.00);
+        testBankAccount.deposit(100.0);
+        Double returnedAccountBalance = testBankAccount.getBalance();
+        //Assert
+        Assert.assertEquals(expectedAccountBal, returnedAccountBalance);
     }
 
     @Test
     public void withdrawTest() {
+        //Arrange
+        String givenAccountType = "Investment";
+        Double expectedAccountBal = 0.0;
+        //Act
+        BankAccount testBankAccount = new BankAccount(givenAccountType);
+        testBankAccount.setBalance(100.00);
+        testBankAccount.withdraw(100.0);
+        Double returnedAccountBalance = testBankAccount.getBalance();
+        //Assert
+        Assert.assertEquals(expectedAccountBal, returnedAccountBalance);
     }
 
-
-
     @Test
-    public void printTxnTest() {
-    }
-
-    @Test
-    public void dateTimeTest() {
+    public void dateTimeTest() {  // tests return of date and time method
         //Arrange
         String givenAccountType = "Checking";
         //Act
