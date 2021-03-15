@@ -3,7 +3,7 @@ import org.testng.Assert;
 
 // Test the expected Account class from ATM.
 public class BankAccountTest {
-/*
+
     @Test
     public void constructorCActTypeTest1() { // tests creation of checking account - type field
         // Arrange
