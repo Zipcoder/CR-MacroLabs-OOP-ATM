@@ -1,14 +1,13 @@
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 
 
 public class BankAccount {
 
 
-    private String accountType;
+    public String accountType;
     private double currentBalance;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
@@ -22,8 +21,15 @@ public class BankAccount {
     void setType(String accType) {
         accountType = accType;
     }
+
     void setBalance(Double accBal) {
         currentBalance = accBal;
+    }
+
+    public String getAccountType() { return accountType; }
+
+    Double getBalance() {
+        return currentBalance;
     }
 
     void deposit(Double dep) {
@@ -32,10 +38,6 @@ public class BankAccount {
 
     void withdraw(Double wit) {
         currentBalance = currentBalance - wit;
-    }
-
-    Double getBalance() {
-        return currentBalance;
     }
 
     void printTxn(String txnType, Double amt, Double balance){
