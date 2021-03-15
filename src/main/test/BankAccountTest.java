@@ -1,4 +1,4 @@
-import org.junit.Test;
+import org.testng.annotations.Test;
 import org.testng.Assert;
 
 // Test the expected Account class from ATM.
@@ -7,12 +7,11 @@ public class BankAccountTest {
     @Test
     public void constructorCActTypeTest1() { // tests creation of checking account - type field
         // Arrange
-        Account testAccount = new Account();
-        System.out.println(testAccount.checking.type);
+        BankAccount testAccount = new BankAccount("Checking");
         String givenCAcctType = "Checking";
-        String returnedCAcctType = testAccount.checking.type;
+        String returnedCAcctType = testAccount.getAccountType();
         Assert.assertEquals(givenCAcctType, returnedCAcctType);
-
+    }
 
     @Test
     public void constructorInitialBalanceTest1() { // tests account balance 0.0 upon creation of BankAccount
@@ -48,7 +47,7 @@ public class BankAccountTest {
         testBankAccount.setType("Savings");
         String returnedAccountType = testBankAccount.getAccountType();
         //Assert
-        Assert.assertEquals(givenAccountType, returnedAccountType);
+        Assert.assertEquals("Savings", returnedAccountType);
     }
 
     @Test
