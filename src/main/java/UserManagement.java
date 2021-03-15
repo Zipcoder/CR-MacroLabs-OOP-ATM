@@ -75,7 +75,7 @@ public class UserManagement {
                 System.out.println("Congratulations " + this.enteredUserName + "! You have successfully created an account!");
                 return userAccountsList.get(this.enteredUserName);
             } else {
-                System.out.println("Username is already taken. Please select another.");
+                System.out.println("Username is already taken. Be a bit more original!");
                 attempts += 1;
             }
         }
@@ -90,7 +90,7 @@ public class UserManagement {
     public void closeAccount() {
         this.userNamePasswordMap.remove(this.enteredUserName);
         this.userAccountsList.remove(this.enteredUserName);
-        System.out.println("Sorry to see you go" + this.enteredUserName + "! Your account is now closed.");
+        System.out.println("Sorry to see you go " + this.enteredUserName + "! Your account is now closed...Oh, you want your money? LOL");
     }
 }
 
