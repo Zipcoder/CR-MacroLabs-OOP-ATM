@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 public class BankAccount {
 
 
-    private String accountType;
+    public String accountType;
     private double currentBalance;
     NumberFormat formatter = NumberFormat.getCurrencyInstance();
 
@@ -21,8 +21,18 @@ public class BankAccount {
     void setType(String accType) {
         accountType = accType;
     }
+
     void setBalance(Double accBal) {
         currentBalance = accBal;
+    }
+    public String getAccountType() {
+        return this.accountType;
+    }
+
+    public String getAccountType() { return accountType; }
+
+    Double getBalance() {
+        return currentBalance;
     }
 
     void deposit(Double dep) {
@@ -33,22 +43,18 @@ public class BankAccount {
         currentBalance = currentBalance - wit;
     }
 
-    Double getBalance() {
-        return currentBalance;
-    }
-
     void printTxn(String txnType, Double amt, Double balance){
 
-        System.out.println("");
+
         System.out.println("|----------------------------------------|");
         System.out.println("| BANK OF ZIP CODE WILMINGTON DE         |");
         System.out.println("|----------------------------------------|");
         System.out.println("|" +    dateTime()  + "                     "+"|");
         System.out.println("|----------------------------------------|");
-        System.out.println("|        Transaction Receipt            |");
-        System.out.println("|" +            txnType + "                         " +"|");
-        System.out.println("|" +  amt + "" + "                                    "+ "|");
-        System.out.println("| Remaining Balance: " + balance + "                "   +   "|");
+        System.out.println("|        Transaction Receipt             |");
+        System.out.println("|" +            txnType + "                           " +"|");
+        System.out.println("|" +  amt + "" + "                                   "+ "|");
+        System.out.println("| Remaining Balance: " + balance + "                 "   +   "|");
         System.out.println("|----------------------------------------|");
 
     }
