@@ -1,9 +1,7 @@
 
 // Test the expected User class from ATM.
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
-public class UserAccountTest {
+public class UserAccountTest {}
 /*
     @Test   // tests constructor for user with name & password
     public void constructorUserNamePWTest() {
