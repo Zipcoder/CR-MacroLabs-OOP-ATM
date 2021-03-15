@@ -13,13 +13,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-<<<<<<< HEAD
-                    <source>8</source>
-                    <target>8</target>
-=======
                     <source>11</source>
                     <target>11</target>
->>>>>>> master
                 </configuration>
             </plugin>
         </plugins>
@@ -31,6 +26,8 @@
             <version>RELEASE</version>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
+=======
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -85,6 +82,7 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+>>>>>>> af305ec406a1dd384cd44f62166ca43f3c4e159f
     </dependencies>
 
 

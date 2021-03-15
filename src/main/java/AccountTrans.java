@@ -72,11 +72,4 @@ public class AccountTrans {
 
 }
 
-/// //Time display
-//    public static void getTime(){
-//        DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        LocalDateTime now = LocalDateTime.now();
-//        displayValue = (timeFormat.format(now));
-//    }
-///add switch case 6 for other options : create new account,  close account, print transaction receipt
 

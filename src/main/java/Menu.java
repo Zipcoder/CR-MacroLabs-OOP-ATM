@@ -48,6 +48,7 @@ public class Menu {
                 if (this.currentUser != null) {
                     this.loggedIn = true;
                 }
+                break;
             default:
                 System.out.println("Invalid input. Please select either 1 or 2.");
         }
