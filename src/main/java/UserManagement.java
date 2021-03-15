@@ -10,41 +10,48 @@ public class UserManagement {
 
     public UserManagement() {
         this.userNamePasswordMap = new HashMap<String, String>();
-        // FOR TESTING
-        this.userNamePasswordMap.put("TestAccount", "123");
-        this.userNamePasswordMap.put("TestAccount2", "456");
-
         this.userAccountsList = new HashMap<String, UserAccount>();
-        // FOR TESTING
-        userAccountsList.put("TestAccount", new UserAccount("TestAccount", "123"));
-        userAccountsList.put("TestAccount2", new UserAccount("TestAccount2", "456"));
     }
 
-    public String getEnteredUserName() {
-        return this.enteredUserName;
+    // Need this one for testing
+    public UserManagement(String username, String password) {
+        this.userNamePasswordMap = new HashMap<String, String>();
+        this.userAccountsList = new HashMap<String, UserAccount>();
+        this.enteredPassword = password;
+        this.enteredUserName = username;
     }
 
-    public void getUserName() {
+    // Need this one for testing
+    public HashMap getUserNamePasswordMap() {
+        return this.userNamePasswordMap;
+    }
+
+    // Need this one for testing
+    public HashMap getUserAccountsList() {
+        return this.userAccountsList;
+    }
+
+    public void getInputUserName() {
         System.out.println("Username:");
         this.enteredUserName = c.getStringInput();
     }
 
-    public void getPassword() {
-        System.out.println("Password");
+    public void getInputPassword() {
+        System.out.println("Password:");
         this.enteredPassword = c.getStringInput();
     }
 
     public boolean validateUserNameExists() {
-        this.getUserName();
         return this.userNamePasswordMap.containsKey(this.enteredUserName);
     }
 
     public boolean validatePasswordCorrect() {
-        this.getPassword();
         return this.userNamePasswordMap.get(this.enteredUserName).equals(this.enteredPassword);
     }
 
     public UserAccount validateLoginCredentials() {
+        getInputUserName();
+        getInputPassword();
         if(this.validateUserNameExists() == false) {
             System.out.println("No such user exists.");
         } else if (this.validatePasswordCorrect() == false) {
@@ -59,10 +66,11 @@ public class UserManagement {
 
     public UserAccount createNewUserAccount() {
         System.out.println("Enter your new username and password.");
+        getInputUserName();
         int attempts = 0;
         while (attempts < 3) {
             if (this.validateUserNameExists() == false) {
-                getPassword();
+                getInputPassword();
                 setUpUserAccount();
                 System.out.println("Congratulations " + this.enteredUserName + "! You have successfully created an account!");
                 return userAccountsList.get(this.enteredUserName);

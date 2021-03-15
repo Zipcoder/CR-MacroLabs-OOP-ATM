@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 
 // Test the expected Account class from ATM.
-public class AccountTest {
-
+public class BankAccountTest {
+/*
     @Test
     public void constructorCActTypeTest1() { // tests creation of checking account - type field
         // Arrange
@@ -85,6 +85,8 @@ public class AccountTest {
     public void checkBalance1() {
 
     }
+
+ */
 
 
 
