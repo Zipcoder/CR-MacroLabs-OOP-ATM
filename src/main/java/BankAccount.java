@@ -25,9 +25,6 @@ public class BankAccount {
     void setBalance(Double accBal) {
         currentBalance = accBal;
     }
-    public String getAccountType() {
-        return this.accountType;
-    }
 
     public String getAccountType() { return accountType; }
 
@@ -46,16 +43,16 @@ public class BankAccount {
     void printTxn(String txnType, Double amt, Double balance){
 
 
-        System.out.println("|----------------------------------------|");
-        System.out.println("| BANK OF ZIP CODE WILMINGTON DE         |");
-        System.out.println("|----------------------------------------|");
-        System.out.println("|" +    dateTime()  + "                     "+"|");
-        System.out.println("|----------------------------------------|");
-        System.out.println("|        Transaction Receipt             |");
-        System.out.println("|" +            txnType + "                           " +"|");
-        System.out.println("|" +  amt + "" + "                                   "+ "|");
-        System.out.println("| Remaining Balance: " + balance + "                 "   +   "|");
-        System.out.println("|----------------------------------------|");
+        System.out.println("|---------------------------------------------------------");
+        System.out.println("| BANK OF ZIP CODE WILMINGTON DE                          ");
+        System.out.println("|---------------------------------------------------------");
+        System.out.println("|" +    dateTime()  + "                                   ");
+        System.out.println("|---------------------------------------------------------");
+        System.out.println("|        Transaction Receipt                              ");
+        System.out.println("|" + txnType + "                                          ");
+        System.out.println("|" +  amt + "" + "                                        ");
+        System.out.println("|Remaining Balance: " + balance + "                       ");
+        System.out.println("|---------------------------------------------------------");
 
     }
     String dateTime(){

@@ -1,13 +1,11 @@
 
 // Test the expected User class from ATM.
 
-<<<<<<< HEAD
-//public class UserAccountTest {
-/*
-=======
+import org.junit.Test;
+import org.testng.Assert;
+
 public class UserAccountTest {
 
->>>>>>> 1665f322a3ea91133cbcc6a5bd4d8d916b3abc72
     @Test   // tests constructor for user with name & password
     public void testGetConstructorUserNamePWTest() {
         String expectedUsername = "User01";

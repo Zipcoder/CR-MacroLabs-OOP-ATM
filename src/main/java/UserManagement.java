@@ -90,7 +90,7 @@ public class UserManagement {
     public void closeAccount() {
         this.userNamePasswordMap.remove(this.enteredUserName);
         this.userAccountsList.remove(this.enteredUserName);
-        System.out.println("Sorry to see you go" + this.enteredUserName + "! Your account is now closed.");
+        System.out.println("Sorry to see you go " + this.enteredUserName + "! Your account is now closed.");
     }
 }
 
