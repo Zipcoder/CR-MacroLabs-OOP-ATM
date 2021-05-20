@@ -1,4 +1,4 @@
-# project-2-ATM
+# project-2-ATM (Not used anymore, see Cash Machine - Dolio)
 Week 2 project: ATM Simulator
 
 ## ATM Requirements
